@@ -4,7 +4,8 @@
   "description": "Our aim is to create a user-friendly marketplace where individuals can buy, sell, and swap fashion items, fostering a sustainable approach to style.",
   "main": "server.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "node backend/server.js",
+    "server": "nodemon backend/server.js"
   },
   "repository": {
     "type": "git",
