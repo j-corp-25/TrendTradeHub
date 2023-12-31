@@ -4,11 +4,12 @@ import asyncHandler from "express-async-handler";
 // @desc Register new user
 // @route POST /api/users/register
 // @access Public
-const registerUser = (req, res) => {
+const registerUser = asyncHandler(async (req, res) => {
+  console.log(req.body);
   res.status(200).json({
     message: "Register User",
   });
-};
+});
 // @desc Login user
 // @route POST /api/users/login
 // @access Public
