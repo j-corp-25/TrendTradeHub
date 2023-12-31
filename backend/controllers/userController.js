@@ -1,30 +1,49 @@
 import User from "../models/userModel.js";
+import asyncHandler from "express-async-handler";
 
+// @desc Register new user
+// @route POST /api/users/register
+// @access Public
 const registerUser = (req, res) => {
   res.status(200).json({
     message: "Register User",
   });
 };
-const loginUser = (req, res) => {
+// @desc Login user
+// @route POST /api/users/login
+// @access Public
+const loginUser = asyncHandler(async (req, res) => {
   res.status(200).json({
     message: "Login User",
   });
-};
-const logoutUser = (req, res) => {
+});
+
+// @desc Logout user
+// @route POST /api/users/logout
+// @access Public
+const logoutUser = asyncHandler(async (req, res) => {
   res.status(200).json({
     message: "Logout User",
   });
-};
-const getUserProfile = (req, res) => {
+});
+
+// @desc Get user profile
+// @route GET /api/users/profile
+// @access Private
+const getUserProfile = asyncHandler(async (req, res) => {
   res.status(200).json({
     message: "User Profile Fetched",
   });
-};
-const updateUserProfile = (req, res) => {
+});
+
+// @desc Update user profile
+// @route PATCH /api/users/profile
+// @access Private
+const updateUserProfile = asyncHandler(async (req, res) => {
   res.status(200).json({
     message: "User Profile Updated",
   });
-};
+});
 export {
   registerUser,
   loginUser,
