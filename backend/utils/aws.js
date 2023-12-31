@@ -1,4 +1,4 @@
-const AWS = require('aws-sdk');
+import AWS from 'aws-sdk';
 
 const s3 = new AWS.S3();
 
@@ -22,7 +22,7 @@ const s3Delete = async (key) => {
   await s3.deleteObject(params).promise();
 };
 
-module.exports = {
+export default {
   s3Upload,
   s3Delete,
 };

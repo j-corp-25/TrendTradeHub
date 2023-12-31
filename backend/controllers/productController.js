@@ -1,5 +1,5 @@
-const Product = require('../models/Product');
-const { s3Upload, s3Delete } = require('../utils/aws');
+import Product from '../models/productModel.js';
+import awsUtils from '../utils/aws.js';
 
 const createProduct = async (req, res) => {
   try {
@@ -7,7 +7,7 @@ const createProduct = async (req, res) => {
     const imageKeys = [];
 
     for (const file of req.files) {
-      const key = await s3Upload(file, 'product-images');
+      const key = await awsUtils.s3Upload(file, 'product-images');
       imageKeys.push(key);
     }
 
@@ -28,13 +28,14 @@ const updateProduct = async (req, res) => {
 
     const existingProduct = await Product.findById(req.params.id);
     for (const key of existingProduct.imageKeys) {
-      await s3Delete(key);
+      await awsUtils.s3Delete(key);
     }
 
     for (const file of req.files) {
-      const key = await s3Upload(file, 'product-images');
+      const key = await awsUtils.s3Upload(file, 'product-images');
       imageKeys.push(key);
     }
+
     const product = await Product.findByIdAndUpdate(
       req.params.id,
       { title, category, price, condition, imageKeys },
@@ -48,7 +49,4 @@ const updateProduct = async (req, res) => {
   }
 };
 
-module.exports = {
-  createProduct,
-  updateProduct,
-};
+export { createProduct, updateProduct };

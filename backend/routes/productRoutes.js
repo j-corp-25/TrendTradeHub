@@ -1,10 +1,9 @@
-const express = require('express');
+import express from "express";
 const router = express.Router();
-const productController = require('../controllers/productController');
-const upload = require('../middleware/upload');
+import {createProduct, updateProduct} from "../controllers/productController.js";
+import upload from "../middleware/upload.js";
 
-// Routes
-router.post('/', upload, productController.createProduct);
-router.put('/:id', upload, productController.updateProduct);
+router.post('/', upload, createProduct);
+router.put('/:id', upload, updateProduct);
 
-module.exports = router;
+export default router;
