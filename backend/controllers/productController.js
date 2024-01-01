@@ -1,52 +1,22 @@
-import Product from '../models/productModel.js';
-import awsUtils from '../utils/aws.js';
+import upload from '../middleware/upload.js';
+import util from 'util';
 
-const createProduct = async (req, res) => {
-  try {
-    const { title, category, price, condition } = req.body;
-    const imageKeys = [];
-
-    for (const file of req.files) {
-      const key = await awsUtils.s3Upload(file, 'product-images');
-      imageKeys.push(key);
-    }
-
-    const product = new Product({ title, category, price, condition, imageKeys });
-    await product.save();
-
-    res.status(201).json(product);
-  } catch (error) {
-    console.error('Error creating product:', error);
-    res.status(500).send('Internal Server Error');
-  }
+export const uploadSingle = (req, res) => {
+  // req.file contains a file object
+  res.json(req.file);
 };
 
-const updateProduct = async (req, res) => {
-  try {
-    const { title, category, price, condition } = req.body;
-    const imageKeys = [];
-
-    const existingProduct = await Product.findById(req.params.id);
-    for (const key of existingProduct.imageKeys) {
-      await awsUtils.s3Delete(key);
-    }
-
-    for (const file of req.files) {
-      const key = await awsUtils.s3Upload(file, 'product-images');
-      imageKeys.push(key);
-    }
-
-    const product = await Product.findByIdAndUpdate(
-      req.params.id,
-      { title, category, price, condition, imageKeys },
-      { new: true }
-    );
-
-    res.json(product);
-  } catch (error) {
-    console.error('Error updating product:', error);
-    res.status(500).send('Internal Server Error');
-  }
+export const uploadController = (req, res) => {
+  // req.files contains an array of file objects
+  res.json(req.files);
 };
 
-export { createProduct, updateProduct };
+export const uploadSingleV2 = async (req, res) => {
+  const uploadFile = util.promisify(upload.single('file'));
+  try {
+    await uploadFile(req, res);
+    res.json(req.file);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};

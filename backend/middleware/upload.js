@@ -1,12 +1,19 @@
+import multerS3 from 'multer-s3';
 import multer from 'multer';
-
-const storage = multer.memoryStorage();
+import path from 'path';
+import s3 from '../utils/aws.js';
 
 const upload = multer({
-  storage: storage,
-  limits: { fileSize: 1024 * 1024 * 5 }, // 5MB file size limit
+  storage: multerS3({
+    s3,
+    acl: 'public-read',
+    bucket: process.env.AWS_BUCKET_NAME, // Correct reference to the environment variable
+    contentType: multerS3.AUTO_CONTENT_TYPE,
+    key: (req, file, cb) => {
+      const fileName = `${Date.now()}_${Math.round(Math.random() * 1E9)}`;
+      cb(null, `${fileName}${path.extname(file.originalname)}`);
+    },
+  }),
 });
 
-const uploadMiddleware = upload.array('images', 5); // 'images' is the field name for multiple file uploads
-
-export default uploadMiddleware;
+export default upload;

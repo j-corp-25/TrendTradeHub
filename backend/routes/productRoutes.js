@@ -1,9 +1,13 @@
-import express from "express";
+import express from 'express';
 const router = express.Router();
-import {createProduct, updateProduct} from "../controllers/productController.js";
-import upload from "../middleware/upload.js";
 
-router.post('/', upload, createProduct);
-router.put('/:id', upload, updateProduct);
+import upload from '../middleware/upload.js';
+import {uploadController} from '../controllers/productController.js';
+
+router.post('/upload-single', upload.single('file'), uploadController.uploadSingle);
+router.post('/upload-multiple', upload.array('files', 5), uploadController.uploadMultiple);
+
+/* ------------------------ upload and error handling ----------------------- */
+router.post('/upload-single-v2', uploadController.uploadSingleV2);
 
 export default router;
