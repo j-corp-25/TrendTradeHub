@@ -1,22 +1,25 @@
-import upload from '../middleware/upload.js';
-import util from 'util';
+// controllers/productController.js
+import Product from '../models/productModel.js';
 
-export const uploadSingle = (req, res) => {
-  // req.file contains a file object
-  res.json(req.file);
-};
-
-export const uploadController = (req, res) => {
-  // req.files contains an array of file objects
-  res.json(req.files);
-};
-
-export const uploadSingleV2 = async (req, res) => {
-  const uploadFile = util.promisify(upload.single('file'));
+const createProduct = async (req, res) => {
   try {
-    await uploadFile(req, res);
-    res.json(req.file);
+    const { title, condition, price, category } = req.body;
+
+    const newProduct = new Product({
+      title,
+      condition,
+      price,
+      category,
+    });
+
+    const savedProduct = await newProduct.save();
+    res.status(201).json(savedProduct);
   } catch (error) {
-    res.status(500).json({ message: error.message });
+    console.error(error);
+    res.status(500).json({ error: 'Internal Server Error' });
   }
+};
+
+export default {
+  createProduct,
 };
