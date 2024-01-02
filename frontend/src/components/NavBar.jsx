@@ -15,7 +15,6 @@ import "./NavBar.css";
 import { FaSignInAlt, FaSignOutAlt, FaUserAlt } from "react-icons/fa";
 import { LinkContainer } from "react-router-bootstrap";
 
-
 function NavBar() {
   return (
     <header>
@@ -41,7 +40,8 @@ function NavBar() {
             <Nav className="ms-auto">
               <LinkContainer to="/login">
                 <NavLink>
-                  <FaSignInAlt /> Log In
+                  <FaSignInAlt />
+                  Log In
                 </NavLink>
               </LinkContainer>
 
