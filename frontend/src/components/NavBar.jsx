@@ -1,8 +1,8 @@
 import React from "react";
 import {
-    Navbar,
-    Container,
-    NavbarBrand,
+  Navbar,
+  Container,
+  NavbarBrand,
   NavbarToggle,
   NavbarCollapse,
   NavLink,
@@ -11,14 +11,15 @@ import {
   Button,
   Form,
 } from "react-bootstrap";
-import './NavBar.css'
+import "./NavBar.css";
 import { FaSignInAlt, FaSignOutAlt, FaUserAlt } from "react-icons/fa";
+import { LinkContainer } from "react-router-bootstrap"
 
 function NavBar() {
   return (
     <header>
       <Navbar bg="dark" variant="dark" expand="lg" collapseOnSelect>
-        <Container>
+        <Container className="my-3">
           <NavbarBrand href="/">TrendTradeHub</NavbarBrand>
           <NavbarToggle aria-controls="basic-navbar-nav" />
           <NavbarCollapse id="basic-navbar-nav">
@@ -33,23 +34,25 @@ function NavBar() {
                 <Button variant="outline-success">Search</Button>
               </Form>
             </Nav>
-            <Nav className="ms-auto">
-              <NavLink href="/login">
-                <FaSignInAlt /> Log In
-              </NavLink>
-              <NavLink href="/register">
-                <FaSignInAlt />
-                Sign Up
-              </NavLink>
-              <NavLink href="/logout">
-                <FaSignOutAlt />
-                Log Out
-              </NavLink>
-              <NavLink href="/profile">
-                <FaUserAlt />
-                Profile
-              </NavLink>
-            </Nav>
+
+              <Nav className="ms-auto">
+                <NavLink href="/login">
+                  <FaSignInAlt /> Log In
+                </NavLink>
+                <NavLink href="/register">
+                  <FaSignInAlt />
+                  Sign Up
+                </NavLink>
+                <NavLink href="/logout">
+                  <FaSignOutAlt />
+                  Log Out
+                </NavLink>
+                <NavLink href="/profile">
+                  <FaUserAlt />
+                  Profile
+                </NavLink>
+              </Nav>
+
           </NavbarCollapse>
         </Container>
       </Navbar>
