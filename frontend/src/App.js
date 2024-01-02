@@ -1,8 +1,10 @@
+import NavBar from "./components/NavBar.jsx";
+
 function App() {
   return (
-    <div>
-      <h1>TrendApp</h1>
-    </div>
+    <>
+      <NavBar />
+    </>
   );
 }
 
