@@ -93,7 +93,7 @@ router.post('/create', upload.array('myPic', 3), async (req, res) => {
 });
 
 
-router.patch('/update/:id', async (req, res) => {
+router.put('/update/:id', async (req, res) => {
     try {
       // Find the product by ID
       const product = await Product.findById(req.params.id);
@@ -102,19 +102,19 @@ router.patch('/update/:id', async (req, res) => {
       if (!product) {
         return res.status(404).json({ error: 'Product not found' });
       }
-  
       // Update product details with the provided fields
       const { title, condition, price, category } = req.body;
+      console.log(title, condition, price, category);
 
   
-      if (title !== undefined) product.title = title;
-      if (condition !== undefined) product.condition = condition;
-      if (price !== undefined) product.price = price;
-      if (category !== undefined) product.category = category;
+      if (title) product.title = title;
+      if (condition) product.condition = condition;
+      if (price) product.price = price;
+      if (category) product.category = category;
   
       // Save the updated product
       const updatedProduct = await product.save();
-  
+      console.log(product === updatedProduct);
       // Send the updated product as the response
       res.status(200).json(updatedProduct);
     } catch (error) {
