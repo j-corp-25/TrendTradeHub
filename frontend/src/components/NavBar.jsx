@@ -13,14 +13,17 @@ import {
 } from "react-bootstrap";
 import "./NavBar.css";
 import { FaSignInAlt, FaSignOutAlt, FaUserAlt } from "react-icons/fa";
-import { LinkContainer } from "react-router-bootstrap"
+import { LinkContainer } from "react-router-bootstrap";
+
 
 function NavBar() {
   return (
     <header>
       <Navbar bg="dark" variant="dark" expand="lg" collapseOnSelect>
         <Container className="my-3">
-          <NavbarBrand href="/">TrendTradeHub</NavbarBrand>
+          <LinkContainer to="/">
+            <NavbarBrand>TrendTradeHub</NavbarBrand>
+          </LinkContainer>
           <NavbarToggle aria-controls="basic-navbar-nav" />
           <NavbarCollapse id="basic-navbar-nav">
             <Nav className="ms-auto">
@@ -35,24 +38,33 @@ function NavBar() {
               </Form>
             </Nav>
 
-              <Nav className="ms-auto">
-                <NavLink href="/login">
+            <Nav className="ms-auto">
+              <LinkContainer to="/login">
+                <NavLink>
                   <FaSignInAlt /> Log In
                 </NavLink>
-                <NavLink href="/register">
+              </LinkContainer>
+
+              <LinkContainer to="/register">
+                <NavLink>
                   <FaSignInAlt />
                   Sign Up
                 </NavLink>
+              </LinkContainer>
+
+              <LinkContainer to="/logout">
                 <NavLink href="/logout">
                   <FaSignOutAlt />
                   Log Out
                 </NavLink>
+              </LinkContainer>
+              <LinkContainer to="/profile">
                 <NavLink href="/profile">
                   <FaUserAlt />
                   Profile
                 </NavLink>
-              </Nav>
-
+              </LinkContainer>
+            </Nav>
           </NavbarCollapse>
         </Container>
       </Navbar>
