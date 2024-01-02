@@ -3,13 +3,15 @@ import Product from '../models/productModel.js';
 
 const createProduct = async (req, res) => {
   try {
-    const { title, condition, price, category } = req.body;
+    const { author, title, condition, price, category, images } = req.body;
 
     const newProduct = new Product({
+      author,
       title,
       condition,
       price,
       category,
+      images,
     });
 
     const savedProduct = await newProduct.save();

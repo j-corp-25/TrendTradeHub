@@ -1,7 +1,14 @@
 // models/Product.js
 import mongoose from 'mongoose';
+const Schema = mongoose.Schema;
 
-const productSchema = new mongoose.Schema({
+
+const productSchema = new Schema({
+  author: {
+    type: Schema.Types.ObjectId,
+    ref: "User",
+  },
+
   title: {
     type: String,
     required: true,

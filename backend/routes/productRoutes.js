@@ -31,21 +31,49 @@ const upload = multer({
   }),
 });
 
+
+// Get all products route with author and options
+router.get('/all', async (req, res) => {
+    try {
+      // Retrieve all products from the database
+      const products = await Product.find();
+  
+      // Customize the response format by including author and options
+      const formattedProducts = products.map(product => ({
+        _id: product._id,
+        title: product.title,
+        condition: product.condition,
+        price: product.price,
+        category: product.category,
+        images: product.images,
+        author: product.author,
+      }));
+  
+      // Send the formatted products as the response
+      res.status(200).json(formattedProducts);
+    } catch (error) {
+      console.error(error);
+      res.status(500).json({ error: 'Internal Server Error' });
+    }
+  });
+  
+
 router.post('/create', upload.array('myPic', 3), async (req, res) => {
   try {
     // Extract image URLs from the request
     const imageUrls = req.files?.map(file => file.location);
 
     // Extract other product details from the request body
-    const { title, condition, price, category } = req.body;
+    const { author,title, condition, price, category } = req.body;
 
     // Validate required fields
-    if (!title || !condition || !price || !category) {
+    if (!title || !condition || !price || !category || !author) {
       return res.status(400).json({ error: 'All fields are required' });
     }
 
     // Create a new product with image URLs
     const newProduct = new Product({
+      author,  
       title,
       condition,
       price,
@@ -63,16 +91,10 @@ router.post('/create', upload.array('myPic', 3), async (req, res) => {
     res.status(500).json({ error: 'Internal Server Error' });
   }
 });
-// Update product route
-router.put('/update/:id', async (req, res) => {
+
+
+router.patch('/update/:id', async (req, res) => {
     try {
-      const { title, condition, price, category } = req.body;
-  
-      // Validate required fields
-      if (!title || !condition || !price || !category) {
-        return res.status(400).json({ error: 'All fields are required' });
-      }
-  
       // Find the product by ID
       const product = await Product.findById(req.params.id);
   
@@ -81,11 +103,14 @@ router.put('/update/:id', async (req, res) => {
         return res.status(404).json({ error: 'Product not found' });
       }
   
-      // Update product details
-      product.title = title;
-      product.condition = condition;
-      product.price = price;
-      product.category = category;
+      // Update product details with the provided fields
+      const { title, condition, price, category } = req.body;
+
+  
+      if (title !== undefined) product.title = title;
+      if (condition !== undefined) product.condition = condition;
+      if (price !== undefined) product.price = price;
+      if (category !== undefined) product.category = category;
   
       // Save the updated product
       const updatedProduct = await product.save();
@@ -96,11 +121,9 @@ router.put('/update/:id', async (req, res) => {
       console.error(error);
       res.status(500).json({ error: 'Internal Server Error' });
     }
-  });
-
+  });  
 
   // Delete product route
-// Delete product route
 router.delete('/delete/:id', async (req, res) => {
     try {
       // Find the product by ID and delete it
