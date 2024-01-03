@@ -54,13 +54,10 @@ const updateProduct = async (req, res) => {
       return res.status(404).json({ error: 'Product not found' });
     }
 
-    const { title, condition, price, category } = req.body;
-    console.log(title, condition, price, category);
-
-    if (title) product.title = title;
-    if (condition) product.condition = condition;
-    if (price) product.price = price;
-    if (category) product.category = category;
+    if (req.body.title) product.title = req.body.title;
+    if (req.body.condition) product.condition = req.body.condition;
+    if (req.body.price) product.price = req.body.price;
+    if (req.body.category) product.category = req.body.category;
 
     const updatedProduct = await product.save();
     console.log(product === updatedProduct);
