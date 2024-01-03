@@ -1,7 +1,7 @@
 import React from "react";
 import jwtFetch from "./jwt";
 
-const API_URL = 'http://localhost:4000/api/products'; // Replace with your API endpoint
+const API_URL = 'http://localhost:4000/api/products'; 
 
 // Action Types
 export const FETCH_PRODUCTS_SUCCESS = 'FETCH_PRODUCTS_SUCCESS';
@@ -21,7 +21,7 @@ export const addProductSuccess = (product) => ({
 // Thunk Action Creator
 export const fetchProducts = () => async (dispatch) => {
   try {
-    const response = await axios.get(`${API_URL}/all`);
+    const response = await jwtFetch.get(`${API_URL}/all`);
     dispatch(fetchProductsSuccess(response.data));
   } catch (error) {
     console.error('Error fetching products:', error);
@@ -30,9 +30,11 @@ export const fetchProducts = () => async (dispatch) => {
 
 export const addProduct = (productData) => async (dispatch) => {
   try {
-    const response = await axios.post(`${API_URL}/create`, productData);
+    const response = await jwtFetch.post(`${API_URL}/create`, productData);
     dispatch(addProductSuccess(response.data));
   } catch (error) {
     console.error('Error adding product:', error);
   }
 };
+
+
