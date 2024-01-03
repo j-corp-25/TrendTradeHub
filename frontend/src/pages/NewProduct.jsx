@@ -1,4 +1,4 @@
-// AddProduct.js
+// NewProduct.js
 import React, { useState, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { addProduct, fetchProducts } from '../app/product';
@@ -12,19 +12,35 @@ const NewProduct = () => {
     price: '',
     category: '',
   });
+  const [images, setImages] = useState([]);
 
   useEffect(() => {
     dispatch(fetchProducts());
-  },[]);
-  
+  }, []);
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setProductData((prevData) => ({ ...prevData, [name]: value }));
   };
 
+  const handleImageChange = (e) => {
+    const files = e.target.files;
+    setImages([...files]);
+  };
+
   const handleAddProduct = () => {
-    dispatch(addProduct(productData));
+    const formData = new FormData();
+    formData.append('author', productData.author);
+    formData.append('title', productData.title);
+    formData.append('condition', productData.condition);
+    formData.append('price', productData.price);
+    formData.append('category', productData.category);
+
+    images.forEach((image, index) => {
+      formData.append('myPic', image);
+    });
+
+    dispatch(addProduct(formData));
   };
 
   return (
@@ -49,6 +65,10 @@ const NewProduct = () => {
       <div>
         <label>Category:</label>
         <input type="text" name="category" onChange={handleInputChange} />
+      </div>
+      <div>
+        <label>Images:</label>
+        <input type="file" name="myPic" onChange={handleImageChange} multiple />
       </div>
       <button onClick={handleAddProduct}>Add Product</button>
     </div>
