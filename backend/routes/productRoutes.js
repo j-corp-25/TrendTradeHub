@@ -13,20 +13,20 @@ dotenv.config();
 const router = express.Router();
 
 // Configure AWS S3 SDK (update authentication)
-// AWS.config.update({
-//   accessKeyId: process.env.AWS_ACCESS_KEY,
-//   secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY,
-// });
+AWS.config.update({
+  accessKeyId: process.env.AWS_ACCESS_KEY,
+  secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY,
+});
 
-// const s3 = new AWS.S3();
-// const myBucket = process.env.AWS_BUCKET_NAME;
+const s3 = new AWS.S3();
+const myBucket = process.env.AWS_BUCKET_NAME;
 
-// const upload = multer({
-//   storage: multerS3({
-//     s3: s3,
-//     bucket: myBucket,
-//   }),
-// });
+const upload = multer({
+  storage: multerS3({
+    s3: s3,
+    bucket: myBucket,
+  }),
+});
 
 
 router.get('/all', getAllProducts);
