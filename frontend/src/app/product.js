@@ -30,11 +30,41 @@ export const fetchProducts = () => async (dispatch) => {
 
 export const addProduct = (productData) => async (dispatch) => {
   try {
-    const response = await jwtFetch.post(`${API_URL}/create`, productData);
-    dispatch(addProductSuccess(response.data));
+    const response = await jwtFetch.post(`${API_URL}/create`, {
+        method: 'POST',
+        body: JSON.stringify(productData)
+      });
+      const product = await response.json();
+    dispatch(addProductSuccess(product));
   } catch (error) {
     console.error('Error adding product:', error);
   }
 };
+
+//Reducer
+const initialState = {
+    products: [],
+  };
+  
+  const productReducer = (state = initialState, action) => {
+    switch (action.type) {
+      case FETCH_PRODUCTS_SUCCESS:
+        return {
+          ...state,
+          products: action.payload,
+        };
+  
+      case ADD_PRODUCT_SUCCESS:
+        return {
+          ...state,
+          products: [...state.products, action.payload],
+        };
+  
+      default:
+        return state;
+    }
+  };
+  
+  export default productReducer;
 
 

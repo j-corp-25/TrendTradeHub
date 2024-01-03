@@ -1,8 +1,9 @@
 import { createStore, combineReducers, applyMiddleware, compose } from 'redux';
 import thunk from 'redux-thunk';
+import productReducer from './product';
 
 const rootReducer = combineReducers({
-  
+  products: productReducer,
 });
 
 let enhancer;
