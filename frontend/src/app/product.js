@@ -31,11 +31,8 @@ export const fetchProducts = () => async (dispatch) => {
 
 export const addProduct = (productData) => async (dispatch) => {
   try {
-    const response = await axios.post(`${API_URL}/create`, {
-        method: 'POST',
-        body: JSON.stringify(productData)
-      });
-      const product = await response.json();
+    const response = await axios.post(`${API_URL}/create`, productData);
+      const product = await response.data;
     dispatch(addProductSuccess(product));
   } catch (error) {
     console.error('Error adding product:', error);
