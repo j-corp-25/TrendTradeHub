@@ -6,11 +6,13 @@ import { notFound, errorHandler } from "./middleware/errorMiddleware.js";
 import connectDB from "./config/db.js";
 import userRoutes from "./routes/userRoutes.js";
 import productRoutes from "./routes/productRoutes.js";
+import cors from 'cors';
 
 const port = process.env.PORT || 4000;
 connectDB();
 
 const app = express();
+app.use(cors());
 
 
 
