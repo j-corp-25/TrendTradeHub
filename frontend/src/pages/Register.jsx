@@ -58,6 +58,7 @@ function Register() {
       name: formData.name,
       email: formData.email,
       password: formData.password,
+      password2: formData.password2,
     };
 
     dispatch(register(userData));

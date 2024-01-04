@@ -107,7 +107,7 @@ const authReducer = (state = initialState, action) => {
         isLoading: false,
         isError: false,
         isSuccess: false,
-   
+
       };
     default:
       return state;
