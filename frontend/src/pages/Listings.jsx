@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchProducts } from '../app/product';
+import ProductUnit from '../components/ProductUnit';
 
 function Product() {
   const dispatch = useDispatch();
@@ -12,11 +13,11 @@ function Product() {
   return (
     <div>
       <h1>Product List</h1>
-      <ul>
+      <div className="product-list">
         {products.map((product) => (
-          <li key={product._id}>{product.title}</li>
+          <ProductUnit key={product._id} product={product} />
         ))}
-      </ul>
+      </div>
     </div>
   )
 }
