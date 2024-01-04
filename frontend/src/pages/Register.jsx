@@ -11,7 +11,7 @@ import {
   FormControl,
   Container,
 } from "react-bootstrap";
-import { register, clearMessage } from "../app/user";
+import { register, clearMessage, reset } from "../app/user";
 
 function Register() {
   const [formData, setFormData] = useState({
@@ -36,7 +36,7 @@ function Register() {
     }
 
     return () => {
-      dispatch(clearMessage());
+      dispatch(reset());
     };
   }, [user, isError, message, isSuccess, navigate, dispatch]);
 
@@ -58,14 +58,19 @@ function Register() {
       name: formData.name,
       email: formData.email,
       password: formData.password,
-      password2: formData.password2,
     };
 
     dispatch(register(userData));
   };
 
   if (isLoading) {
-    return <BeatLoader />;
+    return (
+      <Container className="my-10">
+        <div>
+          <BeatLoader />
+        </div>
+      </Container>
+    );
   }
 
   return (

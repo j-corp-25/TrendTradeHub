@@ -1,103 +1,72 @@
 import axios from "axios";
 
-export const REGISTER_SUCCESS = "REGISTER_SUCCESS";
-export const REGISTER_FAIL = "REGISTER_FAIL";
-export const LOGIN_SUCCESS = "LOGIN_SUCCESS";
-export const LOGIN_FAIL = "LOGIN_FAIL";
-export const LOGOUT = "LOGOUT";
-export const SET_MESSAGE = "SET_MESSAGE";
-export const CLEAR_MESSAGE = "CLEAR_MESSAGE";
+const REGISTER_REQUEST = "REGISTER_REQUEST";
+const REGISTER_SUCCESS = "REGISTER_SUCCESS";
+const REGISTER_FAILURE = "REGISTER_FAILURE";
+const LOGIN_REQUEST = "LOGIN_REQUEST";
+const LOGIN_SUCCESS = "LOGIN_SUCCESS";
+const LOGIN_FAILURE = "LOGIN_FAILURE";
+const LOGOUT = "LOGOUT";
+const RESET = "RESET";
 
 const API_URL = "/api/users/register";
 const API_URL_LOGIN = "/api/users/login";
 
 const user = JSON.parse(localStorage.getItem("user"));
 
+
+export const registerRequest = () => ({ type: REGISTER_REQUEST });
 export const registerSuccess = (user) => ({
   type: REGISTER_SUCCESS,
   payload: user,
 });
-
-export const registerFail = () => ({
-  type: REGISTER_FAIL,
-});
-
-export const loginSuccess = (user) => ({
-  type: LOGIN_SUCCESS,
-  payload: user,
-});
-
-export const loginFail = () => ({
-  type: LOGIN_FAIL,
-});
-
-export const logout = () => ({
-  type: LOGOUT,
-});
-
-export const setMessage = (message) => ({
-  type: SET_MESSAGE,
+export const registerFailure = (message) => ({
+  type: REGISTER_FAILURE,
   payload: message,
 });
 
-export const clearMessage = () => ({
-  type: CLEAR_MESSAGE,
+export const loginRequest = () => ({ type: LOGIN_REQUEST });
+export const loginSuccess = (user) => ({ type: LOGIN_SUCCESS, payload: user });
+export const loginFailure = (message) => ({
+  type: LOGIN_FAILURE,
+  payload: message,
 });
 
-const registerAuth = async (userData) => {
-  const response = await axios.post(API_URL, userData);
-
-  if (response.data) {
-    localStorage.setItem("user", JSON.stringify(response.data));
-  }
-  return response.data;
-};
-
-const loginAuth = async (userData) => {
-  const response = await axios.post(API_URL_LOGIN, userData);
-
-  if (response.data) {
-    localStorage.setItem("user", JSON.stringify(response.data));
-  }
-
-  return response.data;
-};
-
-const logoutAuth = () => {
-  localStorage.removeItem("user");
-};
-const getErrorMessage = (error) => {
-  if (error.response && error.response.data && error.response.data.message) {
-    return error.response.data.message;
-  }
-
-  return error.message || error.toString();
-};
+export const logout = () => ({ type: LOGOUT });
+export const reset = () => ({ type: RESET });
 
 export const register = (userData) => async (dispatch) => {
+  dispatch(registerRequest());
   try {
-    const response = await registerAuth(userData);
-    dispatch(registerSuccess(response));
+    const response = await axios.post(API_URL, userData);
+    localStorage.setItem("user", JSON.stringify(response.data));
+    dispatch(registerSuccess(response.data));
   } catch (error) {
-    dispatch(registerFail());
-    const errorMessage = getErrorMessage(error);
-    dispatch(setMessage(errorMessage));
+    const message =
+      (error.response && error.response.data && error.response.data.message) ||
+      error.message ||
+      error.toString();
+    dispatch(registerFailure(message));
   }
 };
 
 export const login = (userData) => async (dispatch) => {
+  dispatch(loginRequest());
   try {
-    const response = await loginAuth(userData);
-    dispatch(loginSuccess(response));
+    const response = await axios.post(API_URL_LOGIN, userData);
+    localStorage.setItem("user", JSON.stringify(response.data));
+    dispatch(loginSuccess(response.data));
   } catch (error) {
-    dispatch(loginFail());
-    const errorMessage = getErrorMessage(error);
-    dispatch(setMessage(errorMessage));
+    const message =
+      (error.response && error.response.data && error.response.data.message) ||
+      error.message ||
+      error.toString();
+    dispatch(registerFailure(message));
   }
 };
 
 export const performLogout = () => (dispatch) => {
-  logoutAuth();
+  localStorage.removeItem("user");
   dispatch(logout());
 };
 
@@ -110,42 +79,35 @@ const initialState = {
 
 const authReducer = (state = initialState, action) => {
   switch (action.type) {
+    case REGISTER_REQUEST:
+    case LOGIN_REQUEST:
+      return { ...state, isLoading: true, isError: false, isSuccess: false };
     case REGISTER_SUCCESS:
-      return {
-        ...state,
-        isSuccess: true,
-        user: action.payload,
-      };
-    case REGISTER_FAIL:
-      return {
-        ...state,
-        isError: true,
-      };
     case LOGIN_SUCCESS:
       return {
         ...state,
+        isLoading: false,
         isSuccess: true,
         user: action.payload,
       };
-    case LOGIN_FAIL:
+    case REGISTER_FAILURE:
+    case LOGIN_FAILURE:
       return {
         ...state,
+        isLoading: false,
         isError: true,
-      };
-    case LOGOUT:
-      return {
-        ...state,
+        message: action.payload,
         user: null,
       };
-    case SET_MESSAGE:
+    case LOGOUT:
+      return { ...initialState, user: null };
+    case RESET:
       return {
         ...state,
-        message: action.payload,
-      };
-    case CLEAR_MESSAGE:
-      return {
-        ...state,
-        message: "",
+        isLoading: false,
+        isError: false,
+        isSuccess: false,
+   
       };
     default:
       return state;
