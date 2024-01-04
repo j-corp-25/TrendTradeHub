@@ -62,6 +62,13 @@ function NavBar() {
                       Profile
                     </NavLink>
                   </LinkContainer>
+                  <LinkContainer to="/newproduct">
+                    <NavLink>
+                      <FaUserAlt />
+                      Product
+                    </NavLink>
+                  </LinkContainer>
+
                 </>
               ) : (
                 <>

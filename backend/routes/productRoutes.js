@@ -6,6 +6,7 @@ import dotenv from 'dotenv';
 import AWS from 'aws-sdk';
 import Product from '../models/productModel.js';
 import { getAllProducts, createProduct, updateProduct, deleteProduct } from '../controllers/productController.js';
+import { protect } from "../middleware/authMiddleware.js";
 
 
 dotenv.config();
@@ -30,9 +31,9 @@ const upload = multer({
 
 
 router.get('/all', getAllProducts);
-router.post('/create', upload.array('myPic', 3), createProduct);
-router.put('/update/:id', updateProduct);
-router.delete('/delete/:id', deleteProduct);
+router.post('/create', protect, upload.array('myPic', 3), createProduct);
+router.put('/update/:id', protect, updateProduct);
+router.delete('/delete/:id', protect, deleteProduct);
 
 
 

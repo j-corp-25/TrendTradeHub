@@ -1,10 +1,19 @@
 // controllers/productController.js
-import Product from '../models/productModel.js';
+import Product from "../models/productModel.js";
+import asyncHandler from "express-async-handler";
+
+// @desc    Get products
+// @route   GET /api/products
+// @access  Private
+const getUserProducts = asyncHandler(async (req, res) => {
+  const products = await Product.find({ user: req.user.id });
+  res.status(200).json(products);
+});
 
 const getAllProducts = async (req, res) => {
   try {
     const products = await Product.find();
-    const formattedProducts = products.map(product => ({
+    const formattedProducts = products.map((product) => ({
       _id: product._id,
       title: product.title,
       condition: product.condition,
@@ -16,17 +25,17 @@ const getAllProducts = async (req, res) => {
     res.status(200).json(formattedProducts);
   } catch (error) {
     console.error(error);
-    res.status(500).json({ error: 'Internal Server Error' });
+    res.status(500).json({ error: "Internal Server Error" });
   }
 };
 
-const createProduct = async (req, res) => {
+const createProduct = asyncHandler(async (req, res) => {
   try {
-    const imageUrls = req.files?.map(file => file.location);
+    const imageUrls = req.files?.map((file) => file.location);
     const { author, title, condition, price, category } = req.body;
 
     if (!title || !condition || !price || !category || !author) {
-      return res.status(400).json({ error: 'All fields are required' });
+      return res.status(400).json({ error: "All fields are required" });
     }
 
     const newProduct = new Product({
@@ -42,16 +51,16 @@ const createProduct = async (req, res) => {
     res.status(201).json(savedProduct);
   } catch (error) {
     console.error(error);
-    res.status(500).json({ error: 'Internal Server Error' });
+    res.status(500).json({ error: "Internal Server Error" });
   }
-};
+});
 
 const updateProduct = async (req, res) => {
   try {
     const product = await Product.findById(req.params.id);
 
     if (!product) {
-      return res.status(404).json({ error: 'Product not found' });
+      return res.status(404).json({ error: "Product not found" });
     }
 
     if (req.body.title) product.title = req.body.title;
@@ -65,7 +74,7 @@ const updateProduct = async (req, res) => {
     res.status(200).json(updatedProduct);
   } catch (error) {
     console.error(error);
-    res.status(500).json({ error: 'Internal Server Error' });
+    res.status(500).json({ error: "Internal Server Error" });
   }
 };
 
@@ -74,14 +83,20 @@ const deleteProduct = async (req, res) => {
     const deletedProduct = await Product.findByIdAndDelete(req.params.id);
 
     if (!deletedProduct) {
-      return res.status(404).json({ error: 'Product not found' });
+      return res.status(404).json({ error: "Product not found" });
     }
 
-    res.status(200).json({ message: 'Product deleted successfully' });
+    res.status(200).json({ message: "Product deleted successfully" });
   } catch (error) {
     console.error(error);
-    res.status(500).json({ error: 'Internal Server Error' });
+    res.status(500).json({ error: "Internal Server Error" });
   }
 };
 
-export { getAllProducts, createProduct, updateProduct, deleteProduct };
+export {
+  getAllProducts,
+  createProduct,
+  updateProduct,
+  deleteProduct,
+  getUserProducts,
+};

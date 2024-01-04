@@ -58,7 +58,7 @@ function Login() {
 
   if (isLoading) {
     return (
-      <Container className="my-6">
+      <Container className="my-5">
         <div>
           <BeatLoader />
         </div>
