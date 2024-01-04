@@ -1,14 +1,14 @@
 import React from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import './ProductUnit.css';
+
 
 
 function ProductUnit({product}) {
-  
 	return (
-<div class="container">
 
                 
-                <div class="product-item">
+                <div class="product-item" >
                     <div class="image">
                         <a href="#/"><img src="https://bootdey.com/img/Content/avatar/avatar6.png" alt="Product 4"/></a>
                     </div>
@@ -22,15 +22,15 @@ function ProductUnit({product}) {
                         <div className="cart">
                             <button type="button" class="btn btn-primary">Add to Cart</button>
                         </div>
-                        <div className="like">
+                        {/* <div className="like">
                             <button type="button" class="btn btn-default wishlist" data-toggle="tooltip" data-placement="right" title="Wishlist"><i class="fa fa-heart"></i></button>
 
-                        </div>
+                        </div> */}
                         
                     </div>
                     
                 </div>
-            </div>
+ 
        	);
 }
 export default ProductUnit;
