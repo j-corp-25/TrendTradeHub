@@ -1,9 +1,11 @@
 import { createStore, combineReducers, applyMiddleware, compose } from 'redux';
 import thunk from 'redux-thunk';
 import productReducer from './product';
+import authReducer from './user';
 
 const rootReducer = combineReducers({
   products: productReducer,
+  auth: authReducer
 });
 
 let enhancer;
@@ -22,4 +24,3 @@ const configureStore = (preloadedState) => {
 }
 
 export default configureStore;
-

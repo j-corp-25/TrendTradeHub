@@ -66,13 +66,22 @@ const loginAuth = async (userData) => {
 const logoutAuth = () => {
   localStorage.removeItem("user");
 };
+const getErrorMessage = (error) => {
+  if (error.response && error.response.data && error.response.data.message) {
+    return error.response.data.message;
+  }
+
+  return error.message || error.toString();
+};
+
 export const register = (userData) => async (dispatch) => {
   try {
     const response = await registerAuth(userData);
     dispatch(registerSuccess(response));
   } catch (error) {
     dispatch(registerFail());
-    dispatch(setMessage(error.toString()));
+    const errorMessage = getErrorMessage(error);
+    dispatch(setMessage(errorMessage));
   }
 };
 
@@ -82,7 +91,8 @@ export const login = (userData) => async (dispatch) => {
     dispatch(loginSuccess(response));
   } catch (error) {
     dispatch(loginFail());
-    dispatch(setMessage(error.toString()));
+    const errorMessage = getErrorMessage(error);
+    dispatch(setMessage(errorMessage));
   }
 };
 

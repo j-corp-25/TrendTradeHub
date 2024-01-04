@@ -17,6 +17,9 @@
     "react-router-bootstrap": "^0.26.2",
     "react-router-dom": "^6.21.1",
     "react-scripts": "5.0.1",
+    "react-spinners": "^0.13.8",
+    "react-toastify": "^9.1.3",
+    "redux-logger": "^3.0.6",
     "spinners": "^1.2.2",
     "web-vitals": "^2.1.4"
   },
