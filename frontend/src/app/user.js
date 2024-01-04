@@ -35,6 +35,7 @@ export const loginFailure = (message) => ({
 export const logout = () => ({ type: LOGOUT });
 export const reset = () => ({ type: RESET });
 
+
 export const register = (userData) => async (dispatch) => {
   dispatch(registerRequest());
   try {

@@ -14,8 +14,20 @@ import {
 import "./NavBar.css";
 import { FaSignInAlt, FaSignOutAlt, FaUserAlt } from "react-icons/fa";
 import { LinkContainer } from "react-router-bootstrap";
+import { logout, reset } from "../app/user";
+import { useNavigate } from "react-router-dom";
+import { useSelector, useDispatch } from "react-redux";
 
 function NavBar() {
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const { user } = useSelector((state) => state.auth);
+
+  const onLogout = () => {
+    dispatch(logout())
+    dispatch(reset())
+    navigate('/')
+  }
   return (
     <header>
       <Navbar bg="dark" variant="dark" expand="lg" collapseOnSelect>
@@ -38,32 +50,36 @@ function NavBar() {
             </Nav>
 
             <Nav className="ms-auto">
-              <LinkContainer to="/login">
-                <NavLink>
-                  <FaSignInAlt />
-                  Log In
-                </NavLink>
-              </LinkContainer>
+            {user ? (
+                <>
+                  <NavLink onClick={onLogout}>
+                    <FaSignOutAlt />
+                    Log Out
+                  </NavLink>
+                  <LinkContainer to="/profile">
+                    <NavLink>
+                      <FaUserAlt />
+                      Profile
+                    </NavLink>
+                  </LinkContainer>
+                </>
+              ) : (
+                <>
+                  <LinkContainer to="/login">
+                    <NavLink>
+                      <FaSignInAlt />
+                      Log In
+                    </NavLink>
+                  </LinkContainer>
 
-              <LinkContainer to="/register">
-                <NavLink>
-                  <FaSignInAlt />
-                  Sign Up
-                </NavLink>
-              </LinkContainer>
-
-              <LinkContainer to="/logout">
-                <NavLink href="/logout">
-                  <FaSignOutAlt />
-                  Log Out
-                </NavLink>
-              </LinkContainer>
-              <LinkContainer to="/profile">
-                <NavLink href="/profile">
-                  <FaUserAlt />
-                  Profile
-                </NavLink>
-              </LinkContainer>
+                  <LinkContainer to="/register">
+                    <NavLink>
+                      <FaUserAlt />
+                      Sign Up
+                    </NavLink>
+                  </LinkContainer>
+                </>
+              )}
             </Nav>
           </NavbarCollapse>
         </Container>

@@ -66,7 +66,7 @@ function Register() {
 
   if (isLoading) {
     return (
-      <Container className="my-10">
+      <Container className="my-6">
         <div>
           <BeatLoader />
         </div>
