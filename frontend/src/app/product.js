@@ -1,12 +1,12 @@
 import React from "react";
-import jwtFect from "./jwt";
-import axios from 'axios';
+import jwtFecth from "./jwt";
+import axios from "axios";
 
-const API_URL = 'api/products';
+const API_URL = "api/products";
 
 // Action Types
-export const FETCH_PRODUCTS_SUCCESS = 'FETCH_PRODUCTS_SUCCESS';
-export const ADD_PRODUCT_SUCCESS = 'ADD_PRODUCT_SUCCESS';
+export const FETCH_PRODUCTS_SUCCESS = "FETCH_PRODUCTS_SUCCESS";
+export const ADD_PRODUCT_SUCCESS = "ADD_PRODUCT_SUCCESS";
 
 // Action Creators
 export const fetchProductsSuccess = (products) => ({
@@ -25,48 +25,42 @@ export const fetchProducts = () => async (dispatch) => {
     const response = await axios.get(`${API_URL}/all`);
     dispatch(fetchProductsSuccess(response.data));
   } catch (error) {
-    console.error('Error fetching products:', error);
+    console.error("Error fetching products:", error);
   }
 };
 
 export const addProduct = (productData) => async (dispatch) => {
   try {
-    const response = await jwtFetch(`${API_URL}/create`, {
-      method: 'POST',
-      body: JSON.stringify(productData),
-      headers: {
-        'Content-Type': 'application/json'
-      }
-    });
-    const product = await response.json();
+    const response = await axios.post(`${API_URL}/create`, productData);
+    const product = await response.data;
     dispatch(addProductSuccess(product));
   } catch (error) {
-    console.error('Error adding product:', error);
+    console.error("Error adding product:", error);
   }
 };
 
 //Reducer
 const initialState = {
-    products: [],
-  };
+  products: [],
+};
 
-  const productReducer = (state = initialState, action) => {
-    switch (action.type) {
-      case FETCH_PRODUCTS_SUCCESS:
-        return {
-          ...state,
-          products: action.payload,
-        };
+const productReducer = (state = initialState, action) => {
+  switch (action.type) {
+    case FETCH_PRODUCTS_SUCCESS:
+      return {
+        ...state,
+        products: action.payload,
+      };
 
-      case ADD_PRODUCT_SUCCESS:
-        return {
-          ...state,
-          products: [...state.products, action.payload],
-        };
+    case ADD_PRODUCT_SUCCESS:
+      return {
+        ...state,
+        products: [...state.products, action.payload],
+      };
 
-      default:
-        return state;
-    }
-  };
+    default:
+      return state;
+  }
+};
 
-  export default productReducer;
+export default productReducer;
