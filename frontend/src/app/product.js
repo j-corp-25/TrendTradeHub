@@ -8,6 +8,9 @@ const API_URL = 'http://localhost:4000/api/products';
 export const FETCH_PRODUCTS_SUCCESS = 'FETCH_PRODUCTS_SUCCESS';
 export const ADD_PRODUCT_SUCCESS = 'ADD_PRODUCT_SUCCESS';
 export const FETCH_SINGLE_PRODUCT_SUCCESS = 'FETCH_SINGLE_PRODUCT_SUCCESS';
+export const FETCH_RELATED_PRODUCTS_SUCCESS = 'FETCH_RELATED_PRODUCTS_SUCCESS';
+
+
 
 // Action Creators
 export const fetchProductsSuccess = (products) => ({
@@ -23,6 +26,11 @@ export const addProductSuccess = (product) => ({
 export const fetchSingleProductSuccess = (product) => ({
   type: FETCH_SINGLE_PRODUCT_SUCCESS,
   payload: product,
+});
+
+export const fetchRelatedProductsSuccess = (relatedProducts) => ({
+  type: FETCH_RELATED_PRODUCTS_SUCCESS,
+  payload: relatedProducts,
 });
 
 // Thunk Action Creator
@@ -54,10 +62,26 @@ export const fetchSingleProduct = (productId) => async (dispatch) => {
   }
 };
 
+export const fetchRelatedProducts = (productId) => async (dispatch) => {
+  try {
+    const selectedProductResponse = await axios.get(`${API_URL}/details/${productId}`);
+    const selectedProduct = selectedProductResponse.data;
+
+    const relatedProductsResponse = await axios.get(`${API_URL}/category/${selectedProduct.category}`);
+    const relatedProducts = relatedProductsResponse.data.filter(product => product._id !== productId);
+
+    // Dispatch both the selected product and related products to the reducer
+    dispatch(fetchRelatedProductsSuccess({ selectedProduct, relatedProducts }));
+  } catch (error) {
+    console.error('Error fetching related products:', error);
+  }
+};
+
 //Reducer
 const initialState = {
-    products: [],
-  };
+  products: [],
+  relatedProducts: { selectedProduct: {}, relatedProducts: [] },
+};
   
   const productReducer = (state = initialState, action) => {
     switch (action.type) {
@@ -78,6 +102,12 @@ const initialState = {
             ...state,
             selectedProduct: action.payload,
           };
+        
+          case FETCH_RELATED_PRODUCTS_SUCCESS:
+            return {
+              ...state,
+              relatedProducts: action.payload,
+            };
   
       default:
         return state;

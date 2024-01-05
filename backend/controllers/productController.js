@@ -99,4 +99,27 @@ const getProduct = async(req, res) => {
   }
 }
 
-export { getAllProducts, createProduct, updateProduct, deleteProduct, getProduct };
+const getRelatedProducts= async (req, res) => {
+  try {
+    const { productId } = req.params;
+    const selectedProduct = await Product.findById(productId);
+
+    if (!selectedProduct) {
+      return res.status(404).json({ error: 'Selected product not found' });
+    }
+
+    // Fetch related products based on the category of the selected product
+    const relatedProducts = await Product.find({
+      category: selectedProduct.category,
+      _id: { $ne: productId }, // Exclude the selected product
+    });
+
+    // Return both the selected product and related products
+    res.status(200).json({ selectedProduct, relatedProducts });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: 'Internal Server Error' });
+  }
+}
+
+export { getAllProducts, createProduct, updateProduct, deleteProduct, getProduct, getRelatedProducts };
