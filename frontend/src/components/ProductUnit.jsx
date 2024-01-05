@@ -1,10 +1,11 @@
 import React, { useState } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./ProductUnit.css";
+import { Link } from "react-router-dom";
 import { FaCartPlus, FaAngleRight } from "react-icons/fa";
 
 function ProductUnit({ product }) {
-  const { title, price, images } = product;
+  const { title, price, images, _id } = product;
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
 
   const handleNextImage = () => {
@@ -17,12 +18,12 @@ function ProductUnit({ product }) {
     <div className="product-item">
       <div className="image">
         <div className="content-image">
-          <a href="#/" >
+        <Link to={`/product/${_id}`}>
             <img
               src={images.length > 0 ? images[currentImageIndex] : "default-image-url"}
               alt={title}
             />
-          </a>
+          </Link>
           {images.length > 1 && (
             <FaAngleRight className="right-arrow" onClick={handleNextImage} />
           )}

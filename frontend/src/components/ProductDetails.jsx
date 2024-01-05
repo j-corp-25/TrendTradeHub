@@ -14,7 +14,7 @@ function ProductDetails({ product }) {
   };
 
   return (
-    <div className="product-Details">
+    <div className="product-details">
       
     </div>
   );
