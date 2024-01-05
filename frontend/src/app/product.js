@@ -7,6 +7,7 @@ const API_URL = 'http://localhost:4000/api/products';
 // Action Types
 export const FETCH_PRODUCTS_SUCCESS = 'FETCH_PRODUCTS_SUCCESS';
 export const ADD_PRODUCT_SUCCESS = 'ADD_PRODUCT_SUCCESS';
+export const FETCH_SINGLE_PRODUCT_SUCCESS = 'FETCH_SINGLE_PRODUCT_SUCCESS';
 
 // Action Creators
 export const fetchProductsSuccess = (products) => ({
@@ -16,6 +17,11 @@ export const fetchProductsSuccess = (products) => ({
 
 export const addProductSuccess = (product) => ({
   type: ADD_PRODUCT_SUCCESS,
+  payload: product,
+});
+
+export const fetchSingleProductSuccess = (product) => ({
+  type: FETCH_SINGLE_PRODUCT_SUCCESS,
   payload: product,
 });
 
@@ -39,6 +45,15 @@ export const addProduct = (productData) => async (dispatch) => {
   }
 };
 
+export const fetchSingleProduct = (productId) => async (dispatch) => {
+  try {
+    const response = await axios.get(`${API_URL}/details/${productId}`);
+    dispatch(fetchSingleProductSuccess(response.data));
+  } catch (error) {
+    console.error('Error fetching single product:', error);
+  }
+};
+
 //Reducer
 const initialState = {
     products: [],
@@ -57,6 +72,12 @@ const initialState = {
           ...state,
           products: [...state.products, action.payload],
         };
+
+        case FETCH_SINGLE_PRODUCT_SUCCESS:
+          return {
+            ...state,
+            selectedProduct: action.payload,
+          };
   
       default:
         return state;
