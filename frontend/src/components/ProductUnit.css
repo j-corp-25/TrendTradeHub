@@ -39,6 +39,3 @@
 .content-image:hover .right-arrow {
     opacity: 1;
 }
-.image-transition {
-    transition: transform 2s ease-in-out
-}

@@ -18,7 +18,7 @@ function ProductUnit({ product }) {
       <div className="image">
         <div className="content-image">
           <a href="#/" >
-            <img className="image-transition"
+            <img
               src={images.length > 0 ? images[currentImageIndex] : "default-image-url"}
               alt={title}
             />
