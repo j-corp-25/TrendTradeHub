@@ -28,10 +28,10 @@ const productSchema = new Schema({
   images: [{
     type: String,
   }],
-  reviews: {
+  reviews: [{
     type: Schema.Types.ObjectId,
     ref: "Review"
-  }
+  }]
 },{
   timestamps: true
 });
