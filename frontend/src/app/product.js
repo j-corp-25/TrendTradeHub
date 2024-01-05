@@ -1,5 +1,5 @@
 import React from "react";
-import jwtFecth from "./jwt";
+import jwtFetch from "./jwt";
 import axios from "axios";
 
 const API_URL = "api/products";
