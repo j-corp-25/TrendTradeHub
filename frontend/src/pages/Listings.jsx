@@ -15,7 +15,7 @@ function Product() {
       <h1>Product List</h1>
       <div className="product-list">
         {products.map((product) => (
-          <ProductUnit key={product._id} product={product} />
+          <ProductUnit key={product._id} productId={product._id} />
         ))}
       </div>
     </div>

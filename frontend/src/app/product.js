@@ -1,16 +1,14 @@
 import React from "react";
-import jwtFecth from "./jwt";
+import jwtFect from "./jwt";
 import axios from "axios";
 
-const API_URL = "api/products";
+const API_URL = "http://localhost:4000/api/products";
 
 // Action Types
-
-export const FETCH_PRODUCTS_SUCCESS = 'FETCH_PRODUCTS_SUCCESS';
-export const ADD_PRODUCT_SUCCESS = 'ADD_PRODUCT_SUCCESS';
-export const FETCH_SINGLE_PRODUCT_SUCCESS = 'FETCH_SINGLE_PRODUCT_SUCCESS';
-export const FETCH_RELATED_PRODUCTS_SUCCESS = 'FETCH_RELATED_PRODUCTS_SUCCESS';
-
+export const FETCH_PRODUCTS_SUCCESS = "FETCH_PRODUCTS_SUCCESS";
+export const ADD_PRODUCT_SUCCESS = "ADD_PRODUCT_SUCCESS";
+export const FETCH_SINGLE_PRODUCT_SUCCESS = "FETCH_SINGLE_PRODUCT_SUCCESS";
+export const FETCH_RELATED_PRODUCTS_SUCCESS = "FETCH_RELATED_PRODUCTS_SUCCESS";
 
 // Action Creators
 export const fetchProductsSuccess = (products) => ({
@@ -28,9 +26,9 @@ export const fetchSingleProductSuccess = (product) => ({
   payload: product,
 });
 
-export const fetchRelatedProductsSuccess = (relatedProducts) => ({
+export const fetchRelatedProductsSuccess = (relatedProductIds) => ({
   type: FETCH_RELATED_PRODUCTS_SUCCESS,
-  payload: relatedProducts,
+  payload: relatedProductIds,
 });
 
 // Thunk Action Creator
@@ -58,60 +56,54 @@ export const fetchSingleProduct = (productId) => async (dispatch) => {
     const response = await axios.get(`${API_URL}/details/${productId}`);
     dispatch(fetchSingleProductSuccess(response.data));
   } catch (error) {
-    console.error('Error fetching single product:', error);
+    console.error("Error fetching single product:", error);
   }
 };
 
 export const fetchRelatedProducts = (productId) => async (dispatch) => {
   try {
-    const selectedProductResponse = await axios.get(`${API_URL}/details/${productId}`);
-    const selectedProduct = selectedProductResponse.data;
-
-    const relatedProductsResponse = await axios.get(`${API_URL}/category/${selectedProduct.category}`);
-    const relatedProducts = relatedProductsResponse.data.filter(product => product._id !== productId);
-
-    // Dispatch both the selected product and related products to the reducer
-    dispatch(fetchRelatedProductsSuccess({ selectedProduct, relatedProducts }));
+    const response = await axios.get(`${API_URL}/related/${productId}`);
+    dispatch(fetchRelatedProductsSuccess(response.data));
   } catch (error) {
-    console.error('Error fetching related products:', error);
+    console.error("Error fetching related products:", error);
   }
 };
 
 //Reducer
 const initialState = {
   products: [],
-  relatedProducts: { selectedProduct: {}, relatedProducts: [] },
+  relatedProductIds: []
 };
-  
-  const productReducer = (state = initialState, action) => {
-    switch (action.type) {
-      case FETCH_PRODUCTS_SUCCESS:
-        return {
-          ...state,
-          products: action.payload,
-        };
-  
-      case ADD_PRODUCT_SUCCESS:
-        return {
-          ...state,
-          products: [...state.products, action.payload],
-        };
 
-        case FETCH_SINGLE_PRODUCT_SUCCESS:
-          return {
-            ...state,
-            selectedProduct: action.payload,
-          };
-        
-          case FETCH_RELATED_PRODUCTS_SUCCESS:
-            return {
-              ...state,
-              relatedProducts: action.payload,
-            };
-  
-      default:
-        return state;
-    }
-  };
-  
+const productReducer = (state = initialState, action) => {
+  switch (action.type) {
+    case FETCH_PRODUCTS_SUCCESS:
+      return {
+        ...state,
+        products: action.payload,
+      };
+
+    case ADD_PRODUCT_SUCCESS:
+      return {
+        ...state,
+        products: [...state.products, action.payload],
+      };
+
+    case FETCH_SINGLE_PRODUCT_SUCCESS:
+      return {
+        ...state,
+        selectedProduct: action.payload,
+      };
+
+    case FETCH_RELATED_PRODUCTS_SUCCESS:
+      return {
+        ...state,
+        relatedProductIds: action.payload,
+      };
+
+    default:
+      return state;
+  }
+};
+
 export default productReducer;
