@@ -71,9 +71,8 @@ function ProductDetails() {
 
       <div className="sugg">
         <h4>Related Products</h4>
-        <div className="same-cat">
-        {console.log(relatedProductIds)}
-        {relatedProductIds.length > 0 &&
+        <div className="product-list">
+        {relatedProductIds?.length > 0 &&
             relatedProductIds?.map((relatedProductId) => (
               <ProductUnit key={relatedProductId} productId={relatedProductId} />
             ))}
