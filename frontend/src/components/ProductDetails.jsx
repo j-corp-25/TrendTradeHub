@@ -24,6 +24,7 @@ function ProductDetails() {
   };
 
   return (
+    <> 
     <div className="product-details">
       <div className="image-details">
         {console.log(product)}
@@ -39,9 +40,18 @@ function ProductDetails() {
       </div>
       <div className="prod-info">
         <h1>{title}</h1>
-        <h2>{'$'+price.toFixed(2)}</h2>
+        <h2>${price.toFixed(2)}</h2>
       </div>
     </div>
+
+    <div className="sugg">
+        <h4>In the same category</h4>
+        <div className="same-cat">
+            
+        </div>
+    </div>
+    </>
+   
   );
 }
 
