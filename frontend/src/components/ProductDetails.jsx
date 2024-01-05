@@ -4,7 +4,8 @@ import "./ProductUnit.css";
 import { FaCartPlus, FaAngleRight } from "react-icons/fa";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
-import { fetchSingleProduct } from "../app/product";
+import { fetchSingleProduct, fetchRelatedProducts } from "../app/product";
+import ProductUnit from "./ProductUnit";
 
 function ProductDetails() {
   const {productId} = useParams();
@@ -12,9 +13,11 @@ function ProductDetails() {
   const dispatch = useDispatch();
   const product = useSelector((state) => state.products.selectedProduct) || {};
   const { title, price, images, _id } = product;
+  const relatedProducts = useSelector((state) => state.products.relatedProduct) || {};
 
   useEffect(() => {
     dispatch(fetchSingleProduct(productId));
+    dispatch(fetchRelatedProducts(productId));
   }, [dispatch, productId]);
 
   const handleNextImage = () => {
@@ -40,15 +43,17 @@ function ProductDetails() {
       </div>
       <div className="prod-info">
         <h1>{title}</h1>
-        <h2>${price.toFixed(2)}</h2>
+        <h2>${price}</h2>
       </div>
     </div>
 
     <div className="sugg">
-        <h4>In the same category</h4>
-        <div className="same-cat">
-            
-        </div>
+        <h4>Related Products</h4>
+        {/* <div className="same-cat">
+        {relatedProducts && relatedProducts.map((relatedProduct) => (
+            <ProductUnit key={relatedProduct._id} product={relatedProduct} />
+          ))}
+        </div> */}
     </div>
     </>
    
