@@ -1,6 +1,8 @@
 import mongoose from "mongoose";
 import bcrypt from "bcryptjs";
 
+const Schema = mongoose.Schema;
+
 const userSchema = mongoose.Schema(
   {
     name: {
@@ -22,6 +24,8 @@ const userSchema = mongoose.Schema(
       required: [true, "Please add a password"],
       minlength: [8, "Password must be at least 8 characters long "],
     },
+    reviewsWritten: [{ type: Schema.Types.ObjectId, ref: "Review" }],
+    reviewsReceived: [{ type: Schema.Types.ObjectId, ref: "Review" }],
   },
   {
     timestamps: true,
