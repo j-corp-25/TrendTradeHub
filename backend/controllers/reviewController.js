@@ -47,9 +47,18 @@ const createReview = asyncHandler(async (req, res) => {
     comment,
   });
 
-  await review.save();
+  const user = await User.findById(userId);
+  user.reviewsWritten.push(review);
+  await user.save();
 
-  product.reviews.push(review._id);
+  if (product.author.toString() !== userId) {
+    const productAuthor = await User.findById(product.author);
+    productAuthor.reviewsReceived.push(review);
+    await productAuthor.save();
+  }
+
+  await review.save();
+  product.reviews.push(review);
   await product.save();
 
   res.status(201).json({ message: "Review created successfully", review });
@@ -90,5 +99,9 @@ const updateReview = asyncHandler(async (req, res) => {
 // @desc Delete review
 // @route POST /api/reviews/:id
 // @access PRIVATE
+
+const deleteReview = asyncHandler(async (req, res) => {
+    
+});
 
 export { getReviews, createReview, updateReview };
