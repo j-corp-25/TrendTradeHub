@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const GET_REVIEWS_REQUEST = "GET_REVIEWS";
+const GET_REVIEWS_REQUEST = "GET_REVIEWS_REQUEST";
 const GET_REVIEWS_SUCCESS = "GET_REVIEWS_SUCCESS";
 const GET_REVIEWS_FAILURE = "GET_REVIEWS_FAILURE";
 
@@ -92,6 +92,14 @@ const initialState = {
 const reviewReducer = (state = initialState, action) => {
   switch (action.type) {
     case GET_REVIEWS_REQUEST:
+        return {
+            ...state,
+            isLoading: true,
+            isError: false,
+            isSuccess: false,
+            message: "",
+          };
+
     case GET_REVIEWS_SUCCESS:
       return {
         ...state,

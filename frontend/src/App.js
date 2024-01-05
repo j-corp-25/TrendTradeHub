@@ -15,6 +15,7 @@ function App() {
     <>
       <NavBar />
       <ToastContainer />
+      {/* <Reviews/> */}
       <div className="">
         <Routes>
           <Route path="/" element={<Main />} />

@@ -9,8 +9,8 @@ import { Container } from "react-bootstrap";
 
 const ReviewItems = () => {
   const dispatch = useDispatch();
-  const { productId } = useParams();
-
+  //   const { productId } = useParams();
+  const productId = "6594f15652f5493ddc03128b";
   const { reviews, isLoading, isError, isSuccess, message } = useSelector(
     (state) => state.reviews
   );
@@ -41,7 +41,11 @@ const ReviewItems = () => {
     <Container>
       <h2>Reviews</h2>
       {reviews.map((review) => (
-        <div key={review._id}>{review.comment}</div>
+        <div key={review._id}>
+          <p>Comment: {review.comment}</p>
+          <p>Rating: {review.rating}</p>
+          <p>User: {review.author.name}</p>
+        </div>
       ))}
     </Container>
   );

@@ -7,7 +7,8 @@ import User from "../models/userModel.js";
 // @access PUBLIC
 const getReviews = asyncHandler(async (req, res) => {
   const productId = req.params.productId;
-  const reviews = await Review.find({ product: productId });
+  const reviews = await Review.find({ product: productId })
+  .populate('author', 'name');
 
   if (reviews.length > 0) {
     res.json(reviews);
