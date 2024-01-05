@@ -1,7 +1,7 @@
 import asyncHandler from "express-async-handler";
 import Review from "../models/reviewModel.js";
 import Product from "../models/productModel.js";
-
+import User from "../models/userModel.js";
 // @desc GET reviews
 // @route GET /api/products/:productId/reviews
 // @access PUBLIC
@@ -58,15 +58,37 @@ const createReview = asyncHandler(async (req, res) => {
 // @desc Update Review
 // @route POST /api/reviews/:id
 // @access PRIVATE
+const updateReview = asyncHandler(async (req, res) => {
+  const reviewId = req.params.id;
+  const userId = req.user.id;
 
+  const review = await Review.findById(reviewId);
+  if (!review) {
+    res.status(404);
+    throw new Error("Review not found");
+  }
 
+  if (review.author.toString() !== userId) {
+    res.status(401);
+    throw new Error("User not authorized to update this review");
+  }
+
+  const product = await Product.findById(review.product);
+  if (!product) {
+    res.status(404);
+    throw new Error("Product not found");
+  }
+  const updatedReview = await Review.findByIdAndUpdate(
+    reviewId,
+    { rating: req.body.rating, comment: req.body.comment },
+    { new: true }
+  );
+
+  res.status(200).json({ message: "Review updated", updatedReview });
+});
 
 // @desc Delete review
 // @route POST /api/reviews/:id
 // @access PRIVATE
 
-
-export {
-    getReviews,
-    createReview
-}
+export { getReviews, createReview, updateReview };
