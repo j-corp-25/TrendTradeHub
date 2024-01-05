@@ -4,6 +4,7 @@ import "./ProductUnit.css";
 import { FaCartPlus, FaAngleRight } from "react-icons/fa";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
+import { fetchSingleProduct } from "../app/product";
 
 function ProductDetails() {
   const {productId} = useParams();
@@ -33,10 +34,13 @@ function ProductDetails() {
           alt={title}
         />
         {images?.length > 1 && (
-            <FaAngleRight className="right-arrow" onClick={handleNextImage} />
+            <FaAngleRight className="right-arrow" onClick={handleNextImage} style={{opacity:"2", right:"5px", top:"50%"}} />
           )}
       </div>
-      <div className="prod-info"></div>
+      <div className="prod-info">
+        <h1>{title}</h1>
+        <h2>{'$'+price.toFixed(2)}</h2>
+      </div>
     </div>
   );
 }

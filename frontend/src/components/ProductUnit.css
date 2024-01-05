@@ -41,11 +41,22 @@
 }
 
 .product-details {
+    margin: 35px;
     display: flex;
-    flex-direction: column;
-    justify-content: center;
     width: 90%;
+    /* height: 350px; */
     border: 2px solid rgba(232, 230, 230, 0.6);
     box-shadow: 3px 3px 5px rgba(255, 255, 255, 0.5);
-    height: 90hv;
+    border-radius: 7px;
+}
+.image-details {
+    position: relative;
+    height: 70vh;
+    width: 40%;
+    z-index: 1;
+}
+
+.image-details img {
+    height: 100%;
+    width: 100%;
 }
