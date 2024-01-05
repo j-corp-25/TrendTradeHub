@@ -2,10 +2,12 @@ import { createStore, combineReducers, applyMiddleware, compose } from 'redux';
 import thunk from 'redux-thunk';
 import productReducer from './product';
 import authReducer from './user';
+import reviewReducer from './reviews'
 
 const rootReducer = combineReducers({
   products: productReducer,
-  auth: authReducer
+  auth: authReducer,
+  reviews: reviewReducer
 });
 
 let enhancer;

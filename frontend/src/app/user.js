@@ -62,7 +62,7 @@ export const login = (userData) => async (dispatch) => {
       (error.response && error.response.data && error.response.data.message) ||
       error.message ||
       error.toString();
-    dispatch(registerFailure(message));
+    dispatch(loginFailure(message));
   }
 };
 
