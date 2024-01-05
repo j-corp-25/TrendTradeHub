@@ -8,6 +8,7 @@
     width: 260px;
     margin-bottom: 20px;
     border: 4px solid rgba(232, 230, 230, 0.6);
+    position: relative;
 }
 
 .price-like-cart{
@@ -25,9 +26,19 @@
 
 .right-arrow {
     position: absolute;
-    top: 50%;
-    right: 10px;
+    top: 40%;
+    right: 2px;
     font-size: 20px;
     cursor: pointer;
-    
+    z-index: 2;
+    opacity: 0;
+    border-radius: 20px;
+    background-color: rgba(209, 194, 194, 0.5);
 }  
+
+.content-image:hover .right-arrow {
+    opacity: 1;
+}
+.image-transition {
+    transition: transform 2s ease-in-out
+}
