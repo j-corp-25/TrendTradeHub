@@ -33,6 +33,7 @@ router.get('/all', getAllProducts);
 router.post('/create', upload.array('myPic', 3), createProduct);
 router.put('/update/:id', updateProduct);
 router.delete('/delete/:id', deleteProduct);
+router.get('detais/:id', getProduct);
 
 
 
