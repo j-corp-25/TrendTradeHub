@@ -21,7 +21,7 @@ const getReviews = asyncHandler(async (req, res) => {
 // @route POST /api/reviews/create
 // @access PRIVATE
 const createReview = asyncHandler(async (req, res) => {
-  // productId is going to be in the params so not needed for validation, product id doesnt need input, its referenced automatically
+  // productId is going to be in the params so not needed for validation, product id doesn't need input, its referenced automatically
   const { productId, rating, comment } = req.body;
   const userId = req.user._id;
 
@@ -101,7 +101,7 @@ const updateReview = asyncHandler(async (req, res) => {
 // @access PRIVATE
 
 const deleteReview = asyncHandler(async (req, res) => {
-    
+
 });
 
 export { getReviews, createReview, updateReview };
