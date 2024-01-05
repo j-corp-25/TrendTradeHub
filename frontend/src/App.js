@@ -8,10 +8,12 @@ import Register from "./pages/Register";
 import NewProduct from "./pages/NewProduct";
 import ProductUnit from "./components/ProductUnit";
 import ProductDetails from "./components/ProductDetails";
+
 function App() {
   return (
     <>
-        <NavBar />
+      <NavBar />
+      <ToastContainer />
       <div className="">
         <Routes>
           <Route path="/" element={<Main />} />
@@ -20,10 +22,9 @@ function App() {
           <Route path="/profile" element={<Profile />} />
           <Route path="/register" element={<Register />} />
           <Route path="/newproduct" element={<NewProduct />} />
+
           <Route path="/productUnit" element={<ProductUnit />} />
           <Route path="/product/:productId" element={<ProductDetails />} />
-
-
         </Routes>
       </div>
     </>

@@ -1,4 +1,5 @@
 // routes/productRoutes.js
+
 import express from 'express';
 import multer from 'multer';
 import multerS3 from 'multer-s3';
@@ -6,6 +7,7 @@ import dotenv from 'dotenv';
 import AWS from 'aws-sdk';
 import Product from '../models/productModel.js';
 import { getAllProducts, createProduct, updateProduct, deleteProduct, getProduct, getRelatedProducts } from '../controllers/productController.js';
+
 
 
 dotenv.config();
@@ -29,12 +31,14 @@ const upload = multer({
 });
 
 
+
 router.get('/all', getAllProducts);
 router.post('/create', upload.array('myPic', 3), createProduct);
 router.put('/update/:id', updateProduct);
 router.delete('/delete/:id', deleteProduct);
 router.get('/details/:id', getProduct);
 router.get('/related/:productId', getRelatedProducts);
+
 
 
 
