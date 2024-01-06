@@ -4,7 +4,12 @@ import "./ProductUnit.css";
 import { FaCartPlus, FaAngleRight } from "react-icons/fa";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
-import { fetchSingleProduct, fetchRelatedProducts, fetchProducts } from "../app/product";
+import { Container } from "react-bootstrap";
+import {
+  fetchSingleProduct,
+  fetchRelatedProducts,
+  fetchProducts,
+} from "../app/product";
 import ProductUnit from "./ProductUnit";
 
 function ProductDetails() {
@@ -13,7 +18,9 @@ function ProductDetails() {
   const dispatch = useDispatch();
   const product = useSelector((state) => state.products.selectedProduct) || {};
   const { title, price, images, _id } = product;
-  const relatedProductIds = useSelector((state) => state.products.relatedProductIds);
+  const relatedProductIds = useSelector(
+    (state) => state.products.relatedProductIds
+  );
 
   const [loading, setLoading] = useState(true);
 
@@ -24,7 +31,7 @@ function ProductDetails() {
         await dispatch(fetchRelatedProducts(productId));
         setLoading(false);
       } catch (error) {
-        console.error('Error fetching data:', error);
+        console.error("Error fetching data:", error);
         setLoading(false);
       }
     };
@@ -48,36 +55,52 @@ function ProductDetails() {
   };
 
   return (
-    <> 
+    <>
       {!loading && (
-        <div className="product-details">
-          <div className="image-details">
-            <img
-              src={
-                images[currentImageIndex] 
-              }
-              alt={title}
-            />
-            {images?.length > 1 && (
-              <FaAngleRight className="right-arrow" onClick={handleNextImage} style={{opacity:"2", right:"5px", top:"50%"}} />
-            )}
+        <section>
+          <div className="container my-5">
+            <div className="row">
+              <div className="col-lg-3 col-md-6 col-sm-6 d-flex">
+                <div className="card w-100 my-2 shadow-2-strong">
+                  <div className="product-details">
+                    <div className="image-details">
+                      <img
+                        src={images[currentImageIndex]}
+                        alt={title}
+                        className="card-img-top"
+                        style={{ aspectRatio: "1 / 1" }}
+                      />
+                      {images?.length > 1 && (
+                        <FaAngleRight
+                          className="right-arrow"
+                          onClick={handleNextImage}
+                          style={{ opacity: "2", right: "5px", top: "50%" }}
+                        />
+                      )}
+                    </div>
+                    <div className="prod-info">
+                      <h1>{title}</h1>
+                      <h2>${price}</h2>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div className="row sugg">
+                <h4>Related Products</h4>
+                <div className="col-12">
+                  {relatedProductIds?.length > 0 &&
+                    relatedProductIds?.map((relatedProductId) => (
+                      <ProductUnit
+                        key={relatedProductId}
+                        productId={relatedProductId}
+                      />
+                    ))}
+                </div>
+              </div>
+            </div>
           </div>
-          <div className="prod-info">
-            <h1>{title}</h1>
-            <h2>${price}</h2>
-          </div>
-        </div>
+        </section>
       )}
-
-      <div className="sugg">
-        <h4>Related Products</h4>
-        <div className="product-list">
-        {relatedProductIds?.length > 0 &&
-            relatedProductIds?.map((relatedProductId) => (
-              <ProductUnit key={relatedProductId} productId={relatedProductId} />
-            ))}
-        </div>
-      </div>
     </>
   );
 }
