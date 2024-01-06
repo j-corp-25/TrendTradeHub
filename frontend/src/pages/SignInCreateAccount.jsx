@@ -27,7 +27,7 @@ const SignInCreateAccount = () => {
           <div className="form-container sign-up">
             <form>
               <h1>Create Account</h1>
-              <div className="social-icons">
+              {/* <div className="social-icons">
                 <a href="" className="icon">
                   <FaGoogle />
                 </a>
@@ -40,7 +40,7 @@ const SignInCreateAccount = () => {
                 <a href="" className="icon">
                   <FaGithubAlt />
                 </a>
-              </div>
+              </div> */}
               <span>or use your email for registration</span>
               <input type="text" placeholder="Name" />
               <input type="email" placeholder="Email" />
@@ -52,7 +52,7 @@ const SignInCreateAccount = () => {
           <div className="form-container sign-in">
             <form>
               <h1>Sign In</h1>
-              <div className="social-icons">
+              {/* <div className="social-icons">
                 <a href="" className="icon">
                   <FaGoogle />
                 </a>
@@ -65,8 +65,8 @@ const SignInCreateAccount = () => {
                 <a href="" className="icon">
                   <FaGithubAlt />
                 </a>
-              </div>
-              <span>or use your email password</span>
+              </div> */}
+              <span>Use your email and password</span>
               <input type="email" placeholder="Email" />
               <input type="password" placeholder="Password" />
               <a href="">Forgot Your Password?</a>
