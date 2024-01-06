@@ -32,7 +32,7 @@ function NavBar() {
     <header>
       <Navbar bg="dark" variant="dark" expand="lg" collapseOnSelect>
         <Container className="my-3">
-          <LinkContainer to="/">
+          <LinkContainer to="/listings">
             <NavbarBrand>TrendTradeHub</NavbarBrand>
           </LinkContainer>
           <NavbarToggle aria-controls="basic-navbar-nav" />

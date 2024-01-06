@@ -29,9 +29,9 @@ function Login() {
     if (isError) {
       toast.error(message);
     }
-    if (isSuccess || user) {
-      navigate("/");
-    }
+    // if (isSuccess || user) {
+    //   navigate("/");
+    // }
 
     return () => {
       dispatch(reset());
@@ -67,36 +67,35 @@ function Login() {
   }
 
   return (
-    <>
-      <Container>
-        <h2>Login</h2>
-        <Form onSubmit={onSubmit}>
+    <div class="form-container sign-in-container">
+      
+        
+        <Form onSubmit={onSubmit} className="formDual">
+          <h1>Sign in</h1>
           <FormGroup className="mb-3" controlId="email">
-            <FormLabel>Email</FormLabel>
             <FormControl
               type="email"
-              placeholder="Enter an email"
+              placeholder="Email"
               name="email"
               value={formData.email}
               onChange={onChange}
             />
           </FormGroup>
           <FormGroup className="mb-3" controlId="password">
-            <FormLabel>Password</FormLabel>
             <FormControl
               type="password"
-              placeholder="Enter your password"
+              placeholder="Password"
               name="password"
               value={formData.password}
               onChange={onChange}
             />
           </FormGroup>
-          <Button variant="primary" type="submit">
+          <Button variant="primary" type="submit" className="dualButton">
             Submit
           </Button>
         </Form>
-      </Container>
-    </>
+      
+    </div>
   );
 }
 

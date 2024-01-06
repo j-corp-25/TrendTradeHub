@@ -31,9 +31,9 @@ function Register() {
     if (isError) {
       toast.error(message);
     }
-    if (isSuccess || user) {
-      navigate("/");
-    }
+    // if (isSuccess || user) {
+    //   navigate("/");
+    // }
 
     return () => {
       dispatch(reset());
@@ -75,42 +75,39 @@ function Register() {
   }
 
   return (
-    <>
-      <Container>
-        <h2>Register</h2>
-        <Form onSubmit={onSubmit}>
+    <div class="form-container sign-up-container">
+        
+        <Form onSubmit={onSubmit} className="formDual">
+          <h1>Create account </h1>
           <FormGroup className="mb-3" controlId="name">
-            <FormLabel>Name</FormLabel>
             <FormControl
               type="text"
-              placeholder="Enter your name"
+              placeholder="Name"
               name="name"
               value={formData.name}
               onChange={onChange}
             />
           </FormGroup>
           <FormGroup className="mb-3" controlId="email">
-            <FormLabel>Email</FormLabel>
+     
             <FormControl
               type="email"
-              placeholder="Enter an email"
+              placeholder="Email"
               name="email"
               value={formData.email}
               onChange={onChange}
             />
           </FormGroup>
           <FormGroup className="mb-3" controlId="password">
-            <FormLabel>Password</FormLabel>
             <FormControl
               type="password"
-              placeholder="Enter your password"
+              placeholder="Password"
               name="password"
               value={formData.password}
               onChange={onChange}
             />
           </FormGroup>
           <FormGroup className="mb-3" controlId="password2">
-            <FormLabel>Confirm password</FormLabel>
             <FormControl
               type="password"
               placeholder="Confirm password"
@@ -120,12 +117,11 @@ function Register() {
             />
           </FormGroup>
 
-          <Button variant="primary" type="submit">
+          <Button variant="primary" type="submit" className="dualButton">
             Submit
           </Button>
         </Form>
-      </Container>
-    </>
+    </div>
   );
 }
 
