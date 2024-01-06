@@ -5,6 +5,7 @@ import { Link } from "react-router-dom";
 import { FaCartPlus, FaAngleRight } from "react-icons/fa";
 import { useSelector } from "react-redux";
 
+
 function ProductUnit({ productId }) {
   const products = useSelector((state) => state.products.products) || [];
   const selectedProduct = products.find((product) => product._id === productId) || {};

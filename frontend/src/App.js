@@ -10,18 +10,18 @@ import NewProduct from "./pages/NewProduct";
 import Reviews from "./components/Reviews/ReviewItems";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import ProductItems from "./components/Products/ProductItems";
 
 import ProductUnit from "./components/ProductUnit";
 import ProductDetails from "./components/ProductDetails";
 import Dual from "./pages/Dual";
-
 
 function App() {
   return (
     <>
       <NavBar />
       <ToastContainer />
-      <div className="">
+
         <Routes>
           <Route path="/" element={<Main />} />
           <Route path="/listings" element={<Listings />} />
@@ -37,7 +37,7 @@ function App() {
 
 
         </Routes>
-      </div>
+
     </>
   );
 }
