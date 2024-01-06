@@ -67,7 +67,7 @@ function Login() {
   }
 
   return (
-    <>
+    <div class="form-container sign-in-container">
       <Container>
         <h2>Login</h2>
         <Form onSubmit={onSubmit}>
@@ -96,7 +96,7 @@ function Login() {
           </Button>
         </Form>
       </Container>
-    </>
+    </div>
   );
 }
 
