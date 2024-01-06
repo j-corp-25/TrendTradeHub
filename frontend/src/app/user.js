@@ -9,11 +9,26 @@ const LOGIN_FAILURE = "LOGIN_FAILURE";
 const LOGOUT = "LOGOUT";
 const RESET = "RESET";
 
+const UPDATE_PROFILE_REQUEST = "UPDATE_PROFILE_REQUEST";
+const UPDATE_PROFILE_SUCCESS = "UPDATE_PROFILE_SUCCESS";
+const UPDATE_PROFILE_FAILURE = "UPDATE_PROFILE_FAILURE";
+
 const API_URL = "/api/users/register";
 const API_URL_LOGIN = "/api/users/login";
+const API_URL_PROFILE = "/api/users/profile"
 
 const user = JSON.parse(localStorage.getItem("user"));
+const userToken = user ? user.token : null;
 
+export const updateProfileRequest = () => ({ type: UPDATE_PROFILE_REQUEST });
+export const updateProfileSuccess = (user) => ({
+  type: UPDATE_PROFILE_SUCCESS,
+  payload: user,
+});
+export const updateProfileFailure = (message) => ({
+  type: UPDATE_PROFILE_FAILURE,
+  payload: message,
+});
 
 export const registerRequest = () => ({ type: REGISTER_REQUEST });
 export const registerSuccess = (user) => ({
@@ -35,7 +50,6 @@ export const loginFailure = (message) => ({
 export const logout = () => ({ type: LOGOUT });
 export const reset = () => ({ type: RESET });
 
-
 export const register = (userData) => async (dispatch) => {
   dispatch(registerRequest());
   try {
@@ -48,6 +62,25 @@ export const register = (userData) => async (dispatch) => {
       error.message ||
       error.toString();
     dispatch(registerFailure(message));
+  }
+};
+export const updateProfile = (userData) => async (dispatch) => {
+  dispatch(updateProfileRequest());
+  try {
+    const config = {
+      headers: {
+        Authorization: `Bearer ${userToken}`,
+      },
+    };
+
+    const response = await axios.patch(API_URL_PROFILE, userData, config);
+    dispatch(updateProfileSuccess(response.data));
+  } catch (error) {
+    const message =
+      (error.response && error.response.data && error.response.data.message) ||
+      error.message ||
+      error.toString();
+    dispatch(updateProfileFailure(message));
   }
 };
 
@@ -108,8 +141,24 @@ const authReducer = (state = initialState, action) => {
         isLoading: false,
         isError: false,
         isSuccess: false,
-
       };
+    case UPDATE_PROFILE_REQUEST:
+      return { ...state, isLoading: true, isError: false, isSuccess: false };
+    case UPDATE_PROFILE_SUCCESS:
+      return {
+        ...state,
+        isLoading: false,
+        isSuccess: true,
+        user: action.payload,
+      };
+    case UPDATE_PROFILE_FAILURE:
+      return {
+        ...state,
+        isLoading: false,
+        isError: true,
+        message: action.payload,
+      };
+
     default:
       return state;
   }

@@ -20,7 +20,7 @@ function App() {
     <>
       <NavBar />
       <ToastContainer />
-      <div className="">
+
         <Routes>
           <Route path="/" element={<Main />} />
           <Route path="/listings" element={<Listings />} />
@@ -32,7 +32,7 @@ function App() {
           <Route path="/productUnit" element={<ProductUnit />} />
           <Route path="/product/:productId" element={<ProductDetails />} />
         </Routes>
-      </div>
+
     </>
   );
 }
