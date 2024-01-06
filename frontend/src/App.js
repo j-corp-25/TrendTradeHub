@@ -15,6 +15,7 @@ import ProductItems from "./components/Products/ProductItems";
 import ProductUnit from "./components/ProductUnit";
 import ProductDetails from "./components/ProductDetails";
 import Dual from "./pages/Dual";
+import Dual2 from "./pages/SignInCreateAccount";
 
 function App() {
   return (
@@ -22,22 +23,18 @@ function App() {
       <NavBar />
       <ToastContainer />
 
-        <Routes>
-          <Route path="/" element={<Main />} />
-          <Route path="/listings" element={<Listings />} />
-          <Route path="/login" element={<Login />} />
-          <Route path="/profile" element={<Profile />} />
-          <Route path="/register" element={<Register />} />
-          <Route path="/newproduct" element={<NewProduct />} />
-          <Route path="/reviews" element={<Reviews />} />
-          <Route path="/productUnit" element={<ProductUnit />} />
-          <Route path="/product/:productId" element={<ProductDetails />} />
-          <Route path="/dual/*" element={<Dual />} />
-          
-
-
-        </Routes>
-
+      <Routes>
+        <Route path="/" element={<Main />} />
+        <Route path="/products" element={<Listings />} />
+        <Route path="/login" element={<Dual2 />} />
+        <Route path="/profile" element={<Profile />} />
+        <Route path="/register" element={<Register />} />
+        <Route path="/newproduct" element={<NewProduct />} />
+        <Route path="/reviews" element={<Reviews />} />
+        <Route path="/productUnit" element={<ProductUnit />} />
+        <Route path="/product/:productId" element={<ProductDetails />} />
+        <Route path="/dual/*" element={<Dual />} />
+      </Routes>
     </>
   );
 }

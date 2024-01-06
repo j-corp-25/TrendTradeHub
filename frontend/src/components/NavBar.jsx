@@ -32,7 +32,7 @@ function NavBar() {
     <header>
       <Navbar bg="dark" variant="dark" expand="lg" collapseOnSelect>
         <Container className="my-3">
-          <LinkContainer to="/listings">
+          <LinkContainer to="/products">
             <NavbarBrand>TrendTradeHub</NavbarBrand>
           </LinkContainer>
           <NavbarToggle aria-controls="basic-navbar-nav" />
@@ -79,12 +79,12 @@ function NavBar() {
                     </NavLink>
                   </LinkContainer>
 
-                  <LinkContainer to="/register">
+                  {/* <LinkContainer to="/register">
                     <NavLink>
                       <FaUserAlt />
                       Sign Up
                     </NavLink>
-                  </LinkContainer>
+                  </LinkContainer> */}
                 </>
               )}
             </Nav>
