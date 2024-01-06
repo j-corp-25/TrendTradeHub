@@ -20,8 +20,8 @@ import Dual2 from "./pages/SignInCreateAccount";
 function App() {
   return (
     <>
-      {/* <NavBar /> */}
-      {/* <ToastContainer /> */}
+      <NavBar />
+      <ToastContainer />
 
       <Routes>
         <Route path="/" element={<Main />} />
