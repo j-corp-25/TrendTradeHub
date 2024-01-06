@@ -3,21 +3,29 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import "./ProductUnit.css";
 import { Link } from "react-router-dom";
 import { FaCartPlus, FaAngleRight } from "react-icons/fa";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { FaStar, FaStarHalfAlt } from "react-icons/fa";
+import { fetchReviews } from "../app/reviews";
 
 function ProductUnit({ productId }) {
+  const dispatch = useDispatch();
   const products = useSelector((state) => state.products.products) || [];
   const selectedProduct =
     products.find((product) => product._id === productId) || {};
   const { title, price, images } = selectedProduct;
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
 
+
+
   const handleNextImage = () => {
     setCurrentImageIndex((prevIndex) =>
       prevIndex === images.length - 1 ? 0 : prevIndex + 1
     );
   };
+
+  useEffect(() => {
+    dispatch(fetchReviews(productId));
+  },[]);
 
   return (
     <div className="product-item">
