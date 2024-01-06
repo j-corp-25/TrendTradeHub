@@ -13,6 +13,7 @@ import "react-toastify/dist/ReactToastify.css";
 
 import ProductUnit from "./components/ProductUnit";
 import ProductDetails from "./components/ProductDetails";
+import Dual from "./pages/Dual";
 
 
 function App() {
@@ -31,6 +32,10 @@ function App() {
           <Route path="/reviews" element={<Reviews />} />
           <Route path="/productUnit" element={<ProductUnit />} />
           <Route path="/product/:productId" element={<ProductDetails />} />
+          <Route path="/dual/*" element={<Dual />} />
+          
+
+
         </Routes>
       </div>
     </>
