@@ -28,6 +28,8 @@
   max-width: 100%;
   min-height: 480px;
   overflow: hidden;
+  top: 20px;
+  bottom: 20px;
 }
 
 @media (min-width: 768px) {
