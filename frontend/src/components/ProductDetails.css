@@ -54,6 +54,7 @@ a{
 }
 .detail .image img{
     width: 100%;
+    height: 40rem;
 }
 .detail .image{
     position: relative;
@@ -143,3 +144,4 @@ a{
         justify-content: center;
     }
 }
+

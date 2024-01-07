@@ -115,10 +115,17 @@ function ProductDetails() {
                   alt={product.title || "Product Image"}
                   className="card-img-top"
                 />
-                {product.images.length > 1 && (
+                {product.images.length >= 2 && (
                   <FaAngleRight
                     className="right-arrow"
                     onClick={handleNextImage}
+                    style={{
+                      position: "absolute",
+                      opacity: "1",
+                      right: "10px",
+                      top: "50%",
+                      transform: "translateY(-50%)",
+                    }}
                   />
                 )}
               </>
