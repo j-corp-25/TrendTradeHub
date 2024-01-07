@@ -7,11 +7,18 @@ import User from "../models/userModel.js";
 // @access PUBLIC
 const getReviews = asyncHandler(async (req, res) => {
   const productId = req.params.productId;
-  const reviews = await Review.find({ product: productId })
-  .populate('author', 'name');
+  const reviews = await Review.find({ product: productId }).populate(
+    "author",
+    "name"
+  );
 
   if (reviews.length > 0) {
-    res.json(reviews);
+    let averageRating =
+      reviews.reduce((acc, review) => acc + review.rating, 0) / reviews.length;
+
+    averageRating = parseFloat(averageRating.toFixed(2));
+
+    res.json({ reviews, averageRating });
   } else {
     res.status(404);
     throw new Error("No reviews found for this product");
@@ -103,7 +110,7 @@ const updateReview = asyncHandler(async (req, res) => {
 
 const deleteReview = asyncHandler(async (req, res) => {
   const review = await Review.findById(req.params.id);
-  const user = req.user.id
+  const user = req.user.id;
 
   if (!review) {
     res.status(401);
@@ -120,7 +127,7 @@ const deleteReview = asyncHandler(async (req, res) => {
 
   await Review.findByIdAndDelete(review._id);
 
-  res.status(200).json({message: "Review has been deleted"});
+  res.status(200).json({ message: "Review has been deleted" });
 });
 
 export { getReviews, createReview, updateReview, deleteReview };

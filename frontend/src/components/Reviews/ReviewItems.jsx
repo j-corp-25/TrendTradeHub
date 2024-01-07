@@ -7,10 +7,9 @@ import { fetchReviews } from "../../app/reviews";
 import { useParams } from "react-router-dom";
 import { Container } from "react-bootstrap";
 
-const ReviewItems = () => {
+const ReviewItems = ({ productId }) => {
   const dispatch = useDispatch();
-    const { productId } = useParams();
-  const { reviews, isLoading, isError, isSuccess, message } = useSelector(
+  const { reviews, isLoading, isError, isSuccess, message, averageRating } = useSelector(
     (state) => state.reviews
   );
 
@@ -18,10 +17,14 @@ const ReviewItems = () => {
     if (productId) {
       dispatch(fetchReviews(productId));
     }
-    if (isError) {
-      toast.error(message);
+  }, [dispatch, productId]);
+
+  useEffect(() => {
+    if (isError && !isLoading) {
+      console.log(message)
     }
-  }, [dispatch, productId, isError, message]);
+  }, [isError, isLoading, message]);
+
 
   if (isLoading) {
     return (
@@ -39,6 +42,9 @@ const ReviewItems = () => {
   return (
     <Container>
       <h2>Reviews</h2>
+      {/* console.log("Average Rating:", averageRating); */}
+
+      <h2>Average Review: {averageRating}</h2>
       {reviews.map((review) => (
         <div key={review._id}>
           <p>Comment: {review.comment}</p>
