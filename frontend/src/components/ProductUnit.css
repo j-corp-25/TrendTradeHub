@@ -1,4 +1,4 @@
-/* 
+
  .image img{
     width:100%;
     height:250px
@@ -11,7 +11,7 @@
     position: relative;
 }
 
-.price-like-cart{
+.price-like-cart, .name-rate{
     display: flex;
     flex-direction: row;
     justify-content: space-between;
@@ -62,4 +62,10 @@
 
 .sugg{
     margin: 35px;
-} */
+}
+.rating{
+    display: flex;
+}
+
+
+

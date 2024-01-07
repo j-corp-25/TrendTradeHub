@@ -9,8 +9,7 @@ import { Container } from "react-bootstrap";
 
 const ReviewItems = () => {
   const dispatch = useDispatch();
-  //   const { productId } = useParams();
-  const productId = "6594f15652f5493ddc03128b";
+    const { productId } = useParams();
   const { reviews, isLoading, isError, isSuccess, message } = useSelector(
     (state) => state.reviews
   );

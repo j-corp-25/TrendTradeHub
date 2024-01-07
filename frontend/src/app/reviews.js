@@ -12,7 +12,7 @@ const DELETE_REVIEW_REQUEST = "DELETE_REVIEW_REQUEST";
 const DELETE_REVIEW_SUCCESS = "DELETE_REVIEW_SUCCESS";
 const DELETE_REVIEW_FAILURE = "DELETE_REVIEW_FAILURE";
 
-const API_URL = "/api/reviews/";
+const API_URL = "/api/reviews";
 const API_CURL_CREATE = "/api/reviews/create";
 
 //this gets the token from the user object in local storage
@@ -50,7 +50,7 @@ export const createReviewFailure = (message) => ({
 export const fetchReviews = (productId) => async (dispatch) => {
   dispatch(getReviewsRequest());
   try {
-    const url = `${API_URL}/${productId}/reviews`
+    const url = `${API_URL}/${productId}`
     const response = await axios.get(url);
     dispatch(getReviewsSuccess(response.data));
   } catch (error) {
@@ -114,6 +114,7 @@ const reviewReducer = (state = initialState, action) => {
         isLoading: false,
         isError: true,
         message: action.payload,
+        reviews: [],
       };
     case CREATE_REVIEW_REQUEST:
       return {
@@ -122,6 +123,7 @@ const reviewReducer = (state = initialState, action) => {
         isError: false,
         isSuccess: false,
         message: "",
+        reviews: [],
       };
     case CREATE_REVIEW_SUCCESS:
       return {
@@ -130,6 +132,7 @@ const reviewReducer = (state = initialState, action) => {
         reviews: [...state.reviews, action.payload],
         isSuccess: true,
         message: "",
+        reviews: [],
       };
     case CREATE_REVIEW_FAILURE:
       return {
@@ -138,6 +141,7 @@ const reviewReducer = (state = initialState, action) => {
         isError: true,
         isSuccess: false,
         message: action.payload,
+        reviews: [],
       };
     default:
       return state;
