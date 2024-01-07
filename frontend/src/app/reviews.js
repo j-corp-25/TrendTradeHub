@@ -55,12 +55,23 @@ export const deleteReviewPending = () => ({
   type: DELETE_REVIEW_PENDING,
 });
 
-export const deleteReviewSuccess = (reviews) => ({
+export const deleteReviewSuccess = (reviewId) => ({
   type: DELETE_REVIEW_SUCCESS,
-  payload: reviews,
+  payload: reviewId,
 });
 export const deleteReviewFailure = (message) => ({
   type: DELETE_REVIEW_FAILURE,
+  payload: message,
+});
+export const updateReviewPending = () => ({
+  type: UPDATE_REVIEW_PENDING,
+});
+export const updateReviewSuccess = (review) => ({
+  type: UPDATE_REVIEW_SUCCESS,
+  payload: review,
+});
+export const updateReviewFailure = (message) => ({
+  type: UPDATE_REVIEW_FAILURE,
   payload: message,
 });
 
@@ -118,7 +129,28 @@ export const createReview = (reviewData) => async (dispatch) => {
   }
 };
 
-
+export const updateReview =
+  (reviewId, updatedReviewData) => async (dispatch) => {
+    dispatch(updateReviewPending());
+    try {
+      const config = {
+        headers: {
+          Authorization: `Bearer ${userToken}`,
+        },
+      };
+      const url = `${API_URL}${reviewId}`;
+      const response = await axios.patch(url, updatedReviewData, config);
+      dispatch(updateReviewSuccess(response.data));
+    } catch (error) {
+      const message =
+        (error.response &&
+          error.response.data &&
+          error.response.data.message) ||
+        error.message ||
+        error.toString();
+      dispatch(updateReviewFailure(message));
+    }
+  };
 const initialState = {
   reviews: [],
   isError: false,
@@ -198,6 +230,30 @@ const reviewReducer = (state = initialState, action) => {
         isLoading: false,
         isError: true,
         isSuccess: false,
+        message: action.payload,
+      };
+    case UPDATE_REVIEW_PENDING:
+      return {
+        ...state,
+        isLoading: true,
+      };
+    case UPDATE_REVIEW_SUCCESS:
+      return {
+        ...state,
+        isLoading: false,
+        isSuccess: true,
+        reviews: state.reviews.map((review) =>
+          review.id === action.payload.updatedReview.id
+            ? action.payload.updatedReview
+            : review
+        ),
+      };
+
+    case UPDATE_REVIEW_FAILURE:
+      return {
+        ...state,
+        isLoading: false,
+        isError: true,
         message: action.payload,
       };
     default:
