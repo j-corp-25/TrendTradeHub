@@ -9,7 +9,7 @@ import { Container } from "react-bootstrap";
 
 const ReviewItems = ({ productId }) => {
   const dispatch = useDispatch();
-  const { reviews, isLoading, isError, isSuccess, message } = useSelector(
+  const { reviews, isLoading, isError, isSuccess, message, averageRating } = useSelector(
     (state) => state.reviews
   );
 
@@ -42,6 +42,9 @@ const ReviewItems = ({ productId }) => {
   return (
     <Container>
       <h2>Reviews</h2>
+      {/* console.log("Average Rating:", averageRating); */}
+
+      <h2>Average Review: {averageRating}</h2>
       {reviews.map((review) => (
         <div key={review._id}>
           <p>Comment: {review.comment}</p>

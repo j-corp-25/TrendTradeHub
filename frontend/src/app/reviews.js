@@ -181,7 +181,7 @@ const reviewReducer = (state = initialState, action) => {
         ...state,
         reviews: action.payload.reviews,
         averageRating: action.payload.averageRating,
-        loading: false,
+        isLoading: false,
         error: null,
       };
     case GET_REVIEWS_FAILURE:

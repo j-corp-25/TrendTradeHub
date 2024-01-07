@@ -159,6 +159,9 @@ function ProductDetails() {
               ))}
           </div>
         </div>
+        <section>
+          <ReviewItems productId={productId} />
+        </section>
       </section>
     </>
   );
