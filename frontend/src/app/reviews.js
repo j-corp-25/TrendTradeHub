@@ -19,7 +19,6 @@ const UPDATE_REVIEW_FAILURE = "UPDATE_REVIEW_FAILURE";
 const API_URL = "/api/reviews/";
 const API_URL_CREATE = "/api/reviews/create";
 
-
 //this gets the token from the user object in local storage
 const storedUser = localStorage.getItem("user");
 const user = storedUser ? JSON.parse(storedUser) : null;
@@ -33,7 +32,6 @@ export const getReviewsSuccess = ({ reviews, averageRating }) => ({
   type: GET_REVIEWS_SUCCESS,
   payload: { reviews, averageRating },
 });
-
 
 export const getReviewsFailure = (message) => ({
   type: GET_REVIEWS_FAILURE,
@@ -100,13 +98,14 @@ export const deleteReview = (reviewId) => async (dispatch) => {
 export const fetchReviews = (productId) => async (dispatch) => {
   dispatch(getReviewsRequest());
   try {
-
-    const url = `${API_URL}/${productId}`
+    const url = `${API_URL}/${productId}`;
     const response = await axios.get(url);
-    dispatch(getReviewsSuccess({
-      reviews: response.data.reviews,
-      averageRating: response.data.averageRating
-    }));
+    dispatch(
+      getReviewsSuccess({
+        reviews: response.data.reviews,
+        averageRating: response.data.averageRating,
+      })
+    );
   } catch (error) {
     const message =
       (error.response && error.response.data && error.response.data.message) ||
@@ -180,10 +179,10 @@ const reviewReducer = (state = initialState, action) => {
     case GET_REVIEWS_SUCCESS:
       return {
         ...state,
-        isLoading: false,
-        reviews: action.payload,
-        isSuccess: true,
-        message: "",
+        reviews: action.payload.reviews,
+        averageRating: action.payload.averageRating,
+        loading: false,
+        error: null,
       };
     case GET_REVIEWS_FAILURE:
       return {
