@@ -5,6 +5,7 @@ import { FaCartPlus, FaAngleRight } from "react-icons/fa";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import { Container } from "react-bootstrap";
+import ReviewItems from "./Reviews/ReviewItems";
 import {
   fetchSingleProduct,
   fetchRelatedProducts,
@@ -81,6 +82,7 @@ function ProductDetails() {
                     <div className="prod-info">
                       <h1>{title}</h1>
                       <h2>${price}</h2>
+                      <ReviewItems productId={productId}/>
                     </div>
                   </div>
                 </div>

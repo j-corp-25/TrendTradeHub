@@ -15,7 +15,7 @@ function ProductUnit({ productId }) {
   const { title, price, images } = selectedProduct;
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const reviewsState = useSelector((state) => state.reviews);
-  
+
   const reviews = reviewsState.reviews || [];
   let ratingObject = {};
 
@@ -23,9 +23,9 @@ function ProductUnit({ productId }) {
     Array.isArray(reviews) && reviews.length > 0
       ? reviews.reduce((sum, review) => sum + review.rating, 0) / reviews.length
       : 0;
-      
+
       ratingObject[productId] = totalRating;
-  
+
 
    const renderStars = (totalRating) => {
     const roundedRating = Math.round(totalRating * 2) / 2;
@@ -50,9 +50,9 @@ function ProductUnit({ productId }) {
     );
   };
 
-  useEffect(() => {
-    dispatch(fetchReviews(productId));
-  }, [dispatch, productId]);
+  // useEffect(() => {
+  //   dispatch(fetchReviews(productId));
+  // }, [dispatch, productId]);
 
   return (
     <div className="product-item">

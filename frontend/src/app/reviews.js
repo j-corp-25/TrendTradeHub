@@ -185,6 +185,7 @@ const reviewReducer = (state = initialState, action) => {
         ...state,
         isLoading: false,
         isError: true,
+        isSuccess: false,
         message: action.payload,
         reviews: [],
       };
