@@ -14,8 +14,32 @@ function ProductUnit({ productId }) {
     products.find((product) => product._id === productId) || {};
   const { title, price, images } = selectedProduct;
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
+  const reviewsState = useSelector((state) => state.reviews);
+  
+  const reviews = reviewsState.reviews || [];
 
+  const totalRating =
+    Array.isArray(reviews) && reviews.length > 0
+      ? reviews.reduce((sum, review) => sum + review.rating, 0) / reviews.length
+      : 0;
+  
 
+   const renderStars = (totalRating) => {
+    const roundedRating = Math.round(totalRating * 2) / 2;
+    const starIcons = [];
+
+    for (let i = 1; i <= 5; i++) {
+      if (i <= roundedRating) {
+        starIcons.push(<FaStar key={i} className="fa fa-star" />);
+      } else if (i - 0.5 === roundedRating) {
+        starIcons.push(<FaStarHalfAlt key={i} className="fa fa-star-half-o" />);
+      } else {
+        starIcons.push(<FaStar key={i} className="fa fa-star-o" />);
+      }
+    }
+
+    return starIcons;
+  };
 
   const handleNextImage = () => {
     setCurrentImageIndex((prevIndex) =>
@@ -25,7 +49,7 @@ function ProductUnit({ productId }) {
 
   useEffect(() => {
     dispatch(fetchReviews(productId));
-  },[]);
+  }, [dispatch, productId]);
 
   return (
     <div className="product-item">
@@ -50,23 +74,7 @@ function ProductUnit({ productId }) {
         <div className="name">
           <Link to={`/product/${productId}`}>{title}</Link>
         </div>
-        <div class="rating">
-          <span class="fa fa-stack">
-            <FaStar className="fa fa-star" />
-          </span>
-          <span class="fa fa-stack">
-            <FaStar className="fa fa-star" />
-          </span>
-          <span class="fa fa-stack">
-            <FaStar className="fa fa-star" />
-          </span>
-          <span class="fa fa-stack">
-            <FaStar className="fa fa-star" />
-          </span>
-          <span class="fa fa-stack">
-            <FaStarHalfAlt className="fa fa-star-half-o" />
-          </span>
-        </div>
+        <div className="rating">{renderStars(totalRating)}</div>
       </div>
 
       <div className="price-like-cart">
