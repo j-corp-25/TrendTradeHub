@@ -24,10 +24,10 @@ function NavBar() {
   const { user } = useSelector((state) => state.auth);
 
   const onLogout = () => {
-    dispatch(logout())
-    dispatch(reset())
-    navigate('/login')
-  }
+    dispatch(logout());
+    dispatch(reset());
+    navigate("/login");
+  };
   return (
     <header>
       <Navbar bg="dark" variant="dark" expand="lg" collapseOnSelect>
@@ -50,7 +50,7 @@ function NavBar() {
             </Nav>
 
             <Nav className="ms-auto">
-            {user ? (
+              {user ? (
                 <>
                   <NavLink onClick={onLogout}>
                     <FaSignOutAlt />
@@ -62,13 +62,9 @@ function NavBar() {
                       Profile
                     </NavLink>
                   </LinkContainer>
-                  <LinkContainer to="/newproduct">
-                    <NavLink>
-                      <FaUserAlt />
-                      Product
-                    </NavLink>
+                  <LinkContainer to="/products">
+                    <NavLink>Products</NavLink>
                   </LinkContainer>
-
                 </>
               ) : (
                 <>
@@ -79,12 +75,9 @@ function NavBar() {
                     </NavLink>
                   </LinkContainer>
 
-                  {/* <LinkContainer to="/register">
-                    <NavLink>
-                      <FaUserAlt />
-                      Sign Up
-                    </NavLink>
-                  </LinkContainer> */}
+                  <LinkContainer to="/products">
+                    <NavLink>Products</NavLink>
+                  </LinkContainer>
                 </>
               )}
             </Nav>
