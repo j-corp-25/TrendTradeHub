@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./ProductUnit.css";
-import { FaCartPlus, FaAngleRight } from "react-icons/fa";
+import { FaCartPlus, FaAngleRight,  FaCartArrowDown} from "react-icons/fa";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import { Container } from "react-bootstrap";
 import ReviewItems from "./Reviews/ReviewItems";
+import "./ProductDetails.css";
 import {
   fetchSingleProduct,
   fetchRelatedProducts,
@@ -57,7 +58,7 @@ function ProductDetails() {
 
   return (
     <>
-      {!loading && (
+      {/* {!loading && (
         <section>
           <div className="container my-5">
             <div className="row">
@@ -102,7 +103,33 @@ function ProductDetails() {
             </div>
           </div>
         </section>
-      )}
+      )} */}
+      <section className="container-product-details main-body">
+        <div className="title"> Product Details</div>
+        <div className="detail">
+          <div className="image">
+            <img src={product.images[0]} alt="" />
+          </div>
+          <div className="content">
+            <h1 className="name"> Title: {product.title}</h1>
+            <div className="price"> Price: {product.price}</div>
+            <div className="category">Category: {product.category}</div>
+            <div className="buttons">
+              <button>Checkout</button>
+              <button>Add To Cart
+                <span>
+                  <FaCartArrowDown/>
+
+                </span>
+              </button>
+            </div>
+            <div className="description"></div>
+          </div>
+        </div>
+        <div className="title">Related Products</div>
+        <div className="listProduct"></div>
+
+      </section>
     </>
   );
 }
