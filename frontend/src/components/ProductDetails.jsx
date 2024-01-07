@@ -13,6 +13,8 @@ import {
   fetchProducts,
 } from "../app/product";
 import ProductUnit from "./ProductUnit";
+import { FaStar, FaStarHalfAlt, FaRegStar } from "react-icons/fa";
+import { fetchReviews } from "../app/reviews";
 
 function ProductDetails() {
   const { productId } = useParams();
@@ -23,6 +25,30 @@ function ProductDetails() {
   const relatedProductIds = useSelector(
     (state) => state.products.relatedProductIds
   );
+  const averageRating = useSelector((state) => state.reviews.averageRating);
+
+  const renderStars = (rating) => {
+    const fullStars = Math.floor(rating);
+    const hasHalfStar = rating % 1 !== 0;
+  
+    const starIcons = [];
+  
+    for (let i = 0; i < fullStars; i++) {
+      starIcons.push(<FaStar key={i} className="fa fa-star" />);
+    }
+  
+    if (hasHalfStar) {
+      starIcons.push(<FaStarHalfAlt key="half" className="fa fa-star-half-o" />);
+    }
+  
+    const remainingStars = 5 - fullStars - (hasHalfStar ? 1 : 0);
+  
+    for (let i = 0; i < remainingStars; i++) {
+      starIcons.push(<FaRegStar key={`empty-${i}`} className="fa fa-star-o" />);
+    }
+  
+    return starIcons;
+  };
 
   const [loading, setLoading] = useState(true);
 
@@ -58,52 +84,6 @@ function ProductDetails() {
 
   return (
     <>
-      {/* {!loading && (
-        <section>
-          <div className="container my-5">
-            <div className="row">
-              <div className="col-lg-3 col-md-6 col-sm-6 d-flex">
-                <div className="card w-100 my-2 shadow-2-strong">
-                  <div className="product-details">
-                    <div className="image-details">
-                      <img
-                        src={images[currentImageIndex]}
-                        alt={title}
-                        className="card-img-top"
-                        style={{ aspectRatio: "1 / 1" }}
-                      />
-                      {images?.length > 1 && (
-                        <FaAngleRight
-                          className="right-arrow"
-                          onClick={handleNextImage}
-                          style={{ opacity: "2", right: "5px", top: "50%" }}
-                        />
-                      )}
-                    </div>
-                    <div className="prod-info">
-                      <h1>{title}</h1>
-                      <h2>${price}</h2>
-                      <ReviewItems productId={productId}/>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div className="row sugg">
-                <h4>Related Products</h4>
-                <div className="col-12">
-                  {relatedProductIds?.length > 0 &&
-                    relatedProductIds?.map((relatedProductId) => (
-                      <ProductUnit
-                        key={relatedProductId}
-                        productId={relatedProductId}
-                      />
-                    ))}
-                </div>
-              </div>
-            </div>
-          </div>
-        </section>
-      )} */}
       <section className="container-product-details main-body">
         <div className="title"> Product Details</div>
         <div className="detail">
@@ -133,6 +113,8 @@ function ProductDetails() {
           </div>
           <div className="content">
             <h1 className="name"> Title: {product.title}</h1>
+            <div className="rating">{renderStars(averageRating)}</div>
+
             <div className="price"> Price: {product.price}</div>
             <div className="category">Category: {product.category}</div>
             <div className="buttons">
@@ -145,7 +127,7 @@ function ProductDetails() {
               </button>
             </div>
             <div className="description"></div>
-          </div>
+                    </div>
         </div>
         <div className="related-product-container">
           <div className="title">Related Products</div>
