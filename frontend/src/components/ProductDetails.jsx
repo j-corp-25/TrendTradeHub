@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./ProductUnit.css";
-import { FaCartPlus, FaAngleRight,  FaCartArrowDown} from "react-icons/fa";
+import { FaCartPlus, FaAngleRight, FaCartArrowDown } from "react-icons/fa";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import { Container } from "react-bootstrap";
@@ -108,7 +108,21 @@ function ProductDetails() {
         <div className="title"> Product Details</div>
         <div className="detail">
           <div className="image">
-            <img src={product.images[0]} alt="" />
+            {product.images && product.images.length > 0 && (
+              <>
+                <img
+                  src={product.images[currentImageIndex]}
+                  alt={product.title || "Product Image"}
+                  className="card-img-top"
+                />
+                {product.images.length > 1 && (
+                  <FaAngleRight
+                    className="right-arrow"
+                    onClick={handleNextImage}
+                  />
+                )}
+              </>
+            )}
           </div>
           <div className="content">
             <h1 className="name"> Title: {product.title}</h1>
@@ -116,19 +130,28 @@ function ProductDetails() {
             <div className="category">Category: {product.category}</div>
             <div className="buttons">
               <button>Checkout</button>
-              <button>Add To Cart
+              <button>
+                Add To Cart
                 <span>
-                  <FaCartArrowDown/>
-
+                  <FaCartArrowDown />
                 </span>
               </button>
             </div>
             <div className="description"></div>
           </div>
         </div>
-        <div className="title">Related Products</div>
-        <div className="listProduct"></div>
-
+        <div className="related-product-container">
+          <div className="title">Related Products</div>
+          <div className="listProduct">
+            {relatedProductIds?.length > 0 &&
+              relatedProductIds?.map((relatedProductId) => (
+                <ProductUnit
+                  key={relatedProductId}
+                  productId={relatedProductId}
+                />
+              ))}
+          </div>
+        </div>
       </section>
     </>
   );
