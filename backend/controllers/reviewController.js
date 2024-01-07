@@ -5,6 +5,27 @@ import User from "../models/userModel.js";
 // @desc GET reviews
 // @route GET /api/products/:productId/reviews
 // @access PUBLIC
+// const getReviews = asyncHandler(async (req, res) => {
+//   const productId = req.params.productId;
+//   const reviews = await Review.find({ product: productId }).populate(
+//     "author",
+//     "name"
+//   );
+
+//   if (reviews.length > 0) {
+//     let averageRating =
+//       reviews.reduce((acc, review) => acc + review.rating, 0) / reviews.length;
+
+//     averageRating = parseFloat(averageRating.toFixed(2));
+
+//     res.json({ reviews, averageRating });
+//   } else {
+//     res.status(404);
+//     throw new Error("No reviews found for this product");
+//   }
+// });
+
+//if no reviews return [] and rating 5
 const getReviews = asyncHandler(async (req, res) => {
   const productId = req.params.productId;
   const reviews = await Review.find({ product: productId }).populate(
@@ -20,8 +41,8 @@ const getReviews = asyncHandler(async (req, res) => {
 
     res.json({ reviews, averageRating });
   } else {
-    res.status(404);
-    throw new Error("No reviews found for this product");
+    // If no reviews found, return an empty array for reviews and a default rating of 5
+    res.json({ reviews: [], averageRating: 5 });
   }
 });
 
