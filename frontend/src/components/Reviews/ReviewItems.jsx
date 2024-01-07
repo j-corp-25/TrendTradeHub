@@ -3,15 +3,14 @@ import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import { BeatLoader } from "react-spinners";
-import { fetchReviews } from "../../app/reviews";
+import { fetchReviews } from "../../app/reviewsReducer";
 import { useParams } from "react-router-dom";
 import { Container } from "react-bootstrap";
 
 const ReviewItems = ({ productId }) => {
   const dispatch = useDispatch();
-  const { reviews, isLoading, isError, isSuccess, message, averageRating } = useSelector(
-    (state) => state.reviews
-  );
+  const { reviews, isLoading, isError, isSuccess, message, averageRating } =
+    useSelector((state) => state.reviews);
 
   useEffect(() => {
     if (productId) {
@@ -21,10 +20,9 @@ const ReviewItems = ({ productId }) => {
 
   useEffect(() => {
     if (isError && !isLoading) {
-      console.log(message)
+      console.log(message);
     }
   }, [isError, isLoading, message]);
-
 
   if (isLoading) {
     return (

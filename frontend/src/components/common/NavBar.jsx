@@ -14,7 +14,7 @@ import {
 import "./NavBar.css";
 import { FaSignInAlt, FaSignOutAlt, FaUserAlt } from "react-icons/fa";
 import { LinkContainer } from "react-router-bootstrap";
-import { logout, reset } from "../app/user";
+import { logout, reset } from "../../app/userReducer";
 import { useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 

@@ -1,7 +1,7 @@
-import React, { useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { fetchProducts } from '../app/product';
-import ProductUnit from '../components/ProductUnit';
+import React, { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { fetchProducts } from "../app/productReducer";
+import ProductUnit from "../components/Products/ProductUnit";
 
 function Product() {
   const dispatch = useDispatch();
@@ -19,7 +19,7 @@ function Product() {
         ))}
       </div>
     </div>
-  )
+  );
 }
 
-export default Product
+export default Product;

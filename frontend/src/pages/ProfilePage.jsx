@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { updateProfile } from "../app/user";
+import { updateProfile } from "../app/userReducer";
 import { Container, Card, Button, Form } from "react-bootstrap";
 import { FaUserAlt, FaEdit, FaCheck, FaTimes } from "react-icons/fa";
-import "./profile.css";
+import "../pageStyles/ProfilePage.css";
 import { Link } from "react-router-dom";
-import { fetchProducts } from "../app/product";
+import { fetchProducts } from "../app/productReducer";
 
 function Profile() {
   const user = useSelector((state) => state.auth.user);
@@ -145,21 +145,27 @@ function Profile() {
                               {product.title}
                             </span>
                           </td>
-                          <td><span>{product.category}</span></td>
+                          <td>
+                            <span>{product.category}</span>
+                          </td>
                           <td className="text-center">
                             <span className="label label-default">
                               {product.price}
                             </span>
                           </td>
-                          <td><span className="condition-profile" >{product.condition} </span></td>
                           <td>
-                          <Link to={`/product/${product._id}`}>
-                            <a href="#/" class="table-link">
-                              <span class="fa-stack" >
-                                <i class="fa fa-square fa-stack-2x"></i>
-                                <i class="fa fa-search-plus fa-stack-1x fa-inverse"></i>
-                              </span>
-                            </a>
+                            <span className="condition-profile">
+                              {product.condition}{" "}
+                            </span>
+                          </td>
+                          <td>
+                            <Link to={`/product/${product._id}`}>
+                              <a href="#/" class="table-link">
+                                <span class="fa-stack">
+                                  <i class="fa fa-square fa-stack-2x"></i>
+                                  <i class="fa fa-search-plus fa-stack-1x fa-inverse"></i>
+                                </span>
+                              </a>
                             </Link>
                             <a href="#/" class="table-link">
                               <span class="fa-stack">

@@ -5,13 +5,13 @@ import { FaCartPlus, FaAngleRight, FaCartArrowDown } from "react-icons/fa";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import { Container } from "react-bootstrap";
-import ReviewItems from "./Reviews/ReviewItems";
+import ReviewItems from "../Reviews/ReviewItems";
 import "./ProductDetails.css";
 import {
   fetchSingleProduct,
   fetchRelatedProducts,
   fetchProducts,
-} from "../app/product";
+} from "../../app/productReducer";
 import ProductUnit from "./ProductUnit";
 
 function ProductDetails() {

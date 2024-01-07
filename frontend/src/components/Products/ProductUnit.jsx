@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 import { FaCartPlus, FaAngleRight } from "react-icons/fa";
 import { useDispatch, useSelector } from "react-redux";
 import { FaStar, FaStarHalfAlt } from "react-icons/fa";
-import { fetchReviews } from "../app/reviews";
+import { fetchReviews } from "../../app/reviewsReducer";
 
 function ProductUnit({ productId }) {
   const dispatch = useDispatch();
@@ -24,10 +24,9 @@ function ProductUnit({ productId }) {
       ? reviews.reduce((sum, review) => sum + review.rating, 0) / reviews.length
       : 0;
 
-      ratingObject[productId] = totalRating;
+  ratingObject[productId] = totalRating;
 
-
-   const renderStars = (totalRating) => {
+  const renderStars = (totalRating) => {
     const roundedRating = Math.round(totalRating * 2) / 2;
     const starIcons = [];
 
