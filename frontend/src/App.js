@@ -11,7 +11,7 @@ import ProductItems from "./components/Products/ProductItems";
 
 import ProductUnit from "./components/Products/ProductUnit";
 import ProductDetails from "./components/Products/ProductDetails";
-import DualSignUpSignIn from "./pages/SignInCreateAccount";
+import DualSignUpSignIn from "./pages/SignInCreateAccountPage";
 
 function App() {
   return (

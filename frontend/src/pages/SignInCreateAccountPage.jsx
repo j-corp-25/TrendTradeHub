@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import { reset, login, register } from "../app/userReducer";
-import "../pageStyles/SignInCreateAccount.css";
+import "../pageStyles/SignInCreateAccountPage.css";
 import { BeatLoader } from "react-spinners";
 import { Container } from "react-bootstrap";
 
