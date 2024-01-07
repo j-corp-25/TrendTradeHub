@@ -24,6 +24,7 @@ const registerUser = asyncHandler(async (req, res) => {
       _id: user._id,
       name: user.name,
       email: user.email,
+      image: user.image,
       token: generateToken(user._id),
     });
   } else {
@@ -65,6 +66,7 @@ const getUserProfile = asyncHandler(async (req, res) => {
     _id: req.user._id,
     name: req.user.name,
     email: req.user.email,
+    image: req.user.image,
   };
   res.status(200).json(user);
 });
@@ -82,10 +84,6 @@ const updateUserProfile = asyncHandler(async (req, res) => {
 
   user.name = req.body.name || user.name;
   user.email = req.body.email || user.email;
-
-  if (req.body.password) {
-    user.password = req.body.password;
-  }
 
   if (req.file && req.file.path) {
     user.image = req.file.path;

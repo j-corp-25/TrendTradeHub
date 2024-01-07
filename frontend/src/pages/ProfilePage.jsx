@@ -17,6 +17,7 @@ function Profile() {
     name: user.name,
     email: user.email,
     password: "",
+    image: user.image,
   });
 
   const [editMode, setEditMode] = useState(false);
@@ -30,11 +31,31 @@ function Profile() {
       [name]: value,
     });
   };
+  const handleImageChange = (e) => {
+    if (e.target.files && e.target.files[0]) {
+      setUserData({
+        ...userData,
+        image: e.target.files[0],
+      });
+    }
+  };
 
   const handleProfileUpdate = () => {
-    dispatch(updateProfile(userData));
+    const formData = new FormData();
+
+    for (const key in userData) {
+      formData.append(key, userData[key]);
+    }
+
+    // Log FormData contents
+    for (let [key, value] of formData.entries()) {
+      console.log(key, value instanceof Blob ? `${value} (${value.size} bytes)` : value);
+    }
+
+    dispatch(updateProfile(formData));
     setEditMode(false);
   };
+
 
   useEffect(() => {
     dispatch(fetchProducts());
@@ -49,6 +70,15 @@ function Profile() {
           <Card.Body>
             {editMode ? (
               <Form>
+                <Form.Group controlId="formImage">
+                  <Form.Label>Profile Image:</Form.Label>
+                  <Form.Control
+                    type="file"
+                    name="image"
+                    onChange={handleImageChange}
+                  />
+                </Form.Group>
+
                 <Form.Group controlId="formName">
                   <Form.Label>Name:</Form.Label>
                   <Form.Control
@@ -89,6 +119,13 @@ function Profile() {
               </Form>
             ) : (
               <div>
+                <div className="profile-header">
+                  <img
+                    src={userData.image}
+                    alt="Profile"
+                    className="profile-image"
+                  />
+                </div>
                 <p>
                   <strong>Name:</strong> {user.name}
                 </p>

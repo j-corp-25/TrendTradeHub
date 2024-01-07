@@ -15,7 +15,7 @@ const UPDATE_PROFILE_FAILURE = "UPDATE_PROFILE_FAILURE";
 
 const API_URL = "/api/users/register";
 const API_URL_LOGIN = "/api/users/login";
-const API_URL_PROFILE = "/api/users/profile"
+const API_URL_PROFILE = "/api/users/profile";
 
 //this gets the token from the user object in local storage
 const user = JSON.parse(localStorage.getItem("user"));
@@ -74,8 +74,12 @@ export const updateProfile = (userData) => async (dispatch) => {
         Authorization: `Bearer ${userToken}`,
       },
     };
+    const formData = new FormData();
+    for (const key in userData) {
+      formData.append(key, userData[key]);
+    }
 
-    const response = await axios.patch(API_URL_PROFILE, userData, config);
+    const response = await axios.patch(API_URL_PROFILE, formData, config);
     dispatch(updateProfileSuccess(response.data));
   } catch (error) {
     const message =
