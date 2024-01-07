@@ -17,10 +17,12 @@ const API_URL = "/api/users/register";
 const API_URL_LOGIN = "/api/users/login";
 const API_URL_PROFILE = "/api/users/profile"
 
+//this gets the token from the user object in local storage
 const user = JSON.parse(localStorage.getItem("user"));
 const userToken = user ? user.token : null;
 
 export const updateProfileRequest = () => ({ type: UPDATE_PROFILE_REQUEST });
+
 export const updateProfileSuccess = (user) => ({
   type: UPDATE_PROFILE_SUCCESS,
   payload: user,

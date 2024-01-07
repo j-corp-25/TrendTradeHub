@@ -8,12 +8,17 @@ const CREATE_REVIEW_REQUEST = "CREATE_REVIEW_REQUEST";
 const CREATE_REVIEW_SUCCESS = "CREATE_REVIEW_SUCCESS";
 const CREATE_REVIEW_FAILURE = "CREATE_REVIEW_FAILURE";
 
-const DELETE_REVIEW_REQUEST = "DELETE_REVIEW_REQUEST";
+const DELETE_REVIEW_PENDING = "DELETE_REVIEW_PENDING";
 const DELETE_REVIEW_SUCCESS = "DELETE_REVIEW_SUCCESS";
 const DELETE_REVIEW_FAILURE = "DELETE_REVIEW_FAILURE";
 
-const API_URL = "/api/reviews";
-const API_CURL_CREATE = "/api/reviews/create";
+const UPDATE_REVIEW_PENDING = "UPDATE_REVIEW_PENDING";
+const UPDATE_REVIEW_SUCCESS = "UPDATE_REVIEW_SUCCESS";
+const UPDATE_REVIEW_FAILURE = "UPDATE_REVIEW_FAILURE";
+
+const API_URL = "/api/reviews/";
+const API_URL_CREATE = "/api/reviews/create";
+
 
 //this gets the token from the user object in local storage
 const storedUser = localStorage.getItem("user");
@@ -47,9 +52,53 @@ export const createReviewFailure = (message) => ({
   payload: message,
 });
 
+export const deleteReviewPending = () => ({
+  type: DELETE_REVIEW_PENDING,
+});
+
+export const deleteReviewSuccess = (reviewId) => ({
+  type: DELETE_REVIEW_SUCCESS,
+  payload: reviewId,
+});
+export const deleteReviewFailure = (message) => ({
+  type: DELETE_REVIEW_FAILURE,
+  payload: message,
+});
+export const updateReviewPending = () => ({
+  type: UPDATE_REVIEW_PENDING,
+});
+export const updateReviewSuccess = (review) => ({
+  type: UPDATE_REVIEW_SUCCESS,
+  payload: review,
+});
+export const updateReviewFailure = (message) => ({
+  type: UPDATE_REVIEW_FAILURE,
+  payload: message,
+});
+
+export const deleteReview = (reviewId) => async (dispatch) => {
+  dispatch(deleteReviewPending());
+  try {
+    const config = {
+      headers: {
+        Authorization: `Bearer ${userToken}`,
+      },
+    };
+    const url = `${API_URL}${reviewId}`;
+    const response = await axios.delete(url, config);
+    dispatch(deleteReviewSuccess(reviewId));
+  } catch (error) {
+    const message =
+      (error.response && error.response.data && error.response.data.message) ||
+      error.message ||
+      error.toString();
+    dispatch(deleteReviewFailure(message));
+  }
+};
 export const fetchReviews = (productId) => async (dispatch) => {
   dispatch(getReviewsRequest());
   try {
+
     const url = `${API_URL}/${productId}`
     const response = await axios.get(url);
     dispatch(getReviewsSuccess(response.data));
@@ -71,7 +120,7 @@ export const createReview = (reviewData) => async (dispatch) => {
       },
     };
 
-    const response = await axios.post(API_CURL_CREATE, reviewData, config);
+    const response = await axios.post(API_URL_CREATE, reviewData, config);
     dispatch(createReviewSuccess(response.data));
   } catch (error) {
     const message =
@@ -81,6 +130,29 @@ export const createReview = (reviewData) => async (dispatch) => {
     dispatch(createReviewFailure(message));
   }
 };
+
+export const updateReview =
+  (reviewId, updatedReviewData) => async (dispatch) => {
+    dispatch(updateReviewPending());
+    try {
+      const config = {
+        headers: {
+          Authorization: `Bearer ${userToken}`,
+        },
+      };
+      const url = `${API_URL}${reviewId}`;
+      const response = await axios.patch(url, updatedReviewData, config);
+      dispatch(updateReviewSuccess(response.data));
+    } catch (error) {
+      const message =
+        (error.response &&
+          error.response.data &&
+          error.response.data.message) ||
+        error.message ||
+        error.toString();
+      dispatch(updateReviewFailure(message));
+    }
+  };
 const initialState = {
   reviews: [],
   isError: false,
@@ -92,13 +164,13 @@ const initialState = {
 const reviewReducer = (state = initialState, action) => {
   switch (action.type) {
     case GET_REVIEWS_REQUEST:
-        return {
-            ...state,
-            isLoading: true,
-            isError: false,
-            isSuccess: false,
-            message: "",
-          };
+      return {
+        ...state,
+        isLoading: true,
+        isError: false,
+        isSuccess: false,
+        message: "",
+      };
 
     case GET_REVIEWS_SUCCESS:
       return {
@@ -106,7 +178,7 @@ const reviewReducer = (state = initialState, action) => {
         isLoading: false,
         reviews: action.payload,
         isSuccess: true,
-        message: ""
+        message: "",
       };
     case GET_REVIEWS_FAILURE:
       return {
@@ -142,6 +214,53 @@ const reviewReducer = (state = initialState, action) => {
         isSuccess: false,
         message: action.payload,
         reviews: [],
+      };
+    case DELETE_REVIEW_PENDING:
+      return {
+        ...state,
+        isLoading: true,
+        isError: false,
+        isSuccess: false,
+        message: "",
+      };
+    case DELETE_REVIEW_SUCCESS:
+      return {
+        ...state,
+        isLoading: false,
+        reviews: state.reviews.filter((review) => review.id !== action.payload),
+        isSuccess: true,
+      };
+    case DELETE_REVIEW_FAILURE:
+      return {
+        ...state,
+        isLoading: false,
+        isError: true,
+        isSuccess: false,
+        message: action.payload,
+      };
+    case UPDATE_REVIEW_PENDING:
+      return {
+        ...state,
+        isLoading: true,
+      };
+    case UPDATE_REVIEW_SUCCESS:
+      return {
+        ...state,
+        isLoading: false,
+        isSuccess: true,
+        reviews: state.reviews.map((review) =>
+          review.id === action.payload.updatedReview.id
+            ? action.payload.updatedReview
+            : review
+        ),
+      };
+
+    case UPDATE_REVIEW_FAILURE:
+      return {
+        ...state,
+        isLoading: false,
+        isError: true,
+        message: action.payload,
       };
     default:
       return state;
