@@ -29,9 +29,9 @@ function Login() {
     if (isError) {
       toast.error(message);
     }
-    // if (isSuccess || user) {
-    //   navigate("/");
-    // }
+    if (isSuccess || user) {
+      navigate("/products");
+    }
 
     return () => {
       dispatch(reset());
@@ -68,8 +68,8 @@ function Login() {
 
   return (
     <div class="form-container sign-in-container">
-      
-        
+
+
         <Form onSubmit={onSubmit} className="formDual">
           <h1>Sign in</h1>
           <FormGroup className="mb-3" controlId="email">
@@ -94,7 +94,7 @@ function Login() {
             Submit
           </Button>
         </Form>
-      
+
     </div>
   );
 }

@@ -31,9 +31,9 @@ function Register() {
     if (isError) {
       toast.error(message);
     }
-    // if (isSuccess || user) {
-    //   navigate("/");
-    // }
+    if (isSuccess || user) {
+      navigate("/products");
+    }
 
     return () => {
       dispatch(reset());
@@ -76,7 +76,7 @@ function Register() {
 
   return (
     <div class="form-container sign-up-container">
-        
+
         <Form onSubmit={onSubmit} className="formDual">
           <h1>Create account </h1>
           <FormGroup className="mb-3" controlId="name">
@@ -89,7 +89,7 @@ function Register() {
             />
           </FormGroup>
           <FormGroup className="mb-3" controlId="email">
-     
+
             <FormControl
               type="email"
               placeholder="Email"
