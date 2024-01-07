@@ -17,11 +17,14 @@ function ProductUnit({ productId }) {
   const reviewsState = useSelector((state) => state.reviews);
   
   const reviews = reviewsState.reviews || [];
+  let ratingObject = {};
 
   const totalRating =
     Array.isArray(reviews) && reviews.length > 0
       ? reviews.reduce((sum, review) => sum + review.rating, 0) / reviews.length
       : 0;
+      
+      ratingObject[productId] = totalRating;
   
 
    const renderStars = (totalRating) => {
@@ -74,7 +77,7 @@ function ProductUnit({ productId }) {
         <div className="name">
           <Link to={`/product/${productId}`}>{title}</Link>
         </div>
-        <div className="rating">{renderStars(totalRating)}</div>
+        <div className="rating">{renderStars(ratingObject[productId])}</div>
       </div>
 
       <div className="price-like-cart">
