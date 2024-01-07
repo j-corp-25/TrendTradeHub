@@ -28,10 +28,12 @@ const userToken = user ? user.token : null;
 export const getReviewsRequest = () => ({
   type: GET_REVIEWS_REQUEST,
 });
-export const getReviewsSuccess = (reviews) => ({
+
+export const getReviewsSuccess = ({ reviews, averageRating }) => ({
   type: GET_REVIEWS_SUCCESS,
-  payload: reviews,
+  payload: { reviews, averageRating },
 });
+
 
 export const getReviewsFailure = (message) => ({
   type: GET_REVIEWS_FAILURE,
@@ -101,7 +103,10 @@ export const fetchReviews = (productId) => async (dispatch) => {
 
     const url = `${API_URL}/${productId}`
     const response = await axios.get(url);
-    dispatch(getReviewsSuccess(response.data));
+    dispatch(getReviewsSuccess({
+      reviews: response.data.reviews,
+      averageRating: response.data.averageRating
+    }));
   } catch (error) {
     const message =
       (error.response && error.response.data && error.response.data.message) ||
