@@ -5,16 +5,18 @@ import { toast } from "react-toastify";
 // import { BeatLoader } from "react-spinners";
 import { Container } from "react-bootstrap";
 import fetchProducts from "../../app/productReducer";
+import { reset } from "../../app/userReducer";
 
 function ProductItems() {
   const dispatch = useDispatch();
   const { products } = useSelector((state) => state.products);
   useEffect(() => {
-    const fetchAll = async () => {
-      await dispatch(fetchProducts());
-    };
+    // Reset the state when the component mounts
+    dispatch(reset());
 
-    fetchAll();
+    // Fetch products
+    dispatch(fetchProducts());
+
   }, [dispatch]);
   return (
     <Container>

@@ -86,7 +86,6 @@ export const updateProfile = (userData) => async (dispatch) => {
   }
 };
 
-
 export const login = (userData) => async (dispatch) => {
   dispatch(loginRequest());
   try {
@@ -152,7 +151,10 @@ const authReducer = (state = initialState, action) => {
         ...state,
         isLoading: false,
         isSuccess: true,
-        user: action.payload,
+        user: {
+          ...state.user,
+          ...action.payload,
+        },
       };
     case UPDATE_PROFILE_FAILURE:
       return {
