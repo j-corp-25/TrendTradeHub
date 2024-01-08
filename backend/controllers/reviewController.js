@@ -28,10 +28,11 @@ import User from "../models/userModel.js";
 //if no reviews return [] and rating 5
 const getReviews = asyncHandler(async (req, res) => {
   const productId = req.params.productId;
-  const reviews = await Review.find({ product: productId }).populate(
-    "author",
-    "name"
-  );
+  const reviews = await Review.find({ product: productId }).populate({
+    path: 'author',
+    select: 'name image'
+  });
+
 
   if (reviews.length > 0) {
     let averageRating =
