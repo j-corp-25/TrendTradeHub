@@ -15,6 +15,7 @@ import {
 import ProductUnit from "./ProductUnit";
 import { FaStar, FaStarHalfAlt, FaRegStar } from "react-icons/fa";
 import { fetchReviews } from "../../app/reviewsReducer";
+import ReviewModal from "./ReviewModal";
 
 function ProductDetails() {
   const { productId } = useParams();
@@ -93,6 +94,11 @@ function ProductDetails() {
     setShowReviewsModal(false);
   };
 
+  const [showModal, setShowModal] = useState(false);
+
+  const handleShowModal = () => setShowModal(true);
+  const handleCloseModal = () => setShowModal(false);
+
   return (
     <>
       <section className="container-product-details main-body">
@@ -143,7 +149,7 @@ function ProductDetails() {
                 <button onClick={handleSeeReviews}>See reviews</button>
               </div>
               <div>
-                <button> Add my review</button>
+              <button onClick={handleShowModal}>Add my review</button>
               </div>
             </div>
           </div>
@@ -175,6 +181,8 @@ function ProductDetails() {
             </Button>
           </Modal.Footer>
         </Modal>
+
+        <ReviewModal showModal={showModal} handleClose={handleCloseModal} />
       </section>
     </>
   );
