@@ -8,7 +8,7 @@ import userRoutes from "./routes/userRoutes.js";
 import reviewRoutes from "./routes/reviewRoutes.js";
 import productRoutes from "./routes/productRoutes.js";
 import cors from "cors";
-
+import {upload} from "./middleware/multer.js"
 const port = process.env.PORT || 4000;
 connectDB();
 

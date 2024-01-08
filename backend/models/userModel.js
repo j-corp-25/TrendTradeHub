@@ -26,7 +26,12 @@ const userSchema = mongoose.Schema(
     },
     reviewsWritten: [{ type: Schema.Types.ObjectId, ref: "Review" }],
     reviewsReceived: [{ type: Schema.Types.ObjectId, ref: "Review" }],
+    image: {
+      type: String,
+      default: "https://picsum.photos/200",
+    },
   },
+
   {
     timestamps: true,
   }
