@@ -1,6 +1,6 @@
 // ReviewItem.js
 import React from "react";
-import { FaStar, FaStarHalfAlt } from "react-icons/fa";
+import { FaRegStar, FaStar, FaStarHalfAlt } from "react-icons/fa";
 
 const ReviewItem = ({ review }) => {
   const { author, rating, comment } = review;
@@ -24,7 +24,7 @@ const ReviewItem = ({ review }) => {
     const remainingStars = 5 - fullStars - (hasHalfStar ? 1 : 0);
 
     for (let i = 0; i < remainingStars; i++) {
-      starIcons.push(<FaStar key={`empty-${i}`} className="fa fa-star-o" />);
+      starIcons.push(<FaRegStar key={`empty-${i}`} className="fa fa-star-o" />);
     }
 
     return starIcons;

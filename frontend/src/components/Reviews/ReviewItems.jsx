@@ -43,9 +43,6 @@ const ReviewItems = ({ productId }) => {
   return (
     <Container>
       <h2>Reviews</h2>
-      {/* console.log("Average Rating:", averageRating); */}
-
-      <h2>Average Review: {averageRating}</h2>
       {reviews.map((review) => (
         <ReviewItem key={review._id} review={review} />
       ))}
