@@ -15,7 +15,6 @@ import {
 import ProductUnit from "./ProductUnit";
 import { FaStar, FaStarHalfAlt, FaRegStar } from "react-icons/fa";
 import { fetchReviews } from "../../app/reviewsReducer";
-import ReviewModal from "./ReviewModal";
 
 function ProductDetails() {
   const { productId } = useParams();
@@ -167,7 +166,6 @@ function ProductDetails() {
           </div>
         </div>
 
-        {/* Reviews Modal */}
         <Modal show={showReviewsModal} onHide={handleCloseReviewsModal}>
           <Modal.Header closeButton>
             <Modal.Title>Product Reviews</Modal.Title>
@@ -181,8 +179,6 @@ function ProductDetails() {
             </Button>
           </Modal.Footer>
         </Modal>
-
-        <ReviewModal showModal={showModal} handleClose={handleCloseModal} />
       </section>
     </>
   );

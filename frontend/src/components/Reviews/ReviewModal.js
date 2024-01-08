@@ -11,11 +11,10 @@ const ReviewModal = ({ showModal, handleClose }) => {
   };
 
   const handleSubmit = () => {
-    // Implement your logic to submit the review
+ 
     console.log("Rating:", rating);
     console.log("Comment:", comment);
 
-    // Close the modal after submitting
     handleClose();
   };
 

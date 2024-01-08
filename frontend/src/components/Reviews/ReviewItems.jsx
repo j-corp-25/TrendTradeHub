@@ -1,4 +1,3 @@
-// ReviewItems.js
 import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
@@ -7,7 +6,7 @@ import { BeatLoader } from "react-spinners";
 import { fetchReviews } from "../../app/reviewsReducer";
 import { useParams } from "react-router-dom";
 import { Container } from "react-bootstrap";
-import ReviewItem from "./ReviewItem"; // Import the new component
+import ReviewItem from "./ReviewItem"; 
 
 const ReviewItems = ({ productId }) => {
   const dispatch = useDispatch();
@@ -42,6 +41,10 @@ const ReviewItems = ({ productId }) => {
 
   return (
     <Container>
+      <h2>Reviews</h2>
+      {/* console.log("Average Rating:", averageRating); */}
+
+      <h2>Average Review: {averageRating}</h2>
       {reviews.map((review) => (
         <ReviewItem key={review._id} review={review} />
       ))}

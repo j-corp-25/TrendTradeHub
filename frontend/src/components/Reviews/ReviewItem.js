@@ -1,8 +1,6 @@
-
 import React from "react";
+import { FaStar, FaRegStar, FaStarHalfAlt } from "react-icons/fa";
 import './reviewItem.css'
-import { FaRegStar, FaStar, FaStarHalfAlt } from "react-icons/fa";
-
 const ReviewItem = ({ review }) => {
   const { author, rating, comment } = review;
 
@@ -34,6 +32,7 @@ const ReviewItem = ({ review }) => {
   return (
     <div className="review-item">
       <div className="review-author">
+        {/* Display profile picture here */}
         <img src={author.profilePicture} alt={`${author.name}'s profile`} />
       </div>
       <div className="review-content">
