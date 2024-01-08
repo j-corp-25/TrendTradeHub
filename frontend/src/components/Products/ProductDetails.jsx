@@ -4,7 +4,7 @@ import "./ProductUnit.css";
 import { FaCartPlus, FaAngleRight, FaCartArrowDown } from "react-icons/fa";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
-import { Container } from "react-bootstrap";
+import { Container, Modal, Button } from "react-bootstrap";
 import ReviewItems from "../Reviews/ReviewItems";
 import "./ProductDetails.css";
 import {
@@ -19,6 +19,7 @@ import { fetchReviews } from "../../app/reviewsReducer";
 function ProductDetails() {
   const { productId } = useParams();
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
+  const [showReviewsModal, setShowReviewsModal] = useState(false);
   const dispatch = useDispatch();
   const product = useSelector((state) => state.products.selectedProduct) || {};
   const { title, price, images, _id } = product;
@@ -84,6 +85,14 @@ function ProductDetails() {
     );
   };
 
+  const handleSeeReviews = () => {
+    setShowReviewsModal(true);
+  };
+
+  const handleCloseReviewsModal = () => {
+    setShowReviewsModal(false);
+  };
+
   return (
     <>
       <section className="container-product-details main-body">
@@ -131,7 +140,7 @@ function ProductDetails() {
             <div className="description"></div>
             <div className="reviews-see-add">
               <div>
-                <button> See reviews</button>
+                <button onClick={handleSeeReviews}>See reviews</button>
               </div>
               <div>
                 <button> Add my review</button>
@@ -152,9 +161,20 @@ function ProductDetails() {
           </div>
         </div>
 
-        <section>
-          <ReviewItems productId={productId} />
-        </section>
+        {/* Reviews Modal */}
+        <Modal show={showReviewsModal} onHide={handleCloseReviewsModal}>
+          <Modal.Header closeButton>
+            <Modal.Title>Product Reviews</Modal.Title>
+          </Modal.Header>
+          <Modal.Body>
+            <ReviewItems productId={productId} />
+          </Modal.Body>
+          <Modal.Footer>
+            <Button variant="secondary" onClick={handleCloseReviewsModal}>
+              Close
+            </Button>
+          </Modal.Footer>
+        </Modal>
       </section>
     </>
   );
