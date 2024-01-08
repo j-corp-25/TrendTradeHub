@@ -14,7 +14,7 @@ import {
 } from "../../app/productReducer";
 import ProductUnit from "./ProductUnit";
 import { FaStar, FaStarHalfAlt, FaRegStar } from "react-icons/fa";
-import { fetchReviews } from "../app/reviews";
+import { fetchReviews } from "../../app/reviewsReducer";
 
 function ProductDetails() {
   const { productId } = useParams();
@@ -30,23 +30,23 @@ function ProductDetails() {
   const renderStars = (rating) => {
     const fullStars = Math.floor(rating);
     const hasHalfStar = rating % 1 !== 0;
-  
+
     const starIcons = [];
-  
+
     for (let i = 0; i < fullStars; i++) {
       starIcons.push(<FaStar key={i} className="fa fa-star" />);
     }
-  
+
     if (hasHalfStar) {
       starIcons.push(<FaStarHalfAlt key="half" className="fa fa-star-half-o" />);
     }
-  
+
     const remainingStars = 5 - fullStars - (hasHalfStar ? 1 : 0);
-  
+
     for (let i = 0; i < remainingStars; i++) {
       starIcons.push(<FaRegStar key={`empty-${i}`} className="fa fa-star-o" />);
     }
-  
+
     return starIcons;
   };
 
