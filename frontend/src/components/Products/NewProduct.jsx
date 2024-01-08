@@ -1,16 +1,16 @@
 // NewProduct.js
-import React, { useState, useEffect } from 'react';
-import { useDispatch } from 'react-redux';
-import { addProduct, fetchProducts } from '../app/product';
+import React, { useState, useEffect } from "react";
+import { useDispatch } from "react-redux";
+import { addProduct, fetchProducts } from "../../app/productReducer";
 
 const NewProduct = () => {
   const dispatch = useDispatch();
   const [productData, setProductData] = useState({
-    author: '',
-    title: '',
-    condition: '',
-    price: '',
-    category: '',
+    author: "",
+    title: "",
+    condition: "",
+    price: "",
+    category: "",
   });
   const [images, setImages] = useState([]);
 
@@ -30,14 +30,14 @@ const NewProduct = () => {
 
   const handleAddProduct = () => {
     const formData = new FormData();
-    formData.append('author', productData.author);
-    formData.append('title', productData.title);
-    formData.append('condition', productData.condition);
-    formData.append('price', productData.price);
-    formData.append('category', productData.category);
+    formData.append("author", productData.author);
+    formData.append("title", productData.title);
+    formData.append("condition", productData.condition);
+    formData.append("price", productData.price);
+    formData.append("category", productData.category);
 
     images.forEach((image) => {
-      formData.append('myPic', image);
+      formData.append("myPic", image);
     });
 
     dispatch(addProduct(formData));

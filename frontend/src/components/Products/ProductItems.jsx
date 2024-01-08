@@ -4,7 +4,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { toast } from "react-toastify";
 // import { BeatLoader } from "react-spinners";
 import { Container } from "react-bootstrap";
-import fetchProducts from "../../app/product";
+import fetchProducts from "../../app/productReducer";
 
 function ProductItems() {
   const dispatch = useDispatch();
