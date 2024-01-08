@@ -4,7 +4,6 @@ import "./ProductUnit.css";
 import { FaCartPlus, FaAngleRight } from "react-icons/fa";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
-import { Container } from "react-bootstrap";
 import {
   fetchSingleProduct,
   fetchRelatedProducts,

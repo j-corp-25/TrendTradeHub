@@ -1,7 +1,6 @@
 import NavBar from "./components/NavBar";
 import { Routes, Route } from "react-router-dom";
 import Main from "./pages/Main";
-import Login from "./pages/Login";
 import Listings from "./pages/Listings";
 import Profile from "./pages/Profile";
 import Register from "./pages/Register";
@@ -10,8 +9,6 @@ import NewProduct from "./pages/NewProduct";
 import Reviews from "./components/Reviews/ReviewItems";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import ProductItems from "./components/Products/ProductItems";
-
 import ProductUnit from "./components/ProductUnit";
 import ProductDetails from "./components/ProductDetails";
 import Dual from "./pages/Dual";
