@@ -4,7 +4,7 @@ import "./ProductUnit.css";
 import { Link } from "react-router-dom";
 import { FaCartPlus, FaAngleRight } from "react-icons/fa";
 import { useDispatch, useSelector } from "react-redux";
-import { FaStar, FaStarHalfAlt } from "react-icons/fa";
+import { FaStar, FaStarHalfAlt, FaRegStar } from "react-icons/fa";
 import { fetchReviews } from "../../app/reviewsReducer";
 
 function ProductUnit({ productId }) {
@@ -17,32 +17,7 @@ function ProductUnit({ productId }) {
   const reviewsState = useSelector((state) => state.reviews);
 
   const reviews = reviewsState.reviews || [];
-  let ratingObject = {};
 
-  const totalRating =
-    Array.isArray(reviews) && reviews.length > 0
-      ? reviews.reduce((sum, review) => sum + review.rating, 0) / reviews.length
-      : 0;
-
-      ratingObject[productId] = totalRating;
-
-
-   const renderStars = (totalRating) => {
-    const roundedRating = Math.round(totalRating * 2) / 2;
-    const starIcons = [];
-
-    for (let i = 1; i <= 5; i++) {
-      if (i <= roundedRating) {
-        starIcons.push(<FaStar key={i} className="fa fa-star" />);
-      } else if (i - 0.5 === roundedRating) {
-        starIcons.push(<FaStarHalfAlt key={i} className="fa fa-star-half-o" />);
-      } else {
-        starIcons.push(<FaStar key={i} className="fa fa-star-o" />);
-      }
-    }
-
-    return starIcons;
-  };
 
   const handleNextImage = () => {
     setCurrentImageIndex((prevIndex) =>
@@ -77,7 +52,6 @@ function ProductUnit({ productId }) {
         <div className="name">
           <Link to={`/product/${productId}`}>{title}</Link>
         </div>
-        <div className="rating">{renderStars(ratingObject[productId])}</div>
       </div>
 
       <div className="price-like-cart">

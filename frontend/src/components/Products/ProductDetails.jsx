@@ -4,7 +4,7 @@ import "./ProductUnit.css";
 import { FaCartPlus, FaAngleRight, FaCartArrowDown } from "react-icons/fa";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
-import { Container } from "react-bootstrap";
+import { Container, Modal, Button } from "react-bootstrap";
 import ReviewItems from "../Reviews/ReviewItems";
 import "./ProductDetails.css";
 import {
@@ -15,10 +15,12 @@ import {
 import ProductUnit from "./ProductUnit";
 import { FaStar, FaStarHalfAlt, FaRegStar } from "react-icons/fa";
 import { fetchReviews } from "../../app/reviewsReducer";
+import ReviewModal from "../Reviews/ReviewModal.js";
 
 function ProductDetails() {
   const { productId } = useParams();
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
+  const [showReviewsModal, setShowReviewsModal] = useState(false);
   const dispatch = useDispatch();
   const product = useSelector((state) => state.products.selectedProduct) || {};
   const { title, price, images, _id } = product;
@@ -38,7 +40,9 @@ function ProductDetails() {
     }
 
     if (hasHalfStar) {
-      starIcons.push(<FaStarHalfAlt key="half" className="fa fa-star-half-o" />);
+      starIcons.push(
+        <FaStarHalfAlt key="half" className="fa fa-star-half-o" />
+      );
     }
 
     const remainingStars = 5 - fullStars - (hasHalfStar ? 1 : 0);
@@ -70,6 +74,7 @@ function ProductDetails() {
   useEffect(() => {
     const fetchAll = async () => {
       await dispatch(fetchProducts());
+      await dispatch(fetchReviews(productId));
       setLoading(false);
     };
 
@@ -81,6 +86,19 @@ function ProductDetails() {
       prevIndex === images.length - 1 ? 0 : prevIndex + 1
     );
   };
+
+  const handleSeeReviews = () => {
+    setShowReviewsModal(true);
+  };
+
+  const handleCloseReviewsModal = () => {
+    setShowReviewsModal(false);
+  };
+
+  const [showModal, setShowModal] = useState(false);
+
+  const handleShowModal = () => setShowModal(true);
+  const handleCloseModal = () => setShowModal(false);
 
   return (
     <>
@@ -127,7 +145,15 @@ function ProductDetails() {
               </button>
             </div>
             <div className="description"></div>
-                    </div>
+            <div className="reviews-see-add">
+              <div>
+                <button onClick={handleSeeReviews}>See reviews</button>
+              </div>
+              <div>
+              <button onClick={handleShowModal}>Add my review</button>
+              </div>
+            </div>
+          </div>
         </div>
         <div className="related-product-container">
           <div className="title">Related Products</div>
@@ -141,9 +167,22 @@ function ProductDetails() {
               ))}
           </div>
         </div>
-        <section>
-          <ReviewItems productId={productId} />
-        </section>
+
+        <Modal show={showReviewsModal} onHide={handleCloseReviewsModal}>
+          <Modal.Header closeButton>
+            <Modal.Title>Product Reviews</Modal.Title>
+          </Modal.Header>
+          <Modal.Body>
+            <ReviewItems productId={productId} />
+          </Modal.Body>
+          <Modal.Footer>
+            <Button variant="secondary" onClick={handleCloseReviewsModal}>
+              Close
+            </Button>
+          </Modal.Footer>
+        </Modal>
+        <ReviewModal showModal={showModal} handleClose={handleCloseModal} />
+
       </section>
     </>
   );

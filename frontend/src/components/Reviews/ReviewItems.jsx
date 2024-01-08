@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
@@ -6,6 +6,7 @@ import { BeatLoader } from "react-spinners";
 import { fetchReviews } from "../../app/reviewsReducer";
 import { useParams } from "react-router-dom";
 import { Container } from "react-bootstrap";
+import ReviewItem from "./ReviewItem"; 
 
 const ReviewItems = ({ productId }) => {
   const dispatch = useDispatch();
@@ -37,18 +38,11 @@ const ReviewItems = ({ productId }) => {
   if (!reviews || reviews.length === 0) {
     return <div>No reviews available for this product</div>;
   }
+
   return (
     <Container>
-      <h2>Reviews</h2>
-      {/* console.log("Average Rating:", averageRating); */}
-
-      <h2>Average Review: {averageRating}</h2>
       {reviews.map((review) => (
-        <div key={review._id}>
-          <p>Comment: {review.comment}</p>
-          <p>Rating: {review.rating}</p>
-          <p>User: {review.author.name}</p>
-        </div>
+        <ReviewItem key={review._id} review={review} />
       ))}
     </Container>
   );
