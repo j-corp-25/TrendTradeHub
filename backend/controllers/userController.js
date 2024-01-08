@@ -82,9 +82,11 @@ const updateUserProfile = asyncHandler(async (req, res) => {
     throw new Error("User not found");
   }
 
+  // Update name and email
   user.name = req.body.name || user.name;
   user.email = req.body.email || user.email;
 
+  // Update image only if a new file is provided
   if (req.file && req.file.path) {
     user.image = req.file.path;
   }
@@ -95,9 +97,10 @@ const updateUserProfile = asyncHandler(async (req, res) => {
     _id: updatedUser._id,
     name: updatedUser.name,
     email: updatedUser.email,
-    image: updatedUser.image,
+    image: updatedUser.image
   });
 });
+
 
 export {
   registerUser,

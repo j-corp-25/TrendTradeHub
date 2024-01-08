@@ -74,12 +74,8 @@ export const updateProfile = (userData) => async (dispatch) => {
         Authorization: `Bearer ${userToken}`,
       },
     };
-    const formData = new FormData();
-    for (const key in userData) {
-      formData.append(key, userData[key]);
-    }
 
-    const response = await axios.patch(API_URL_PROFILE, formData, config);
+    const response = await axios.patch(API_URL_PROFILE, userData, config);
     dispatch(updateProfileSuccess(response.data));
   } catch (error) {
     const message =
@@ -89,6 +85,7 @@ export const updateProfile = (userData) => async (dispatch) => {
     dispatch(updateProfileFailure(message));
   }
 };
+
 
 export const login = (userData) => async (dispatch) => {
   dispatch(loginRequest());
