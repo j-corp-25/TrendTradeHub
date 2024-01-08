@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Modal, Button, Form } from "react-bootstrap";
-// import Rating from "react-rating-stars-component";
-// import ReactStars from "react-rating-stars-component";
+import Rating from "react-rating-stars-component";
+import ReactStars from "react-rating-stars-component";
 
 const ReviewModal = ({ showModal, handleClose }) => {
   const [comment, setComment] = useState("");
