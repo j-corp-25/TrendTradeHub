@@ -1,21 +1,22 @@
 import React, { useState } from "react";
 import { Modal, Button, Form } from "react-bootstrap";
-import { FaStar, FaStarHalfAlt } from "react-icons/fa";
+import Rating from "react-rating-stars-component";
+import ReactStars from "react-rating-stars-component";
 
 const ReviewModal = ({ showModal, handleClose }) => {
-  const [rating, setRating] = useState(0);
   const [comment, setComment] = useState("");
 
-  const handleRatingClick = (selectedRating) => {
-    setRating(selectedRating);
-  };
 
   const handleSubmit = () => {
- 
-    console.log("Rating:", rating);
+    // Implement your logic to submit the review
+   
     console.log("Comment:", comment);
 
+    // Close the modal after submitting
     handleClose();
+  };
+  const ratingChanged = (newRating) => {
+    console.log(newRating);
   };
 
   return (
@@ -27,23 +28,19 @@ const ReviewModal = ({ showModal, handleClose }) => {
         <Form>
           <Form.Group controlId="formRating">
             <Form.Label>Rating:</Form.Label>
-            <div className="rating">
-              {[1, 2, 3, 4, 5].map((star) => (
-                <span
-                  key={star}
-                  onClick={() => handleRatingClick(star)}
-                  style={{ cursor: "pointer" }}
-                >
-                  {rating >= star ? (
-                    <FaStar key={star} className="fa fa-star" />
-                  ) : rating + 0.5 === star ? (
-                    <FaStarHalfAlt key={star} className="fa fa-star-half-o" />
-                  ) : (
-                    <FaStar key={star} className="fa fa-star-o" />
-                  )}
-                </span>
-              ))}
-            </div>
+            {/* <Rating
+              count={5}
+              size={30}
+              value={rating}
+              activeColor="#ffd700" // Set the color to yellow on hover
+              onChange={() => handleRatingChange(rating)}
+            /> */}
+            {/* <ReactStars
+              count={5}
+              onChange={ratingChanged}
+              size={24}
+              activeColor="#ffd700"
+            /> */}
           </Form.Group>
 
           <Form.Group controlId="formComment">

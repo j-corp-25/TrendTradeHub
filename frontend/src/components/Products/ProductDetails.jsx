@@ -15,6 +15,7 @@ import {
 import ProductUnit from "./ProductUnit";
 import { FaStar, FaStarHalfAlt, FaRegStar } from "react-icons/fa";
 import { fetchReviews } from "../../app/reviewsReducer";
+import ReviewModal from "../Reviews/ReviewModal.js";
 
 function ProductDetails() {
   const { productId } = useParams();
@@ -73,6 +74,7 @@ function ProductDetails() {
   useEffect(() => {
     const fetchAll = async () => {
       await dispatch(fetchProducts());
+      await dispatch(fetchReviews(productId));
       setLoading(false);
     };
 
@@ -179,6 +181,8 @@ function ProductDetails() {
             </Button>
           </Modal.Footer>
         </Modal>
+        <ReviewModal showModal={showModal} handleClose={handleCloseModal} />
+
       </section>
     </>
   );
