@@ -38,7 +38,9 @@ function ProductDetails() {
     }
 
     if (hasHalfStar) {
-      starIcons.push(<FaStarHalfAlt key="half" className="fa fa-star-half-o" />);
+      starIcons.push(
+        <FaStarHalfAlt key="half" className="fa fa-star-half-o" />
+      );
     }
 
     const remainingStars = 5 - fullStars - (hasHalfStar ? 1 : 0);
@@ -127,7 +129,15 @@ function ProductDetails() {
               </button>
             </div>
             <div className="description"></div>
-                    </div>
+            <div className="reviews-see-add">
+              <div>
+                <button> See reviews</button>
+              </div>
+              <div>
+                <button> Add my review</button>
+              </div>
+            </div>
+          </div>
         </div>
         <div className="related-product-container">
           <div className="title">Related Products</div>
@@ -141,6 +151,7 @@ function ProductDetails() {
               ))}
           </div>
         </div>
+
         <section>
           <ReviewItems productId={productId} />
         </section>

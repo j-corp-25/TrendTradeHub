@@ -145,3 +145,20 @@ a{
     }
 }
 
+.reviews-see-add{
+    display: flex;
+    justify-content: space-between;
+
+}
+
+.reviews-see-add button{
+    border: none;
+    background-color: transparent;
+    color: blue;
+    text-decoration: double;
+    font-weight: 500;
+    font-style: italic;
+    
+    
+}
+
