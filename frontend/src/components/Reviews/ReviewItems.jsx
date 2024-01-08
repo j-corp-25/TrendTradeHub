@@ -42,7 +42,6 @@ const ReviewItems = ({ productId }) => {
 
   return (
     <Container>
-      <h2>Reviews</h2>
       {reviews.map((review) => (
         <ReviewItem key={review._id} review={review} />
       ))}
