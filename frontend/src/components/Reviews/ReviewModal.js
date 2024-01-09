@@ -5,14 +5,11 @@ import ReactStars from "react-rating-stars-component";
 
 const ReviewModal = ({ showModal, handleClose }) => {
   const [comment, setComment] = useState("");
+  const [rating, setRating] = useState(0); 
 
 
   const handleSubmit = () => {
-    // Implement your logic to submit the review
-   
     console.log("Comment:", comment);
-
-    // Close the modal after submitting
     handleClose();
   };
   const ratingChanged = (newRating) => {
@@ -28,19 +25,17 @@ const ReviewModal = ({ showModal, handleClose }) => {
         <Form>
           <Form.Group controlId="formRating">
             <Form.Label>Rating:</Form.Label>
-            {/* <Rating
-              count={5}
-              size={30}
-              value={rating}
-              activeColor="#ffd700" // Set the color to yellow on hover
-              onChange={() => handleRatingChange(rating)}
-            /> */}
-            {/* <ReactStars
-              count={5}
-              onChange={ratingChanged}
-              size={24}
-              activeColor="#ffd700"
-            /> */}
+            <div>
+              {[1, 2, 3, 4, 5].map((star) => (
+                <span
+                  key={star}
+                  style={{ cursor: "pointer" }}
+                  onClick={() => ratingChanged(star)}
+                >
+                  {star <= rating ? "★" : "☆"}
+                </span>
+              ))}
+            </div>
           </Form.Group>
 
           <Form.Group controlId="formComment">
