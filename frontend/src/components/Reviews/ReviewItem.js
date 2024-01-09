@@ -49,7 +49,7 @@ const ReviewItem = ({ review, userId }) => {
             <div className="rating">{renderStars(rating)}</div>
           </div>
             {review.author._id === userId && (
-              <div style={{display:"flex", justifyContent:"space-between"}}>
+              <div style={{display:"flex"}}>
                 <FaPenSquare className="fa-regular" />
                 <FaTrash className="fa-regular" />
               </div>
