@@ -21,13 +21,14 @@ function Profile() {
   });
   useEffect(() => {
     if (user) {
-      localStorage.setItem('user', JSON.stringify(user));
+      localStorage.setItem("user", JSON.stringify(user));
     }
   }, [user]);
 
- const imageSrc = userData.image instanceof File
-    ? URL.createObjectURL(userData.image)
-    : userData.image;
+  const imageSrc =
+    userData.image instanceof File
+      ? URL.createObjectURL(userData.image)
+      : userData.image;
   const [editMode, setEditMode] = useState(false);
 
   const dispatch = useDispatch();
@@ -54,16 +55,12 @@ function Profile() {
     for (const key in userData) {
       formData.append(key, userData[key]);
     }
-
-    // Log FormData contents
     for (let [key, value] of formData.entries()) {
-      console.log(key, value instanceof Blob ? `${value} (${value.size} bytes)` : value);
     }
 
     dispatch(updateProfile(formData));
     setEditMode(false);
   };
-
 
   useEffect(() => {
     dispatch(fetchProducts());
@@ -128,11 +125,7 @@ function Profile() {
             ) : (
               <div>
                 <div className="profile-header">
-                  <img
-                    src={imageSrc}
-                    alt="Profile"
-                    className="profile-image"
-                  />
+                  <img src={imageSrc} alt="Profile" className="profile-image" />
                 </div>
                 <p>
                   <strong>Name:</strong> {user.name}
