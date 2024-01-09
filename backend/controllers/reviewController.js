@@ -52,8 +52,8 @@ const getReviews = asyncHandler(async (req, res) => {
 // @access PRIVATE
 const createReview = asyncHandler(async (req, res) => {
   // productId is going to be in the params so not needed for validation, product id doesn't need input, its referenced automatically
-  const { productId, rating, comment } = req.body;
-  const userId = req.user._id;
+  const { productId, rating, comment, userId } = req.body;
+  // const userId = req.user._id;
 
   if (rating === undefined || rating === null) {
     res.status(400);

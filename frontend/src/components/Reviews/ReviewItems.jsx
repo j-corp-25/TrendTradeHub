@@ -5,13 +5,16 @@ import { toast } from "react-toastify";
 import { BeatLoader } from "react-spinners";
 import { fetchReviews } from "../../app/reviewsReducer";
 import { useParams } from "react-router-dom";
-import { Container } from "react-bootstrap";
-import ReviewItem from "./ReviewItem"; 
+import { Container, Button } from "react-bootstrap"; // Import Button from react-bootstrap
+import { FaCheck, FaTimes } from "react-icons/fa"; // Import the icons
+import ReviewItem from "./ReviewItem";
 
 const ReviewItems = ({ productId }) => {
   const dispatch = useDispatch();
   const { reviews, isLoading, isError, isSuccess, message, averageRating } =
     useSelector((state) => state.reviews);
+    const userId = useSelector((state) => state.auth.user._id);
+
 
   useEffect(() => {
     if (productId) {
@@ -42,7 +45,9 @@ const ReviewItems = ({ productId }) => {
   return (
     <Container>
       {reviews.map((review) => (
-        <ReviewItem key={review._id} review={review} />
+        <React.Fragment key={review._id}>
+          <ReviewItem review={review} userId={userId} />
+        </React.Fragment>
       ))}
     </Container>
   );

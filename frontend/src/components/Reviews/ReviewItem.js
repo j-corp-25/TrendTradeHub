@@ -1,7 +1,14 @@
 import React from "react";
-import { FaStar, FaRegStar, FaStarHalfAlt } from "react-icons/fa";
-import './reviewItem.css'
-const ReviewItem = ({ review }) => {
+import {
+  FaStar,
+  FaRegStar,
+  FaStarHalfAlt,
+  FaPenSquare,
+  FaTrash,
+} from "react-icons/fa";
+import "./reviewItem.css";
+import { useSelector } from "react-redux";
+const ReviewItem = ({ review, userId }) => {
   const { author, rating, comment } = review;
 
   const renderStars = (rating) => {
@@ -41,6 +48,12 @@ const ReviewItem = ({ review }) => {
             <div className="username">{author.name}</div>
             <div className="rating">{renderStars(rating)}</div>
           </div>
+            {review.author._id === userId && (
+              <div style={{display:"flex"}}>
+                <FaPenSquare className="fa-regular" />
+                <FaTrash className="fa-regular" />
+              </div>
+            )}
         </div>
         <div className="review-comment">{comment}</div>
       </div>
