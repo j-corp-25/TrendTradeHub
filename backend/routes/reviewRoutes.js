@@ -9,7 +9,7 @@ import {
   deleteReview
 } from "../controllers/reviewController.js";
 
-router.post("/create", createReview);
+router.post("/create", protect,  createReview);
 router.get("/:productId", getReviews);
 router.patch("/:id", protect, updateReview);
 router.delete("/:id",protect,deleteReview)
