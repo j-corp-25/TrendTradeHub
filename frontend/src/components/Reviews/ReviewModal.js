@@ -13,7 +13,9 @@ const ReviewModal = ({ showModal, handleClose }) => {
   const product = useSelector(state=> state.products.selectedProduct?._id);
   const [comment, setComment] = useState("");
   const [rating, setRating] = useState(0); 
+  const [hoveredRating, setHoveredRating] = useState(0);
   const [error, setError] = useState("");
+
 
 
   const handleSubmit = () => {
@@ -26,6 +28,14 @@ const ReviewModal = ({ showModal, handleClose }) => {
   };
   const ratingChanged = (newRating) => {
     setRating(newRating);
+  };
+
+  const handleMouseOver = (hoveredRating) => {
+    setHoveredRating(hoveredRating);
+  };
+
+  const handleMouseLeave = () => {
+    setHoveredRating(0);
   };
 
 
@@ -42,8 +52,12 @@ const ReviewModal = ({ showModal, handleClose }) => {
               {[1, 2, 3, 4, 5].map((star) => (
                 <span
                   key={star}
-                  style={{ cursor: "pointer" }}
+                  style={{ cursor: "pointer",
+                  color: star <= (hoveredRating || rating) ? "#ffd700" : "#ccc"
+                }}
                   onClick={() => ratingChanged(star)}
+                  onMouseOver={() => handleMouseOver(star)}
+                  onMouseLeave={handleMouseLeave}
                 >
                   {star <= rating ? "★" : "☆"}
                 </span>
