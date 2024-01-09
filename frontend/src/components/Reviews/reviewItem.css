@@ -40,6 +40,7 @@
   
   .rating {
     display: flex;
+    margin: 3PX;
   }
   
   .fa-star,

@@ -130,8 +130,8 @@ function ProductDetails() {
             )}
           </div>
           <div className="content">
-            <h1 className="name"> Title: {product.title}</h1>
             <div className="rating">{renderStars(averageRating)}</div>
+            <h1 className="name"> Title: {product.title}</h1>
 
             <div className="price"> Price: {product.price}</div>
             <div className="category">Category: {product.category}</div>

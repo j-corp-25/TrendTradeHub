@@ -1,23 +1,45 @@
 import React, { useState } from "react";
-import { Modal, Button, Form } from "react-bootstrap";
+import { Modal, Button, Form, Alert } from "react-bootstrap";
 import Rating from "react-rating-stars-component";
 import ReactStars from "react-rating-stars-component";
+import { createReview, fetchReviews } from "../../app/reviewsReducer";
+import { useSelector, useDispatch } from "react-redux";
+import { fetchProducts } from "../../app/productReducer";
+import { useEffect } from "react";
 
 const ReviewModal = ({ showModal, handleClose }) => {
+  const dispatch = useDispatch();
+  const userId = useSelector(state=> state.auth.user._id);
+  const product = useSelector(state=> state.products.selectedProduct?._id);
   const [comment, setComment] = useState("");
+  const [rating, setRating] = useState(0); 
+  const [hoveredRating, setHoveredRating] = useState(0);
+  const [error, setError] = useState("");
+
 
 
   const handleSubmit = () => {
-    // Implement your logic to submit the review
-   
-    console.log("Comment:", comment);
-
-    // Close the modal after submitting
-    handleClose();
+    
+    if (rating > 0 && comment.trim() !== "") {
+    dispatch(createReview({ userId: userId ,comment: comment, rating: rating, productId: product}));
+    console.log(userId, product);
+    handleClose();}
+    else {
+      setError("Please Prodive both rating and comment");
+    }
   };
   const ratingChanged = (newRating) => {
-    console.log(newRating);
+    setRating(newRating);
   };
+
+  const handleMouseOver = (hoveredRating) => {
+    setHoveredRating(hoveredRating);
+  };
+
+  const handleMouseLeave = () => {
+    setHoveredRating(0);
+  };
+
 
   return (
     <Modal show={showModal} onHide={handleClose}>
@@ -28,19 +50,21 @@ const ReviewModal = ({ showModal, handleClose }) => {
         <Form>
           <Form.Group controlId="formRating">
             <Form.Label>Rating:</Form.Label>
-            {/* <Rating
-              count={5}
-              size={30}
-              value={rating}
-              activeColor="#ffd700" // Set the color to yellow on hover
-              onChange={() => handleRatingChange(rating)}
-            /> */}
-            {/* <ReactStars
-              count={5}
-              onChange={ratingChanged}
-              size={24}
-              activeColor="#ffd700"
-            /> */}
+            <div>
+              {[1, 2, 3, 4, 5].map((star) => (
+                <span
+                  key={star}
+                  style={{ cursor: "pointer",
+                  color: star <= (hoveredRating || rating) ? "#ffd700" : "#ccc"
+                }}
+                  onClick={() => ratingChanged(star)}
+                  onMouseOver={() => handleMouseOver(star)}
+                  onMouseLeave={handleMouseLeave}
+                >
+                  {star <= rating ? "★" : "☆"}
+                </span>
+              ))}
+            </div>
           </Form.Group>
 
           <Form.Group controlId="formComment">
@@ -52,6 +76,10 @@ const ReviewModal = ({ showModal, handleClose }) => {
               value={comment}
               onChange={(e) => setComment(e.target.value)}
             />
+            {error && (
+              <Alert variant="danger" className="mt-2">
+                {error}
+              </Alert>)}
           </Form.Group>
         </Form>
       </Modal.Body>
@@ -62,6 +90,7 @@ const ReviewModal = ({ showModal, handleClose }) => {
         <Button variant="primary" onClick={handleSubmit}>
           Submit Review
         </Button>
+        
       </Modal.Footer>
     </Modal>
   );
