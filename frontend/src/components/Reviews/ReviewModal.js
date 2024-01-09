@@ -19,8 +19,10 @@ const ReviewModal = ({ showModal, handleClose }) => {
 
 
   const handleSubmit = () => {
+    
     if (rating > 0 && comment.trim() !== "") {
-    dispatch(createReview({ author: userId ,comment: comment, rating: rating, product: product}));
+    dispatch(createReview({ userId: userId ,comment: comment, rating: rating, productId: product}));
+    console.log(userId, product);
     handleClose();}
     else {
       setError("Please Prodive both rating and comment");
