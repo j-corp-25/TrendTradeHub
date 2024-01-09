@@ -40,7 +40,7 @@ const ReviewItem = ({ review, userId }) => {
     <div className="review-item">
       <div className="review-author">
         {/* Display profile picture here */}
-        <img src={author.profilePicture} alt={`${author.name}'s profile`} />
+        <img src={author.image} alt={`${author.name}'s profile`} />
       </div>
       <div className="review-content">
         <div className="review-header">

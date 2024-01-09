@@ -1,4 +1,7 @@
 import React, { useState } from "react";
+
+// import Rating from "react-rating-stars-component";
+// import ReactStars from "react-rating-stars-component";
 import { Modal, Button, Form, Alert } from "react-bootstrap";
 import Rating from "react-rating-stars-component";
 import ReactStars from "react-rating-stars-component";
@@ -6,6 +9,7 @@ import { createReview, fetchReviews } from "../../app/reviewsReducer";
 import { useSelector, useDispatch } from "react-redux";
 import { fetchProducts } from "../../app/productReducer";
 import { useEffect } from "react";
+
 
 const ReviewModal = ({ showModal, handleClose }) => {
   const dispatch = useDispatch();

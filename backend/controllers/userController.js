@@ -44,6 +44,7 @@ const loginUser = asyncHandler(async (req, res) => {
       name: user.name,
       email: user.email,
       token: generateToken(user._id),
+      image: user.image,
     });
   } else {
     res.status(400);
@@ -82,9 +83,11 @@ const updateUserProfile = asyncHandler(async (req, res) => {
     throw new Error("User not found");
   }
 
+  // Update name and email
   user.name = req.body.name || user.name;
   user.email = req.body.email || user.email;
 
+  // Update image only if a new file is provided
   if (req.file && req.file.path) {
     user.image = req.file.path;
   }
@@ -95,9 +98,10 @@ const updateUserProfile = asyncHandler(async (req, res) => {
     _id: updatedUser._id,
     name: updatedUser.name,
     email: updatedUser.email,
-    image: updatedUser.image,
+    image: updatedUser.image
   });
 });
+
 
 export {
   registerUser,

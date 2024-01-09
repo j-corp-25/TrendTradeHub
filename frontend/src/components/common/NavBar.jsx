@@ -14,7 +14,7 @@ import {
 import "./NavBar.css";
 import { FaSignInAlt, FaSignOutAlt, FaUserAlt } from "react-icons/fa";
 import { LinkContainer } from "react-router-bootstrap";
-import { logout, reset } from "../../app/userReducer";
+import { logout, performLogout, reset } from "../../app/userReducer";
 import { useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 
@@ -24,7 +24,7 @@ function NavBar() {
   const { user } = useSelector((state) => state.auth);
 
   const onLogout = () => {
-    dispatch(logout());
+    dispatch(performLogout());
     dispatch(reset());
     navigate("/login");
   };

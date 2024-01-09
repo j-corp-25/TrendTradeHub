@@ -19,7 +19,15 @@ function Profile() {
     password: "",
     image: user.image,
   });
+  useEffect(() => {
+    if (user) {
+      localStorage.setItem('user', JSON.stringify(user));
+    }
+  }, [user]);
 
+ const imageSrc = userData.image instanceof File
+    ? URL.createObjectURL(userData.image)
+    : userData.image;
   const [editMode, setEditMode] = useState(false);
 
   const dispatch = useDispatch();
@@ -121,7 +129,7 @@ function Profile() {
               <div>
                 <div className="profile-header">
                   <img
-                    src={userData.image}
+                    src={imageSrc}
                     alt="Profile"
                     className="profile-image"
                   />

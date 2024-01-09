@@ -147,6 +147,7 @@ export const updateReview =
       const url = `${API_URL}${reviewId}`;
       const response = await axios.patch(url, updatedReviewData, config);
       dispatch(updateReviewSuccess(response.data));
+      
     } catch (error) {
       const message =
         (error.response &&
