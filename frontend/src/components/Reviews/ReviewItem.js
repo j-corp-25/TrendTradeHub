@@ -8,7 +8,10 @@ import {
 } from "react-icons/fa";
 import "./reviewItem.css";
 import ReviewModal from "./ReviewModal";
+import { deleteReview } from "../../app/reviewsReducer";
+import { useDispatch } from "react-redux";
 const ReviewItem = ({ review, userId }) => {
+  const dispatch = useDispatch();
   const { _id, author, rating, comment } = review;
 
 
@@ -42,6 +45,10 @@ const ReviewItem = ({ review, userId }) => {
     return starIcons;
   };
 
+  const handleDeleteReview = () =>{
+    dispatch(deleteReview(_id))
+  }
+
   return (
     <div className="review-item">
       <div className="review-author">
@@ -56,7 +63,7 @@ const ReviewItem = ({ review, userId }) => {
             {review.author._id === userId && (
               <div style={{display:"flex"}}>
                 <FaPenSquare className="fa-regular" onClick={handleShowModal}/>
-                <FaTrash className="fa-regular" />
+                <FaTrash className="fa-regular" onClick={handleDeleteReview} />
               </div>
             )}
         </div>
