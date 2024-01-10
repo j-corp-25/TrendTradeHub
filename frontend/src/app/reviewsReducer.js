@@ -209,7 +209,6 @@ const reviewReducer = (state = initialState, action) => {
         reviews: [...state.reviews, action.payload],
         isSuccess: true,
         message: "",
-        reviews: [],
       };
     case CREATE_REVIEW_FAILURE:
       return {
@@ -250,7 +249,7 @@ const reviewReducer = (state = initialState, action) => {
       };
     case UPDATE_REVIEW_SUCCESS:
       const updatedReviews = state.reviews
-        .filter((review) => review.id !== action.payload.updatedReview.id)
+        .filter((review) => review._id !== action.payload.updatedReview._id)
         .concat(action.payload.updatedReview);
       return {
         ...state,
