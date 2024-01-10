@@ -232,7 +232,7 @@ const reviewReducer = (state = initialState, action) => {
       return {
         ...state,
         isLoading: false,
-        reviews: state.reviews.filter((review) => review.id !== action.payload),
+        reviews: state.reviews.filter((review) => review._id !== action.payload),
         isSuccess: true,
       };
     case DELETE_REVIEW_FAILURE:
