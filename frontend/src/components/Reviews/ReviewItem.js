@@ -9,7 +9,7 @@ import {
 import "./reviewItem.css";
 import ReviewModal from "./ReviewModal";
 const ReviewItem = ({ review, userId }) => {
-  const { author, rating, comment } = review;
+  const { _id, author, rating, comment } = review;
 
 
   const [showModal, setShowModal] = useState(false);

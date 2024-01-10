@@ -23,8 +23,9 @@ const ReviewModal = ({ showModal, handleClose, review = {rating:0, comment:""} }
 
 
   const handleSubmit = () => {
+    console.log(review);
     
-    if (review.comment !== "" && review.rating !== 0)
+    if (review.comment === "" && review.rating === 0)
     {
       if (rating > 0 && comment.trim() !== "") {
       dispatch(createReview({ userId: userId ,comment: comment, rating: rating, productId: product}));
