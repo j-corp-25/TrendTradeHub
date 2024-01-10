@@ -13,7 +13,7 @@ const ReviewItems = ({ productId }) => {
   const dispatch = useDispatch();
   const { reviews, isLoading, isError, isSuccess, message, averageRating } =
     useSelector((state) => state.reviews);
-    const userId = useSelector((state) => state.auth.user._id);
+    const user = useSelector((state) => state.auth.user);
 
 
   useEffect(() => {
@@ -46,7 +46,7 @@ const ReviewItems = ({ productId }) => {
     <Container>
       {reviews.map((review) => (
         <React.Fragment key={review._id}>
-          <ReviewItem review={review} userId={userId} />
+          <ReviewItem review={review} user={user} />
         </React.Fragment>
       ))}
     </Container>
