@@ -1,4 +1,6 @@
 import express from "express";
+import { createServer } from 'node:http'
+import { Server } from 'socket.io'
 import helmet from "helmet";
 import dotenv from "dotenv";
 dotenv.config();
@@ -9,16 +11,39 @@ import reviewRoutes from "./routes/reviewRoutes.js";
 import productRoutes from "./routes/productRoutes.js";
 import cors from "cors";
 import {upload} from "./middleware/multer.js"
+
 const port = process.env.PORT || 4000;
 connectDB();
-
 const app = express();
-app.use(cors());
+const server = createServer(app);
+const io = new Server(server, {
+    cors: {
+        origin: "http://localhost:3000"
+    }
+});
+
+app.use(cors({
+    origin: "http://localhost:3000"
+  }));
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-
 app.use(helmet());
+
+app.get('/api/test', (req, res) => {
+    res.send('<h1>Hello world</h1>');
+});
+
+io.on('connection', (socket) => {
+    console.log('a user connected');
+
+    socket.on('message', (message) => {
+        console.log('Message received:', message);
+        socket.broadcast.emit('message',message);
+    });
+});
+
+
 
 app.use("/api/users", userRoutes);
 app.use("/api/products", productRoutes);
@@ -27,4 +52,5 @@ app.use("/api/reviews", reviewRoutes);
 app.use(notFound);
 app.use(errorHandler);
 
-app.listen(port, () => console.log(`Server started on port ${port}`));
+// Use server.listen instead of app.listen
+server.listen(port, () => console.log(`Server started on port ${port}`));

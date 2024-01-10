@@ -8,7 +8,7 @@ import Reviews from "./components/Reviews/ReviewItems";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import ProductItems from "./components/Products/ProductItems";
-
+import Test from "./components/TestComponent"
 import ProductUnit from "./components/Products/ProductUnit";
 import ProductDetails from "./components/Products/ProductDetails";
 import DualSignUpSignIn from "./pages/SignInCreateAccountPage";
@@ -28,6 +28,8 @@ function App() {
         <Route path="/reviews" element={<Reviews />} />
         <Route path="/productUnit" element={<ProductUnit />} />
         <Route path="/product/:productId" element={<ProductDetails />} />
+        <Route path="/test" element={<Test />} />
+
       </Routes>
     </>
   );
