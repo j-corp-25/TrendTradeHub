@@ -10,9 +10,10 @@ import "./reviewItem.css";
 import ReviewModal from "./ReviewModal";
 import { deleteReview } from "../../app/reviewsReducer";
 import { useDispatch } from "react-redux";
-const ReviewItem = ({ review, userId }) => {
+const ReviewItem = ({ review, user }) => {
   const dispatch = useDispatch();
   const { _id, author, rating, comment } = review;
+  const userId = user._id;
 
 
   const [showModal, setShowModal] = useState(false);
