@@ -27,6 +27,15 @@ function ProductUnit({ productId }) {
 
   return (
     <div className="product-item">
+       <div className="user-info-product">
+        <div className="user-img">
+            <img src={selectedProduct.author.image} alt="user-profile" />
+        </div>
+        <div className="user-name">
+          <span>{selectedProduct.author.name}</span>
+
+        </div>
+      </div>
       <div className="image">
         <div className="content-image">
           <Link to={`/product/${productId}`}>
@@ -44,32 +53,25 @@ function ProductUnit({ productId }) {
           )}
         </div>
       </div>
-      <div className="user-info-product">
-        <div className="user-img">
-
-        </div>
-        <div className="user-name">
-          
-        </div>
-      </div>
-      <div className="name-rate">
+     
+      <div className="name-cart">
         <div className="name">
           <Link to={`/product/${productId}`}>{title}</Link>
-        </div>
-      </div>
-
-      <div className="price-like-cart">
-        <div className="price">
-          <span>${price.toFixed(2)}</span>
         </div>
         <div className="cart">
           <button
             type="button"
-            className="btn btn-primary"
-            style={{ width: "70px", height: "25px" }}
+            className="btn "
+            style={{ height: "25px" }}
           >
             <FaCartPlus />
           </button>
+        </div>
+      </div>
+
+      <div className="price-like">
+        <div className="price">
+          <span style={{fontWeight:"bold", fontSize:"12px" }}>${price.toFixed(2)}</span>
         </div>
       </div>
     </div>
