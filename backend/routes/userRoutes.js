@@ -16,6 +16,6 @@ router.get("/profile", protect, getUserProfile);
 router.patch("/profile", protect, upload.single("image"), updateUserProfile);
 router.post("/logout", logoutUser);
 router.post("/login", loginUser);
-router.get("/allUsers", protect, getAllUsers)
+router.get("/allUsers", getAllUsers)
 
 export default router;

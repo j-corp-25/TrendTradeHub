@@ -6,6 +6,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { Container } from "react-bootstrap";
 import fetchProducts from "../../app/productReducer";
 import { useNavigate } from "react-router-dom";
+import { fetchUsers } from "../../app/userReducer";
 
 function ProductItems() {
   const navigate = useNavigate()
@@ -14,6 +15,8 @@ function ProductItems() {
   useEffect(() => {
     dispatch(fetchProducts());
   }, [dispatch]);
+
+  useEffect(() => dispatch(fetchUsers()),[]);
   return (
     <Container>
       <div className="my-5">

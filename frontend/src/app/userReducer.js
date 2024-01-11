@@ -65,7 +65,7 @@ export const reset = () => ({ type: RESET });
 export const fetchUsers = () => async (dispatch) => {
   try {
     const response = await axios.get(API_URL_ALL);
-    dispatch(fetchProductsSuccess(response.data));
+    dispatch(fetchUsersSuccess(response.data));
   } catch (error) {
     console.error("Error fetching users:", error);
   }
@@ -138,7 +138,7 @@ const initialState = {
 const authReducer = (state = initialState, action) => {
   switch (action.type) {
     case FETCH_USERS_SUCCESS:
-        return {...state, all: [...state.all, action.payload]}
+      return { ...state, all: action.payload };
     case REGISTER_REQUEST:
     case LOGIN_REQUEST:
       return { ...state, isLoading: true, isError: false, isSuccess: false };
