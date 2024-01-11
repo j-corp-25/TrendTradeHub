@@ -12,7 +12,7 @@ import Test from "./components/TestComponent"
 import ProductUnit from "./components/Products/ProductUnit";
 import ProductDetails from "./components/Products/ProductDetails";
 import DualSignUpSignIn from "./pages/SignInCreateAccountPage";
-
+import Convos from "./pages/ChatPage"
 function App() {
   return (
     <>
@@ -29,6 +29,7 @@ function App() {
         <Route path="/productUnit" element={<ProductUnit />} />
         <Route path="/product/:productId" element={<ProductDetails />} />
         <Route path="/test" element={<Test />} />
+        <Route path="/conversations" element={<Convos/>}/>
 
       </Routes>
     </>

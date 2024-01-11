@@ -36,14 +36,14 @@ function NavBar() {
   };
   return (
     <header>
-      <Navbar bg="dark" variant="dark" expand="lg" collapseOnSelect>
-        <Container className="my-4">
+      <Navbar bg="dark" variant="dark" expand="xl" collapseOnSelect>
+        <Container className="my-5" >
           <LinkContainer to="/products">
             <NavbarBrand>TrendTradeHub</NavbarBrand>
           </LinkContainer>
           <NavbarToggle aria-controls="basic-navbar-nav" />
           <NavbarCollapse id="basic-navbar-nav">
-            <Nav className="me-auto"></Nav> {/* Empty Nav for spacing */}
+
             <Form className="d-flex mx-auto">
               <FormControl
                 type="search"
@@ -56,7 +56,7 @@ function NavBar() {
             <Nav>
               {user ? (
                 <>
-                  <NavLink className="d-flex align-items-center justify-content-center-lg space-right2" onClick={onLogout}>
+                  <NavLink className="d-flex align-items-center justify-content-center-lg" onClick={onLogout}>
                     <FaSignOutAlt className="me-1"/>
                     Log Out
                   </NavLink>
