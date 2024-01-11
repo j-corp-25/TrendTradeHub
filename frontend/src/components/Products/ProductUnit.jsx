@@ -26,6 +26,7 @@ function ProductUnit({ productId }) {
 
   return (
     <div className="product-item">
+      <Link to={`/profile/${selectedProduct.author._id}`}>
         <div className="user-info-product">
           <div className="user-img">
             <img src={selectedProduct.author.image} alt="user-profile" />
@@ -34,6 +35,7 @@ function ProductUnit({ productId }) {
             <span>{selectedProduct.author.name}</span>
           </div>
         </div>
+      </Link>
       <div className="image">
         <div className="content-image">
           <Link to={`/product/${productId}`}>
