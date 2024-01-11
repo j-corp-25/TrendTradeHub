@@ -56,13 +56,13 @@ function ProductUnit({ productId }) {
      
       <div className="name-cart">
         <div className="name">
-          <Link to={`/product/${productId}`}>{title}</Link>
+          <Link to={`/product/${productId}`} style={{color:"rgb(36, 89, 78)" }}>{title}</Link>
         </div>
         <div className="cart">
           <button
             type="button"
             className="btn "
-            style={{ height: "25px" }}
+            style={{ height: "20px", padding: "3px" }}
           >
             <FaCartPlus />
           </button>
