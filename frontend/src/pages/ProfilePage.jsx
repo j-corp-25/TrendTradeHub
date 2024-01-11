@@ -87,7 +87,7 @@ function Profile() {
   useEffect(() => {
     dispatch(fetchProducts());
   }, [dispatch]);
-  useEffect(() => dispatch(fetchUsers()),[]);
+  useEffect(() => dispatch(fetchUsers()),[userId]);
 
   return (
     <>
