@@ -1,25 +1,51 @@
 import React from "react";
-import { Container, Row, Col, FormControl, Button, Form } from "react-bootstrap";
+import {
+  Container,
+  Row,
+  Col,
+  FormControl,
+  Button,
+  Form,
+} from "react-bootstrap";
+import Conversation from "../components/Messages/Conversation"
 
 const ChatPage = () => {
   return (
     <Container className="text-center border border-5">
       <Row>
-        <Col xs={13} md={3} className="border-end p-3">
+        <Col xs={12} md={3} className="border-end p-3">
           <div>Conversations</div>
           <Form className="d-flex flex-column flex-lg-row me-1 p-1">
-            <Col xs={13} md={8} className="mb-1 mb-lg-0 me-1">
+            <Col xs={12} md={8} className="mb-2 mb-lg-1 me-1 ">
               <FormControl
                 type="search"
                 placeholder="Search"
                 aria-label="Search"
-                className="w-lg-auto"
               />
             </Col>
-            <Col xs={13} md={4} className=" w-auto">
-              <Button variant="outline-success" className=" container-sm">Search</Button>
+            <Col xs={12} md={4} className=" w-auto ">
+              <Button variant="outline-success" className=" container-sm">
+                Search
+              </Button>
             </Col>
           </Form>
+          {true &&
+            [0, 1, 2, 4, 5].map((_, i) => (
+              <div
+                key={i}
+                className="d-flex align-items-center mb-2  placeholder-glow"
+              >
+                <span
+                  className="placeholder rounded-circle me-2"
+                  style={{ width: "40px", height: "40px" }}
+                ></span>
+                <div className="flex-grow-1">
+                  <span className="placeholder col-12 "></span>
+                  <span className="placeholder col-7 "></span>
+                </div>
+              </div>
+            ))}
+            <Conversation/>
         </Col>
         <Col xs={12} md={9}>
           <div>Message Container</div>
