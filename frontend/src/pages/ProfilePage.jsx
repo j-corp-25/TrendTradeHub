@@ -22,7 +22,7 @@ function Profile() {
   const user = useSelector((state) => state.auth.user);
   const products = useSelector((state) => state.products.products);
   const user_products = products.filter(
-    (product) => product.author === user._id
+    (product) => product.author._id === user._id
   );
   const [userData, setUserData] = useState({
     name: user.name,
