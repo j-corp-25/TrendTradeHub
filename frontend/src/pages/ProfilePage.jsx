@@ -6,6 +6,8 @@ import { FaUserAlt, FaEdit, FaCheck, FaTimes } from "react-icons/fa";
 import "../pageStyles/ProfilePage.css";
 import { Link } from "react-router-dom";
 import { fetchProducts } from "../app/productReducer";
+import { useParams } from "react-router-dom";
+import { fetchUsers } from "../app/userReducer";
 
 import styled from 'styled-components';
 
@@ -19,7 +21,10 @@ const StyledTable = styled.table`
 `;
 
 function Profile() {
-  const user = useSelector((state) => state.auth.user);
+  const userId = useParams();
+  const users = useSelector((state) => state.auth.all);
+  const user =  users.find(user => user._id === Object.values(userId)[0]);
+  // const user = useSelector((state) => state.auth.user);
   const products = useSelector((state) => state.products.products);
   const user_products = products.filter(
     (product) => product.author._id === user._id
@@ -82,8 +87,11 @@ function Profile() {
   useEffect(() => {
     dispatch(fetchProducts());
   }, [dispatch]);
+  useEffect(() => dispatch(fetchUsers()),[]);
+
   return (
     <>
+    
       <Container className="mt-5">
         <Card>
           <Card.Header>
