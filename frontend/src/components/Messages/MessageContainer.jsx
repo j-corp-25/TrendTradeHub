@@ -12,7 +12,7 @@ const MessageContainer = () => {
   return (
     <Container
       className="bg-light border rounded-md p-1"
-      style={{ height: "600px", overflowY: "scroll" }}
+      style={{ height: "600px"}}
     >
     <Row className="align-items-center mb-3 p-3">
         <Col xs="auto" className="d-flex align-items-center">
@@ -25,7 +25,7 @@ const MessageContainer = () => {
         </Col>
     </Row>
       <hr />
-      <div style={{ overflowY: "scroll", height: "calc(100% - 100px)" }}>
+      <div style={{ overflowY: "auto", height: "calc(100% - 125px)" }}>
         {false &&
           [...Array(10)].map((_, i) => (
             <div
@@ -58,6 +58,8 @@ const MessageContainer = () => {
         <Message myMessage={true}/>
         <Message myMessage={false}/>
         <Message myMessage={false}/>
+        <Message myMessage={true}/>
+        <Message myMessage={true}/>
         <Message myMessage={true}/>
       </div>
     </Container>
