@@ -11,10 +11,10 @@ const MessageContainer = () => {
   );
   return (
     <Container
-      className="bg-light border rounded-md p-3"
+      className="bg-light border rounded-md p-1"
       style={{ height: "600px", overflowY: "scroll" }}
     >
-      <Row className="align-items-center mb-3">
+    <Row className="align-items-center mb-3 p-3">
         <Col xs="auto" className="d-flex align-items-center">
           <Image
             src="https://via.placeholder.com/150"
@@ -23,9 +23,9 @@ const MessageContainer = () => {
           />
           <strong className="ms-2">John Doe</strong>
         </Col>
-      </Row>
+    </Row>
       <hr />
-      <div className="d-flex flex-column gap-4">
+      <div style={{ overflowY: "scroll", height: "calc(100% - 100px)" }}>
         {false &&
           [...Array(10)].map((_, i) => (
             <div

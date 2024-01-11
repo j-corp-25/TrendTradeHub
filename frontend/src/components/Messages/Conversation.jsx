@@ -1,10 +1,11 @@
 import React from "react";
-
+import { Container, Row, Col, Image } from "react-bootstrap";
 const Conversation = () => {
   return (
-    <div
-      className="d-flex align-items-center gap-3 p-2"
-      style={{ cursor: "pointer", borderRadius: "0.375rem" /* md */ }}
+    <Container
+      className="d-flex align-items-center gap-1 p-2 "
+      style={{ cursor: "pointer", borderRadius: "0.375rem",}}
+
     >
       <div className="position-relative">
         <img
@@ -25,7 +26,7 @@ const Conversation = () => {
         <div className="text-start text-truncate mb-1">John Doe</div>
         <div className="text-start text-truncate"> hello from a very long message sdfjn sdhba sfdkhjb asdfhk</div>
       </div>
-    </div>
+    </Container>
   );
 };
 
