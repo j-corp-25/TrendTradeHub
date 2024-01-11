@@ -16,6 +16,15 @@ const UPDATE_PROFILE_FAILURE = "UPDATE_PROFILE_FAILURE";
 const API_URL = "/api/users/register";
 const API_URL_LOGIN = "/api/users/login";
 const API_URL_PROFILE = "/api/users/profile";
+const API_URL_ALL = "/api/users/allUsers";
+
+export const FETCH_USERS_SUCCESS = "FETCH_USERS_SUCCESS";
+
+
+export const fetchUsersSuccess = (users) => ({
+  type: FETCH_USERS_SUCCESS,
+  payload: users,
+});
 
 //this gets the token from the user object in local storage
 const user = JSON.parse(localStorage.getItem("user"));
@@ -51,6 +60,18 @@ export const loginFailure = (message) => ({
 
 export const logout = () => ({ type: LOGOUT });
 export const reset = () => ({ type: RESET });
+
+
+export const fetchUsers = () => async (dispatch) => {
+  try {
+    const response = await axios.get(API_URL_ALL);
+    dispatch(fetchUsersSuccess(response.data));
+  } catch (error) {
+    console.error("Error fetching users:", error);
+  }
+};
+
+
 
 export const register = (userData) => async (dispatch) => {
   dispatch(registerRequest());
@@ -111,10 +132,13 @@ const initialState = {
   isError: false,
   isSuccess: false,
   message: "",
+  all: [],
 };
 
 const authReducer = (state = initialState, action) => {
   switch (action.type) {
+    case FETCH_USERS_SUCCESS:
+      return { ...state, all: action.payload };
     case REGISTER_REQUEST:
     case LOGIN_REQUEST:
       return { ...state, isLoading: true, isError: false, isSuccess: false };

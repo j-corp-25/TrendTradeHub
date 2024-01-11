@@ -2,6 +2,7 @@ import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchProducts } from "../app/productReducer";
 import ProductUnit from "../components/Products/ProductUnit";
+import { fetchUsers } from "../app/userReducer";
 
 function Product() {
   const dispatch = useDispatch();
@@ -9,6 +10,8 @@ function Product() {
   useEffect(() => {
     dispatch(fetchProducts());
   }, [dispatch]);
+  useEffect(() => dispatch(fetchUsers()),[]);
+
 
   return (
     <div>

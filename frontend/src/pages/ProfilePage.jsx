@@ -6,12 +6,28 @@ import { FaUserAlt, FaEdit, FaCheck, FaTimes } from "react-icons/fa";
 import "../pageStyles/ProfilePage.css";
 import { Link } from "react-router-dom";
 import { fetchProducts } from "../app/productReducer";
+import { useParams } from "react-router-dom";
+import { fetchUsers } from "../app/userReducer";
+
+import styled from 'styled-components';
+
+const StyledTable = styled.table`
+  width: 100%;
+  border-collapse: collapse;
+
+  tbody > tr {
+    background: ${({ bgColor }) => bgColor || '#171616'};
+  }
+`;
 
 function Profile() {
-  const user = useSelector((state) => state.auth.user);
+  const userId = useParams();
+  const users = useSelector((state) => state.auth.all);
+  const user =  users.find(user => user._id === Object.values(userId)[0]);
+  // const user = useSelector((state) => state.auth.user);
   const products = useSelector((state) => state.products.products);
   const user_products = products.filter(
-    (product) => product.author === user._id
+    (product) => product.author._id === user._id
   );
   const [userData, setUserData] = useState({
     name: user.name,
@@ -19,6 +35,12 @@ function Profile() {
     password: "",
     image: user.image,
   });
+
+  const getRandomColor = () => {
+    const colors = ['#ff5733', '#33ff57', '#5733ff', '#33ffff', '#ff33f5'];
+    return colors[Math.floor(Math.random() * colors.length)];
+  };
+
   useEffect(() => {
     if (user) {
       localStorage.setItem("user", JSON.stringify(user));
@@ -65,8 +87,11 @@ function Profile() {
   useEffect(() => {
     dispatch(fetchProducts());
   }, [dispatch]);
+  useEffect(() => dispatch(fetchUsers()),[userId]);
+
   return (
     <>
+    
       <Container className="mt-5">
         <Card>
           <Card.Header>
@@ -223,33 +248,6 @@ function Profile() {
                     </tbody>
                   </table>
                 </div>
-                <ul class="pagination pull-right">
-                  <li>
-                    <a href="#/">
-                      <i class="fa fa-chevron-left"></i>
-                    </a>
-                  </li>
-                  <li>
-                    <a href="#/">1</a>
-                  </li>
-                  <li>
-                    <a href="#/">2</a>
-                  </li>
-                  <li>
-                    <a href="#/">3</a>
-                  </li>
-                  <li>
-                    <a href="#/">4</a>
-                  </li>
-                  <li>
-                    <a href="#/">5</a>
-                  </li>
-                  <li>
-                    <a href="#/">
-                      <i class="fa fa-chevron-right"></i>
-                    </a>
-                  </li>
-                </ul>
               </div>
             </div>
           </div>
