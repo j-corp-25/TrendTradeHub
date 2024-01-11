@@ -7,6 +7,17 @@ import "../pageStyles/ProfilePage.css";
 import { Link } from "react-router-dom";
 import { fetchProducts } from "../app/productReducer";
 
+import styled from 'styled-components';
+
+const StyledTable = styled.table`
+  width: 100%;
+  border-collapse: collapse;
+
+  tbody > tr {
+    background: ${({ bgColor }) => bgColor || '#171616'};
+  }
+`;
+
 function Profile() {
   const user = useSelector((state) => state.auth.user);
   const products = useSelector((state) => state.products.products);

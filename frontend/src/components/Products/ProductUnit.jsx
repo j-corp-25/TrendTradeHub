@@ -25,10 +25,6 @@ function ProductUnit({ productId }) {
     );
   };
 
-  // useEffect(() => {
-  //   dispatch(fetchReviews(productId));
-  // }, [dispatch, productId]);
-
   return (
     <div className="product-item">
       <div className="image">
@@ -46,6 +42,14 @@ function ProductUnit({ productId }) {
           {images?.length > 1 && (
             <FaAngleRight className="right-arrow" onClick={handleNextImage} />
           )}
+        </div>
+      </div>
+      <div className="user-info-product">
+        <div className="user-img">
+
+        </div>
+        <div className="user-name">
+          
         </div>
       </div>
       <div className="name-rate">
