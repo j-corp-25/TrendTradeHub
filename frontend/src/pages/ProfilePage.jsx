@@ -29,6 +29,8 @@ function Profile() {
     userData.image instanceof File
       ? URL.createObjectURL(userData.image)
       : userData.image;
+
+      
   const [editMode, setEditMode] = useState(false);
 
   const dispatch = useDispatch();
@@ -54,8 +56,6 @@ function Profile() {
 
     for (const key in userData) {
       formData.append(key, userData[key]);
-    }
-    for (let [key, value] of formData.entries()) {
     }
 
     dispatch(updateProfile(formData));

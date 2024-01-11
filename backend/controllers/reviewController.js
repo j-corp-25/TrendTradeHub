@@ -29,10 +29,9 @@ import User from "../models/userModel.js";
 const getReviews = asyncHandler(async (req, res) => {
   const productId = req.params.productId;
   const reviews = await Review.find({ product: productId }).populate({
-    path: 'author',
-    select: 'name image'
+    path: "author",
+    select: "name image",
   });
-
 
   if (reviews.length > 0) {
     let averageRating =
@@ -123,7 +122,7 @@ const updateReview = asyncHandler(async (req, res) => {
     { new: true }
   );
 
-  res.status(200).json({ message: "Review updated", updatedReview });
+  res.status(200).json(updatedReview);
 });
 
 // @desc Delete review
