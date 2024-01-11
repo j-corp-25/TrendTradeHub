@@ -21,12 +21,15 @@ import { useSelector, useDispatch } from "react-redux";
 function NavBar() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const { user } = useSelector((state) => state.auth);
+  // const { user } = useSelector((state) => state.auth);
   const onLogout = () => {
     dispatch(performLogout());
     dispatch(reset());
     navigate("/login");
   };
+  const userId = useParams();
+  const users = useSelector((state) => state.auth.all);
+  const user = users.find((user) => user._id === userId);
   return (
     <header>
       <Navbar bg="dark" variant="dark" expand="lg" collapseOnSelect>
