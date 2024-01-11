@@ -3,20 +3,21 @@ import { Container, Row, Col, FormControl, Button, Form } from "react-bootstrap"
 
 const ChatPage = () => {
   return (
-    <Container className="text-center border border-5 gap-4">
+    <Container className="text-center border border-5">
       <Row>
-        <Col xs={12} md={3} className="border-end">
+        <Col xs={13} md={3} className="border-end p-3">
           <div>Conversations</div>
-          <Form className="d-flex flex-column flex-md-row">
-            <Col xs={12} md={8} className="mb-2 mb-md-0">
+          <Form className="d-flex flex-column flex-lg-row me-1 p-1">
+            <Col xs={13} md={8} className="mb-1 mb-lg-0 me-1">
               <FormControl
                 type="search"
                 placeholder="Search"
                 aria-label="Search"
+                className="w-lg-auto"
               />
             </Col>
-            <Col xs={12} md={4}>
-              <Button variant="outline-success" className="w-100">Search</Button>
+            <Col xs={13} md={4} className=" w-auto">
+              <Button variant="outline-success" className=" container-sm">Search</Button>
             </Col>
           </Form>
         </Col>
