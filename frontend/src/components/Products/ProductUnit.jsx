@@ -18,7 +18,6 @@ function ProductUnit({ productId }) {
 
   const reviews = reviewsState.reviews || [];
 
-
   const handleNextImage = () => {
     setCurrentImageIndex((prevIndex) =>
       prevIndex === images.length - 1 ? 0 : prevIndex + 1
@@ -27,15 +26,14 @@ function ProductUnit({ productId }) {
 
   return (
     <div className="product-item">
-       <div className="user-info-product">
-        <div className="user-img">
+        <div className="user-info-product">
+          <div className="user-img">
             <img src={selectedProduct.author.image} alt="user-profile" />
+          </div>
+          <div className="user-name">
+            <span>{selectedProduct.author.name}</span>
+          </div>
         </div>
-        <div className="user-name">
-          <span>{selectedProduct.author.name}</span>
-
-        </div>
-      </div>
       <div className="image">
         <div className="content-image">
           <Link to={`/product/${productId}`}>
@@ -53,10 +51,15 @@ function ProductUnit({ productId }) {
           )}
         </div>
       </div>
-     
+
       <div className="name-cart">
         <div className="name">
-          <Link to={`/product/${productId}`} style={{color:"rgb(36, 89, 78)" }}>{title}</Link>
+          <Link
+            to={`/product/${productId}`}
+            style={{ color: "rgb(36, 89, 78)" }}
+          >
+            {title}
+          </Link>
         </div>
         <div className="cart">
           <button
@@ -71,7 +74,9 @@ function ProductUnit({ productId }) {
 
       <div className="price-like">
         <div className="price">
-          <span style={{fontWeight:"bold", fontSize:"12px" }}>${price.toFixed(2)}</span>
+          <span style={{ fontWeight: "bold", fontSize: "12px" }}>
+            ${price.toFixed(2)}
+          </span>
         </div>
       </div>
     </div>
