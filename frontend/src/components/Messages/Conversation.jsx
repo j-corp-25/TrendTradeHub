@@ -15,7 +15,7 @@ const Conversation = () => {
         />
         {true && (
           <span
-            className="position-absolute bottom-1 right-2 end-0 translate-middle p-1 bg-success border border-light rounded-circle"
+            className="position-absolute bottom-1 right-1 end-0 translate-middle p-1 bg-success border border-light rounded-circle"
             style={{ width: "1rem", height: "1rem" }}
           ></span>
         )}
