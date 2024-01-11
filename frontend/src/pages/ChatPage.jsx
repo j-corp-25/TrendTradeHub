@@ -7,7 +7,10 @@ import {
   Button,
   Form,
 } from "react-bootstrap";
-import Conversation from "../components/Messages/Conversation"
+import Conversation from "../components/Messages/Conversation";
+import MessageContainer from "../components/Messages/MessageContainer"
+import { GiConversation } from "react-icons/gi";
+import { FaComments } from 'react-icons/fa'
 
 const ChatPage = () => {
   return (
@@ -45,10 +48,28 @@ const ChatPage = () => {
                 </div>
               </div>
             ))}
-            <Conversation/>
+          <Conversation />
+          <Conversation />
+          <Conversation />
         </Col>
         <Col xs={12} md={9}>
-          <div>Message Container</div>
+          <Row
+            className="align-items-center justify-content-center w-auto"
+            style={{ height: "600px" }}
+          >
+            <Col
+              md={9}
+              className="d-flex flex-column align-items-center justify-content-center text-center"
+            >
+              <FaComments size={100} />
+              <div style={{ fontSize: "20px" }}>
+                Select a conversation to start messaging
+              </div>
+            </Col>
+            <Col md={3}>
+              <MessageContainer/>
+            </Col>
+          </Row>
         </Col>
       </Row>
     </Container>
