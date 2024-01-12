@@ -23,11 +23,11 @@ const MessageContainer = ({ selectedConversation }) => {
     );
   }
 
-  useEffect(() => {
-    if (selectedConversation) {
-      const otherParticipantId = selectedConversation.participants[1]._id;
-    }
-  }, [selectedConversation]);
+  // useEffect(() => {
+  //   if (selectedConversation) {
+  //     const otherParticipantId = selectedConversation.participants[1]._id;
+  //   }
+  // }, [selectedConversation]);
 
 
   return (
