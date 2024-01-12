@@ -1,16 +1,15 @@
 import React from "react";
 import { Container, Row, Col, Image } from "react-bootstrap";
-const Conversation = ({lastMessage}) => {
+const Conversation = ({ lastMessage, name, image }) => {
   return (
     <Container
       className="d-flex align-items-center gap-1 p-2 "
-      style={{ cursor: "pointer", borderRadius: "0.375rem",}}
-
+      style={{ cursor: "pointer", borderRadius: "0.375rem" }}
     >
       <div className="position-relative">
         <img
-          src={"https://via.placeholder.com/150"}
-          className="rounded-circle"
+          src={image}
+          className="profile-image"
           style={{ width: "3rem", height: "3rem" }}
           alt="Profile"
         />
@@ -23,7 +22,7 @@ const Conversation = ({lastMessage}) => {
       </div>
 
       <div className="flex-grow-1 w-50 p-1 ">
-        <div className="text-start text-truncate mb-1">John Doe</div>
+        <div className="text-start text-truncate mb-1">{name}</div>
         <div className="text-start text-truncate"> {lastMessage}</div>
       </div>
     </Container>
