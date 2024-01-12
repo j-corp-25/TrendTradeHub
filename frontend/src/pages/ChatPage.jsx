@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
-import { getConversations } from "../app/messagesReducer";
+import { getConversations, resetConversations } from "../app/messagesReducer";
 import {
   Container,
   Row,
@@ -15,11 +15,16 @@ import MessageContainer from "../components/Messages/MessageContainer";
 
 const ChatPage = () => {
   const dispatch = useDispatch();
-  const { messages, isLoading, error, conversations} =
-  useSelector((state) => state.messages);
+  const { messages, isLoading, error, conversations } = useSelector(
+    (state) => state.messages
+  );
 
   useEffect(() => {
     dispatch(getConversations());
+
+    return () => {
+      dispatch(resetConversations());
+    };
   }, [dispatch]);
 
   useEffect(() => {
@@ -51,7 +56,7 @@ const ChatPage = () => {
             style={{ overflowY: "scroll", maxHeight: "calc(100vh - 600px)" }}
           >
             {isLoading &&
-              [0, 1, 2, 4, 5].map((_, i) => (
+              [0, 1, 2, 4, 5, 6, 7].map((_, i) => (
                 <div
                   key={i}
                   className="d-flex align-items-center mb-2  placeholder-glow"
@@ -66,16 +71,6 @@ const ChatPage = () => {
                   </div>
                 </div>
               ))}
-            <Conversation />
-            <Conversation />
-            <Conversation />
-            <Conversation />
-            <Conversation />
-            <Conversation />
-            <Conversation />
-            <Conversation />
-            <Conversation />
-            <Conversation />
             <Conversation />
           </div>
         </Col>
