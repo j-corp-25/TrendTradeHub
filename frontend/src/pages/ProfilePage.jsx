@@ -99,13 +99,13 @@ function Profile() {
     {console.log(users)}
     {
       !loading && 
-      <>
+      <div className="body-profile">
 
-      <Container className="mt-5">
+      <Container className="mt-5 info-container">
         <Card>
-          <Card.Header>
+          {/* <Card.Header>
             <FaUserAlt className="mr-2" /> Profile
-          </Card.Header>
+          </Card.Header> */}
           <Card.Body>
             {editMode ? (
               <Form>
@@ -262,7 +262,7 @@ function Profile() {
           </div>
         </div>
       </div>
-      </>
+      </div>
     }
     </>
   );
