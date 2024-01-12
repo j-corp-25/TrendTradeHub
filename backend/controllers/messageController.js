@@ -41,4 +41,25 @@ const sendMessage = asyncHandler(async (req, res) => {
   res.status(201).json(newMessage);
 });
 
-export { sendMessage };
+const getMessages = asyncHandler(async (req, res) => {
+  const { otherUserId } = req.params;
+  const userId = req.user._id;
+
+  const conversation = await Conversation.findOne({
+    participants: { $all: [userId, otherUserId] },
+  });
+
+  if (!conversation) {
+    throw new Error("Conversation not found");
+  }
+
+  const messages = await Message.find({
+    conversationId: conversation._id,
+  }).sort({ createdAt: 1 });
+
+  res.status(200).json(messages);
+});
+
+
+
+export { sendMessage, getMessages };
