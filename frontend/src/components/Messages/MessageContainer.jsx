@@ -8,11 +8,8 @@ import { getMessages, resetMessages } from "../../app/messagesReducer";
 const MessageContainer = ({ selectedConversation }) => {
   const dispatch = useDispatch();
 
-  const [message, setMessage] = useState([]);
-
   const { messages, isLoading, error } = useSelector((state) => state.messages);
   const { user } = useSelector((state) => state.auth);
-
 
   const PlaceholderRows = () => (
     <Row className="gap-1" style={{ width: "60%" }}>
@@ -36,7 +33,6 @@ const MessageContainer = ({ selectedConversation }) => {
     };
   }, [dispatch, selectedConversation, user._id]);
 
-
   console.log(selectedConversation);
   if (!selectedConversation) {
     return (
@@ -48,7 +44,7 @@ const MessageContainer = ({ selectedConversation }) => {
       </div>
     );
   }
-    const otherParticipant = selectedConversation.participants.find(
+  const otherParticipant = selectedConversation.participants.find(
     (participant) => participant._id !== user._id
   );
 
@@ -109,7 +105,7 @@ const MessageContainer = ({ selectedConversation }) => {
         ))}
       </div>
       <div className="mt-3 flex-row">
-        <MessageForm setMessage={setMessage}/>
+        <MessageForm otherParticipantId={otherParticipant._id} />
       </div>
     </Container>
   );
