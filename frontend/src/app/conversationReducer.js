@@ -26,6 +26,7 @@ const initialState = {
   error: "",
 };
 
+
 const API_URL = "/api/messages/";
 
 const getUserToken = () => {
@@ -52,7 +53,7 @@ const conversationReducer = (state = initialState, action) => {
     case GET_CONVERSATIONS_REQUEST:
       return {
         ...state,
-        isLoading: true,
+        isLoading: null,
         error: "",
       };
     case GET_CONVERSATIONS_SUCCESS:

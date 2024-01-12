@@ -80,7 +80,7 @@ const messagesReducer = (state = initialState, action) => {
     case SEND_MESSAGE_REQUEST:
       return {
         ...state,
-        isLoading: true,
+        isLoading: false,
         error: "",
       };
     case GET_MESSAGES_REQUEST:

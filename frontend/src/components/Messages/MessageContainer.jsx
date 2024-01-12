@@ -105,7 +105,7 @@ const MessageContainer = ({ selectedConversation }) => {
         ))}
       </div>
       <div className="mt-3 flex-row">
-        <MessageForm otherParticipantId={otherParticipant._id} />
+        <MessageForm otherParticipantId={otherParticipant._id} selectedConversation={selectedConversation._id}/>
       </div>
     </Container>
   );

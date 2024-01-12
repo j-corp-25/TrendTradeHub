@@ -4,16 +4,18 @@ import { BsFillChatDotsFill } from "react-icons/bs";
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { sendMessage } from "../../app/messagesReducer";
+import { getConversations } from "../../app/conversationReducer";
 
 const MessageForm = ({ otherParticipantId }) => {
   const dispatch = useDispatch();
   const [messageText, setMessageText] = useState("");
 
-  const handleSendMessage = (e) => {
+  const handleSendMessage = async (e) => {
     e.preventDefault();
     if (messageText.trim() !== "") {
-      dispatch(sendMessage(otherParticipantId, messageText));
+      await dispatch(sendMessage(otherParticipantId, messageText));
       setMessageText("");
+      dispatch(getConversations());
     }
   };
   return (
