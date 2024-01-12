@@ -3,13 +3,15 @@ import thunk from "redux-thunk";
 import productReducer from "./productReducer";
 import authReducer from "./userReducer";
 import reviewReducer from "./reviewsReducer";
+import conversationReducer from "./conversationReducer"
 import messagesReducer from "./messagesReducer"
 
 const rootReducer = combineReducers({
   products: productReducer,
   auth: authReducer,
   reviews: reviewReducer,
-  messages: messagesReducer
+  messages: messagesReducer,
+  conversations: conversationReducer,
 });
 
 let enhancer;

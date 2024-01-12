@@ -88,22 +88,9 @@ export const getMessages = (otherUserId) => async (dispatch) => {
   }
 };
 
-export const getConversations = () => async (dispatch) => {
-  dispatch(getConversationsRequest());
-  try {
-    const config = {
-      headers: { Authorization: `Bearer ${getUserToken()}` },
-    };
-    const response = await axios.get(`${API_URL}conversations`, config);
-    dispatch(getConversationsSuccess(response.data));
-  } catch (error) {
-    dispatch(getConversationsFailure(error.message));
-  }
-};
 
 const initialState = {
   messages: [],
-  conversations: [],
   isLoading: false,
   error: "",
 };
