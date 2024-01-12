@@ -1,6 +1,7 @@
 import React from "react";
 import { Container, Row, Col, Image } from "react-bootstrap";
 import Message from "./Message"
+import MessageForm from './MessageForm';
 const MessageContainer = () => {
   const PlaceholderRows = () => (
     <Row className="gap-1" style={{ width: "60%" }}>
@@ -11,7 +12,7 @@ const MessageContainer = () => {
   );
   return (
     <Container
-      className="bg-light border rounded-md p-1"
+      className="bg-light border rounded-md p-1 g-5"
       style={{ height: "600px"}}
     >
     <Row className="align-items-center mb-3 p-3">
@@ -25,7 +26,7 @@ const MessageContainer = () => {
         </Col>
     </Row>
       <hr />
-      <div style={{ overflowY: "auto", height: "calc(100% - 125px)" }}>
+      <div style={{ overflowY: "auto", height: "calc(100% - 115px)" }} className=" gap-1">
         {false &&
           [...Array(10)].map((_, i) => (
             <div
@@ -61,6 +62,9 @@ const MessageContainer = () => {
         <Message myMessage={true}/>
         <Message myMessage={true}/>
         <Message myMessage={true}/>
+      </div>
+      <div className="mt-3 flex-row">
+        <MessageForm/>
       </div>
     </Container>
   );
