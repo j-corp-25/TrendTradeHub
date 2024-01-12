@@ -1,9 +1,15 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Container, Row, Col, Image } from "react-bootstrap";
 import Message from "./Message";
 import MessageForm from "./MessageForm";
 import { FaComments } from "react-icons/fa";
+import { useDispatch, useSelector } from "react-redux";
+import { getMessages } from "../../app/messagesReducer";
 const MessageContainer = ({ selectedConversation }) => {
+  const dispatch = useDispatch();
+  const { messages, isLoading, error, conversations } = useSelector(
+    (state) => state.messages
+  );
   const PlaceholderRows = () => (
     <Row className="gap-1" style={{ width: "60%" }}>
       <Col className="placeholder col-12 " style={{ height: "8px" }}></Col>
@@ -11,24 +17,28 @@ const MessageContainer = ({ selectedConversation }) => {
       <Col className="placeholder col-12" style={{ height: "8px" }}></Col>
     </Row>
   );
-  console.log(selectedConversation)
+  // useEffect(() => {
+  //   if (selectedConversation) {
+  //     const otherParticipantId = selectedConversation.participants[1]._id;
+  //     dispatch(getMessages(otherParticipantId));
+  //   }
+  // }, [dispatch,selectedConversation]);
+
+  // useEffect(() => {
+  //   console.log("Messages:", messages);
+  // }, [messages]);
+
+  console.log(selectedConversation);
   if (!selectedConversation) {
     return (
       <div className="d-flex flex-column align-items-center justify-content-center text-center">
-        <FaComments size={100} className=" mt-5"/>
+        <FaComments size={100} className=" mt-5" />
         <div style={{ fontSize: "40px" }}>
           Select a conversation to start messaging
         </div>
       </div>
     );
   }
-
-  // useEffect(() => {
-  //   if (selectedConversation) {
-  //     const otherParticipantId = selectedConversation.participants[1]._id;
-  //   }
-  // }, [selectedConversation]);
-
 
   return (
     <Container
