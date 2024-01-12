@@ -11,6 +11,7 @@ const MessageContainer = ({ selectedConversation }) => {
   const { messages, isLoading, error } = useSelector((state) => state.messages);
   const { user } = useSelector((state) => state.auth);
 
+
   const PlaceholderRows = () => (
     <Row className="gap-1" style={{ width: "60%" }}>
       <Col className="placeholder col-12 " style={{ height: "8px" }}></Col>
@@ -20,10 +21,14 @@ const MessageContainer = ({ selectedConversation }) => {
   );
   useEffect(() => {
     if (selectedConversation) {
-      const otherParticipantId = selectedConversation.participants[1]._id;
+      const otherParticipant = selectedConversation.participants.find(
+        (participant) => participant._id !== user._id
+      );
+
+      const otherParticipantId = otherParticipant._id;
       dispatch(getMessages(otherParticipantId));
     }
-  }, [dispatch, selectedConversation]);
+  }, [dispatch, selectedConversation, user._id]);
 
   useEffect(() => {
     console.log("Messages:", messages);
@@ -40,6 +45,9 @@ const MessageContainer = ({ selectedConversation }) => {
       </div>
     );
   }
+  const otherParticipant = selectedConversation.participants.find(
+    (participant) => participant._id !== user._id
+  );
 
   return (
     <Container
@@ -49,11 +57,11 @@ const MessageContainer = ({ selectedConversation }) => {
       <Row className="align-items-center mb-3 p-3">
         <Col xs="auto" className="d-flex align-items-center">
           <Image
-            src="https://via.placeholder.com/150"
+            src={otherParticipant.image}
             roundedCircle
             style={{ width: "3rem", height: "3rem" }}
           />
-          <strong className="ms-2">John Doe</strong>
+          <strong className="ms-2">{otherParticipant.name}</strong>
         </Col>
       </Row>
       <hr />
