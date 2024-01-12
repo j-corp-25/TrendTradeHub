@@ -12,3 +12,12 @@ const GET_MESSAGES_FAILURE = 'GET_MESSAGES_FAILURE';
 const GET_CONVERSATIONS_REQUEST = 'GET_CONVERSATIONS_REQUEST';
 const GET_CONVERSATIONS_SUCCESS = 'GET_CONVERSATIONS_SUCCESS';
 const GET_CONVERSATIONS_FAILURE = 'GET_CONVERSATIONS_FAILURE';
+
+
+const API_URL = '/api/messages'
+
+const getUserToken = () => {
+    const storedUser = localStorage.getItem('user');
+    const user = storedUser ? JSON.parse(storedUser) : null;
+    return user ? user.token : null;
+  };
