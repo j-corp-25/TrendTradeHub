@@ -1,9 +1,11 @@
 import React from "react";
 import { Container, Row, Col, Image } from "react-bootstrap";
+import { FaCheck, FaCheckDouble } from "react-icons/fa";
+
 const Conversation = ({ conversationData }) => {
   const { participants, lastMessage } = conversationData;
   const otherParticipant = participants[1];
-  const currentUser = participants[0]
+  const currentUser = participants[0];
   return (
     <Container
       className="d-flex align-items-center gap-1 p-2 "
@@ -24,9 +26,16 @@ const Conversation = ({ conversationData }) => {
         )}
       </div>
 
-      <div className="flex-grow-1 w-50 p-1 ">
-        <div className="text-start text-truncate mb-1">{otherParticipant.name}</div>
-        <div className="text-start text-truncate"> {lastMessage.text}</div>
+      <div className="flex-grow-1 w-50 p-1">
+        <div className="text-start text-truncate mb-1">
+          {otherParticipant.name}
+        </div>
+        <div className="d-flex align-items-center text-start text-truncate gap-1">
+          {currentUser._id === lastMessage.sender && (
+            <FaCheck size={14} />
+          )}
+          <span style={{ color: '#333' }}className="">{lastMessage.text}</span>
+        </div>
       </div>
     </Container>
   );
