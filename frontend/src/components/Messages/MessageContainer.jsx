@@ -7,7 +7,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { getMessages } from "../../app/messagesReducer";
 const MessageContainer = ({ selectedConversation }) => {
   const dispatch = useDispatch();
-  const { messages, isLoading, error, conversations } = useSelector(
+  const { messages, isLoading, error, } = useSelector(
     (state) => state.messages
   );
   const PlaceholderRows = () => (

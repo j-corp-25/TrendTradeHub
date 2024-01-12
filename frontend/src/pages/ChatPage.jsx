@@ -25,9 +25,7 @@ const ChatPage = () => {
   const [selectedConversation, setSelectedConversation] = useState(null);
 
   const handleConversationClick = (conversation) => {
-    if (selectedConversation?._id !== conversation._id) {
-      setSelectedConversation(conversation);
-    }
+    setSelectedConversation(conversation);
   };
 
   useEffect(() => {
@@ -38,9 +36,6 @@ const ChatPage = () => {
     };
   }, [dispatch]);
 
-  // useEffect(() => {
-  //   console.log("Conversations:", conversations);
-  // }, [conversations]);
   return (
     <Container
       className="text-center p-0 mt-2  bg-light rounded-4"
