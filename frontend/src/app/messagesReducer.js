@@ -8,7 +8,7 @@ const GET_MESSAGES_REQUEST = "GET_MESSAGES_REQUEST";
 const GET_MESSAGES_SUCCESS = "GET_MESSAGES_SUCCESS";
 const GET_MESSAGES_FAILURE = "GET_MESSAGES_FAILURE";
 
-
+const RESET_MESSAGES = "RESET_MESSAGES";
 const API_URL = "/api/messages/";
 
 const getUserToken = () => {
@@ -16,7 +16,9 @@ const getUserToken = () => {
   const user = storedUser ? JSON.parse(storedUser) : null;
   return user ? user.token : null;
 };
-
+export const resetMessages = () => ({
+  type: RESET_MESSAGES,
+});
 export const sendMessageRequest = () => ({ type: SEND_MESSAGE_REQUEST });
 export const sendMessageSuccess = (message) => ({
   type: SEND_MESSAGE_SUCCESS,
@@ -67,7 +69,6 @@ export const getMessages = (otherUserId) => async (dispatch) => {
   }
 };
 
-
 const initialState = {
   messages: [],
   isLoading: false,
@@ -112,6 +113,10 @@ const messagesReducer = (state = initialState, action) => {
         ...state,
         isLoading: false,
         error: action.payload,
+      };
+    case RESET_MESSAGES:
+      return {
+        ...initialState,
       };
     default:
       return state;

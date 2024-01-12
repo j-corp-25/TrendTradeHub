@@ -4,7 +4,7 @@ import Message from "./Message";
 import MessageForm from "./MessageForm";
 import { FaComments } from "react-icons/fa";
 import { useDispatch, useSelector } from "react-redux";
-import { getMessages } from "../../app/messagesReducer";
+import { getMessages, resetMessages } from "../../app/messagesReducer";
 const MessageContainer = ({ selectedConversation }) => {
   const dispatch = useDispatch();
 
@@ -28,11 +28,12 @@ const MessageContainer = ({ selectedConversation }) => {
       const otherParticipantId = otherParticipant._id;
       dispatch(getMessages(otherParticipantId));
     }
-  }, [dispatch, selectedConversation]);
 
-  useEffect(() => {
-    console.log("Messages:", messages);
-  }, [messages]);
+    return () => {
+      dispatch(resetMessages());
+    };
+  }, [dispatch, selectedConversation, user._id]);
+
 
   console.log(selectedConversation);
   if (!selectedConversation) {
@@ -45,7 +46,7 @@ const MessageContainer = ({ selectedConversation }) => {
       </div>
     );
   }
-  const otherParticipant = selectedConversation.participants.find(
+    const otherParticipant = selectedConversation.participants.find(
     (participant) => participant._id !== user._id
   );
 
