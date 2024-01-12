@@ -21,3 +21,16 @@ const getUserToken = () => {
     const user = storedUser ? JSON.parse(storedUser) : null;
     return user ? user.token : null;
   };
+
+export const sendMessageRequest = () => ({ type: SEND_MESSAGE_REQUEST });
+export const sendMessageSuccess = message => ({ type: SEND_MESSAGE_SUCCESS, payload: message });
+export const sendMessageFailure = error => ({ type: SEND_MESSAGE_FAILURE, payload: error });
+
+export const getMessagesRequest = () => ({ type: GET_MESSAGES_REQUEST });
+export const getMessagesSuccess = messages => ({ type: GET_MESSAGES_SUCCESS, payload: messages });
+export const getMessagesFailure = error => ({ type: GET_MESSAGES_FAILURE, payload: error });
+
+export const getConversationsRequest = () => ({ type: GET_CONVERSATIONS_REQUEST });
+export const getConversationsSuccess = conversations => ({ type: GET_CONVERSATIONS_SUCCESS, payload: conversations });
+export const getConversationsFailure = error => ({ type: GET_CONVERSATIONS_FAILURE, payload: error });
+
