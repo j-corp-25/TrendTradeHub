@@ -15,7 +15,8 @@ import MessageContainer from "../components/Messages/MessageContainer";
 
 const ChatPage = () => {
   const dispatch = useDispatch();
-  const conversations = useSelector((state) => state.messages.conversations);
+  const { messages, isLoading, error, conversations} =
+  useSelector((state) => state.messages);
 
   useEffect(() => {
     dispatch(getConversations());
@@ -49,7 +50,7 @@ const ChatPage = () => {
           <div
             style={{ overflowY: "scroll", maxHeight: "calc(100vh - 600px)" }}
           >
-            {false &&
+            {isLoading &&
               [0, 1, 2, 4, 5].map((_, i) => (
                 <div
                   key={i}
