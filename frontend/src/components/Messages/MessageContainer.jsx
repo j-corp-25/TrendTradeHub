@@ -7,9 +7,10 @@ import { useDispatch, useSelector } from "react-redux";
 import { getMessages } from "../../app/messagesReducer";
 const MessageContainer = ({ selectedConversation }) => {
   const dispatch = useDispatch();
-  const { messages, isLoading, error, } = useSelector(
-    (state) => state.messages
-  );
+
+  const { messages, isLoading, error } = useSelector((state) => state.messages);
+  const { user } = useSelector((state) => state.auth);
+
   const PlaceholderRows = () => (
     <Row className="gap-1" style={{ width: "60%" }}>
       <Col className="placeholder col-12 " style={{ height: "8px" }}></Col>
@@ -22,7 +23,7 @@ const MessageContainer = ({ selectedConversation }) => {
       const otherParticipantId = selectedConversation.participants[1]._id;
       dispatch(getMessages(otherParticipantId));
     }
-  }, [dispatch,selectedConversation]);
+  }, [dispatch, selectedConversation]);
 
   useEffect(() => {
     console.log("Messages:", messages);
@@ -60,8 +61,8 @@ const MessageContainer = ({ selectedConversation }) => {
         style={{ overflowY: "auto", height: "calc(100% - 115px)" }}
         className=" gap-1"
       >
-        {false &&
-          [...Array(10)].map((_, i) => (
+        {isLoading &&
+          [...Array(5)].map((_, i) => (
             <div
               key={i}
               className="d-flex align-items-center mb-2 placeholder-glow gap-2"
@@ -88,13 +89,13 @@ const MessageContainer = ({ selectedConversation }) => {
               )}
             </div>
           ))}
-        <Message myMessage={true} />
-        <Message myMessage={true} />
-        <Message myMessage={false} />
-        <Message myMessage={false} />
-        <Message myMessage={true} />
-        <Message myMessage={true} />
-        <Message myMessage={true} />
+        {messages.map((message) => (
+          <Message
+            key={message._id}
+            message={message}
+            myMessage={message.sender === user._id}
+          />
+        ))}
       </div>
       <div className="mt-3 flex-row">
         <MessageForm />
