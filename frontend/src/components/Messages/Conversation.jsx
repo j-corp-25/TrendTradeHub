@@ -1,6 +1,9 @@
 import React from "react";
 import { Container, Row, Col, Image } from "react-bootstrap";
-const Conversation = ({ lastMessage, name, image }) => {
+const Conversation = ({ conversationData }) => {
+  const { participants, lastMessage } = conversationData;
+  const otherParticipant = participants[1];
+  const currentUser = participants[0]
   return (
     <Container
       className="d-flex align-items-center gap-1 p-2 "
@@ -8,7 +11,7 @@ const Conversation = ({ lastMessage, name, image }) => {
     >
       <div className="position-relative">
         <img
-          src={image}
+          src={otherParticipant.image}
           className="profile-image"
           style={{ width: "3rem", height: "3rem" }}
           alt="Profile"
@@ -22,8 +25,8 @@ const Conversation = ({ lastMessage, name, image }) => {
       </div>
 
       <div className="flex-grow-1 w-50 p-1 ">
-        <div className="text-start text-truncate mb-1">{name}</div>
-        <div className="text-start text-truncate"> {lastMessage}</div>
+        <div className="text-start text-truncate mb-1">{otherParticipant.name}</div>
+        <div className="text-start text-truncate"> {lastMessage.text}</div>
       </div>
     </Container>
   );
