@@ -73,7 +73,7 @@ const ChatPage = () => {
               className="d-flex flex-column align-items-center justify-content-center text-center"
             >
               <FaComments size={100} />
-              <div style={{ fontSize: "20px" }}>
+              <div style={{ fontSize: "40px" }}>
                 Select a conversation to start messaging
               </div>
             </Col> */}
