@@ -1,7 +1,10 @@
-import React, { useEffect,useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
-import { getConversations, resetConversations } from "../app/messagesReducer";
+import {
+  getConversations,
+  resetConversations,
+} from "../app/conversationReducer";
 import {
   Container,
   Row,
@@ -15,9 +18,10 @@ import MessageContainer from "../components/Messages/MessageContainer";
 
 const ChatPage = () => {
   const dispatch = useDispatch();
-  const { messages, isLoading, error, conversations } = useSelector(
-    (state) => state.messages
+  const { conversations, isLoading, error } = useSelector(
+    (state) => state.conversations
   );
+
   const [selectedConversation, setSelectedConversation] = useState(null);
 
   const handleConversationClick = (conversation) => {

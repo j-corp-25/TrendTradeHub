@@ -8,11 +8,6 @@ const GET_MESSAGES_REQUEST = "GET_MESSAGES_REQUEST";
 const GET_MESSAGES_SUCCESS = "GET_MESSAGES_SUCCESS";
 const GET_MESSAGES_FAILURE = "GET_MESSAGES_FAILURE";
 
-const GET_CONVERSATIONS_REQUEST = "GET_CONVERSATIONS_REQUEST";
-const GET_CONVERSATIONS_SUCCESS = "GET_CONVERSATIONS_SUCCESS";
-const GET_CONVERSATIONS_FAILURE = "GET_CONVERSATIONS_FAILURE";
-
-const RESET_CONVERSATIONS = "RESET_CONVERSATIONS";
 
 const API_URL = "/api/messages/";
 
@@ -40,22 +35,6 @@ export const getMessagesSuccess = (messages) => ({
 export const getMessagesFailure = (error) => ({
   type: GET_MESSAGES_FAILURE,
   payload: error,
-});
-
-export const getConversationsRequest = () => ({
-  type: GET_CONVERSATIONS_REQUEST,
-});
-export const getConversationsSuccess = (conversations) => ({
-  type: GET_CONVERSATIONS_SUCCESS,
-  payload: conversations,
-});
-export const getConversationsFailure = (error) => ({
-  type: GET_CONVERSATIONS_FAILURE,
-  payload: error,
-});
-
-export const resetConversations = () => ({
-  type: RESET_CONVERSATIONS,
 });
 
 export const sendMessage = (recipientId, message) => async (dispatch) => {
@@ -109,12 +88,6 @@ const messagesReducer = (state = initialState, action) => {
         isLoading: true,
         error: "",
       };
-    case GET_CONVERSATIONS_REQUEST:
-      return {
-        ...state,
-        isLoading: true,
-        error: "",
-      };
     case SEND_MESSAGE_SUCCESS:
       return {
         ...state,
@@ -127,12 +100,7 @@ const messagesReducer = (state = initialState, action) => {
         messages: action.payload,
         isLoading: false,
       };
-    case GET_CONVERSATIONS_SUCCESS:
-      return {
-        ...state,
-        conversations: action.payload,
-        isLoading: false,
-      };
+
     case SEND_MESSAGE_FAILURE:
       return {
         ...state,
@@ -145,14 +113,6 @@ const messagesReducer = (state = initialState, action) => {
         isLoading: false,
         error: action.payload,
       };
-    case GET_CONVERSATIONS_FAILURE:
-      return {
-        ...state,
-        isLoading: false,
-        error: action.payload,
-      };
-    case RESET_CONVERSATIONS:
-      return { ...initialState };
     default:
       return state;
   }

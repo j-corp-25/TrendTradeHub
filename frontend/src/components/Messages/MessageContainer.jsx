@@ -17,16 +17,16 @@ const MessageContainer = ({ selectedConversation }) => {
       <Col className="placeholder col-12" style={{ height: "8px" }}></Col>
     </Row>
   );
-  // useEffect(() => {
-  //   if (selectedConversation) {
-  //     const otherParticipantId = selectedConversation.participants[1]._id;
-  //     dispatch(getMessages(otherParticipantId));
-  //   }
-  // }, [dispatch,selectedConversation]);
+  useEffect(() => {
+    if (selectedConversation) {
+      const otherParticipantId = selectedConversation.participants[1]._id;
+      dispatch(getMessages(otherParticipantId));
+    }
+  }, [dispatch,selectedConversation]);
 
-  // useEffect(() => {
-  //   console.log("Messages:", messages);
-  // }, [messages]);
+  useEffect(() => {
+    console.log("Messages:", messages);
+  }, [messages]);
 
   console.log(selectedConversation);
   if (!selectedConversation) {
