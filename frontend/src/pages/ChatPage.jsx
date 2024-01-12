@@ -83,6 +83,7 @@ const ChatPage = () => {
                   key={conversation._id}
                   conversationData={conversation}
                   onClick={() => handleConversationClick(conversation)}
+                  isSelected={selectedConversation?._id === conversation._id}
                 />
               ))}
           </div>

@@ -3,13 +3,14 @@ import { Container, Row, Col, Image } from "react-bootstrap";
 import { FaCheck, FaCheckDouble } from "react-icons/fa";
 import "./Conversation.css"
 
-const Conversation = ({ conversationData,onClick }) => {
+const Conversation = ({ conversationData,onClick, isSelected }) => {
   const { participants, lastMessage } = conversationData;
   const otherParticipant = participants[1];
   const currentUser = participants[0];
+  const conversationClass = isSelected ? 'conversation conversation-active' : 'conversation';
   return (
     <Container
-    className="d-flex align-items-center gap-1 p-2 conversation"
+    className={`d-flex align-items-center gap-1 p-2 ${conversationClass}`}
       style={{ cursor: "pointer", borderRadius: "0.375rem" }}
       onClick={onClick}
     >
@@ -20,6 +21,8 @@ const Conversation = ({ conversationData,onClick }) => {
           style={{ width: "3rem", height: "3rem" }}
           alt="Profile"
         />
+        
+       {/* active status */}
         {true && (
           <span
             className="position-absolute bottom-1 right-1 end-0 translate-middle p-1 bg-success border border-light rounded-circle"
