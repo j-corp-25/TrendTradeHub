@@ -1,8 +1,9 @@
 import React from "react";
 import { Container, Row, Col, Image } from "react-bootstrap";
-import Message from "./Message"
-import MessageForm from './MessageForm';
-const MessageContainer = () => {
+import Message from "./Message";
+import MessageForm from "./MessageForm";
+import { FaComments } from "react-icons/fa";
+const MessageContainer = ({ selectedConversation }) => {
   const PlaceholderRows = () => (
     <Row className="gap-1" style={{ width: "60%" }}>
       <Col className="placeholder col-12 " style={{ height: "8px" }}></Col>
@@ -10,12 +11,22 @@ const MessageContainer = () => {
       <Col className="placeholder col-12" style={{ height: "8px" }}></Col>
     </Row>
   );
+  if (!selectedConversation) {
+    return (
+      <div className="d-flex flex-column align-items-center justify-content-center text-center">
+        <FaComments size={100} className=" mt-5"/>
+        <div style={{ fontSize: "40px" }}>
+          Select a conversation to start messaging
+        </div>
+      </div>
+    );
+  }
   return (
     <Container
       className="bg-light border rounded-md p-1 g-5"
-      style={{ height: "600px"}}
+      style={{ height: "600px" }}
     >
-    <Row className="align-items-center mb-3 p-3">
+      <Row className="align-items-center mb-3 p-3">
         <Col xs="auto" className="d-flex align-items-center">
           <Image
             src="https://via.placeholder.com/150"
@@ -24,9 +35,12 @@ const MessageContainer = () => {
           />
           <strong className="ms-2">John Doe</strong>
         </Col>
-    </Row>
+      </Row>
       <hr />
-      <div style={{ overflowY: "auto", height: "calc(100% - 115px)" }} className=" gap-1">
+      <div
+        style={{ overflowY: "auto", height: "calc(100% - 115px)" }}
+        className=" gap-1"
+      >
         {false &&
           [...Array(10)].map((_, i) => (
             <div
@@ -55,16 +69,16 @@ const MessageContainer = () => {
               )}
             </div>
           ))}
-        <Message myMessage={true}/>
-        <Message myMessage={true}/>
-        <Message myMessage={false}/>
-        <Message myMessage={false}/>
-        <Message myMessage={true}/>
-        <Message myMessage={true}/>
-        <Message myMessage={true}/>
+        <Message myMessage={true} />
+        <Message myMessage={true} />
+        <Message myMessage={false} />
+        <Message myMessage={false} />
+        <Message myMessage={true} />
+        <Message myMessage={true} />
+        <Message myMessage={true} />
       </div>
       <div className="mt-3 flex-row">
-        <MessageForm/>
+        <MessageForm />
       </div>
     </Container>
   );

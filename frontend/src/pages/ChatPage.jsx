@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect,useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
 import { getConversations, resetConversations } from "../app/messagesReducer";
@@ -18,6 +18,11 @@ const ChatPage = () => {
   const { messages, isLoading, error, conversations } = useSelector(
     (state) => state.messages
   );
+  const [selectedConversation, setSelectedConversation] = useState(null);
+
+  const handleConversationClick = (conversation) => {
+    setSelectedConversation(conversation);
+  };
 
   useEffect(() => {
     dispatch(getConversations());
@@ -77,6 +82,7 @@ const ChatPage = () => {
                 <Conversation
                   key={conversation._id}
                   conversationData={conversation}
+                  onClick={() => handleConversationClick(conversation)}
                 />
               ))}
           </div>
@@ -84,17 +90,8 @@ const ChatPage = () => {
 
         <Col xs={12} md={7} lg={8}>
           <Row className="align-items-center justify-content-center">
-            {/* <Col
-              md={9}
-              className="d-flex flex-column align-items-center justify-content-center text-center"
-            >
-              <FaComments size={100} />
-              <div style={{ fontSize: "40px" }}>
-                Select a conversation to start messaging
-              </div>
-            </Col> */}
             <Col xs={12}>
-              <MessageContainer />
+              <MessageContainer selectedConversation={selectedConversation} />
             </Col>
           </Row>
         </Col>
