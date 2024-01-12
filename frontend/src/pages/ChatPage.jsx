@@ -1,5 +1,7 @@
-import React, { useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import React, { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+
+import { getConversations } from "../app/messagesReducer";
 import {
   Container,
   Row,
@@ -11,11 +13,22 @@ import {
 import Conversation from "../components/Messages/Conversation";
 import MessageContainer from "../components/Messages/MessageContainer";
 
-
 const ChatPage = () => {
+  const dispatch = useDispatch();
+  const conversations = useSelector((state) => state.messages.conversations);
+
+  useEffect(() => {
+    dispatch(getConversations());
+  }, [dispatch]);
+
+  useEffect(() => {
+    console.log("Conversations:", conversations);
+  }, [conversations]);
   return (
-    <Container className="text-center p-0 mt-2  bg-light rounded-4"
-    style={{ height: "700px" }} >
+    <Container
+      className="text-center p-0 mt-2  bg-light rounded-4"
+      style={{ height: "700px" }}
+    >
       <Row>
         <Col xs={12} md={5} lg={4} className="border-end p-3">
           <div className="mb-3">Conversations</div>
