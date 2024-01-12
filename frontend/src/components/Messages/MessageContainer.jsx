@@ -11,6 +11,7 @@ const MessageContainer = ({ selectedConversation }) => {
       <Col className="placeholder col-12" style={{ height: "8px" }}></Col>
     </Row>
   );
+  console.log(selectedConversation)
   if (!selectedConversation) {
     return (
       <div className="d-flex flex-column align-items-center justify-content-center text-center">
@@ -21,6 +22,14 @@ const MessageContainer = ({ selectedConversation }) => {
       </div>
     );
   }
+
+  useEffect(() => {
+    if (selectedConversation) {
+      const otherParticipantId = selectedConversation.participants[1]._id;
+    }
+  }, [selectedConversation]);
+
+
   return (
     <Container
       className="bg-light border rounded-md p-1 g-5"
