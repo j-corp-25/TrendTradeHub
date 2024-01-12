@@ -28,7 +28,7 @@ const MessageContainer = ({ selectedConversation }) => {
       const otherParticipantId = otherParticipant._id;
       dispatch(getMessages(otherParticipantId));
     }
-  }, [dispatch, selectedConversation, user._id]);
+  }, [dispatch, selectedConversation]);
 
   useEffect(() => {
     console.log("Messages:", messages);
