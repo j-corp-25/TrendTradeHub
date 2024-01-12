@@ -4,7 +4,7 @@ body{
 
 .body-profile{
 	margin: 80px;
-	margin-top: 180px;
+	margin-top: 150px;
 
 }
 
@@ -199,4 +199,10 @@ body{
 }
 .profile-header {
 	text-align: center;
+}
+
+.info-user{
+	position: relative;
+	text-align: center;
+	top: -70px;
 }
