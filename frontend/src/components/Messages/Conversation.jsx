@@ -1,6 +1,7 @@
 import React from "react";
 import { Container, Row, Col, Image } from "react-bootstrap";
 import { FaCheck, FaCheckDouble } from "react-icons/fa";
+import "./Conversation.css"
 
 const Conversation = ({ conversationData }) => {
   const { participants, lastMessage } = conversationData;
@@ -8,7 +9,7 @@ const Conversation = ({ conversationData }) => {
   const currentUser = participants[0];
   return (
     <Container
-      className="d-flex align-items-center gap-1 p-2 "
+    className="d-flex align-items-center gap-1 p-2 conversation"
       style={{ cursor: "pointer", borderRadius: "0.375rem" }}
     >
       <div className="position-relative">
