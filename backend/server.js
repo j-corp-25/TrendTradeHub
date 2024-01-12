@@ -9,6 +9,7 @@ import connectDB from "./config/db.js";
 import userRoutes from "./routes/userRoutes.js";
 import reviewRoutes from "./routes/reviewRoutes.js";
 import productRoutes from "./routes/productRoutes.js";
+import messageRoutes from "./routes/messageRoutes.js";
 import cors from "cors";
 import {upload} from "./middleware/multer.js"
 
@@ -48,6 +49,8 @@ io.on('connection', (socket) => {
 app.use("/api/users", userRoutes);
 app.use("/api/products", productRoutes);
 app.use("/api/reviews", reviewRoutes);
+app.use("/api/message", messageRoutes);
+
 
 app.use(notFound);
 app.use(errorHandler);
