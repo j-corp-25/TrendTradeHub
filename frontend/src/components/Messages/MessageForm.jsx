@@ -2,9 +2,9 @@ import React from "react";
 import { Form, InputGroup, Button } from "react-bootstrap";
 import { BsFillChatDotsFill } from "react-icons/bs"; // Importing Bootstrap icon
 
-const MessageForm = () => {
+const MessageForm = ({setMessage}) => {
   return (
-    <Form>
+    <Form onSubmit={handleSendMessage}>
       <Form.Group controlId="text" className="mb-3">
         <InputGroup>
           <Form.Control
@@ -13,7 +13,7 @@ const MessageForm = () => {
             placeholder="Type your message here..."
           />
           <Button variant="outline-secondary" type="submit">
-            <BsFillChatDotsFill /> 
+            <BsFillChatDotsFill />
           </Button>
         </InputGroup>
       </Form.Group>

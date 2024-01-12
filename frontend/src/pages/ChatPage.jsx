@@ -21,7 +21,8 @@ const ChatPage = () => {
   const { conversations, isLoading, error } = useSelector(
     (state) => state.conversations
   );
-  console.log(conversations)
+
+
 
   const [selectedConversation, setSelectedConversation] = useState(null);
 

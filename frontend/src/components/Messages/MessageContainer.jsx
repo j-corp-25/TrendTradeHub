@@ -8,6 +8,8 @@ import { getMessages, resetMessages } from "../../app/messagesReducer";
 const MessageContainer = ({ selectedConversation }) => {
   const dispatch = useDispatch();
 
+  const [message, setMessage] = useState([]);
+
   const { messages, isLoading, error } = useSelector((state) => state.messages);
   const { user } = useSelector((state) => state.auth);
 
@@ -107,7 +109,7 @@ const MessageContainer = ({ selectedConversation }) => {
         ))}
       </div>
       <div className="mt-3 flex-row">
-        <MessageForm />
+        <MessageForm setMessage={setMessage}/>
       </div>
     </Container>
   );
