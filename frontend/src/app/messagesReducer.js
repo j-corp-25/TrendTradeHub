@@ -81,7 +81,7 @@ export const sendMessage = (recipientId, message) => async (dispatch) => {
   };
 
 
-  const conversationReducer = (state = initialState, action) => {
+  const messagesReducer = (state = initialState, action) => {
     switch (action.type) {
       case SEND_MESSAGE_REQUEST:
         return {
@@ -99,7 +99,7 @@ export const sendMessage = (recipientId, message) => async (dispatch) => {
         return {
           ...state,
           isLoading: true,
-          error: '', 
+          error: '',
         };
       case SEND_MESSAGE_SUCCESS:
         return {
@@ -143,4 +143,4 @@ export const sendMessage = (recipientId, message) => async (dispatch) => {
   };
 
 
-  export default conversationReducer;
+  export default messagesReducer;

@@ -1,4 +1,5 @@
-import React from "react";
+import React, { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import {
   Container,
   Row,
@@ -9,8 +10,7 @@ import {
 } from "react-bootstrap";
 import Conversation from "../components/Messages/Conversation";
 import MessageContainer from "../components/Messages/MessageContainer";
-import { GiConversation } from "react-icons/gi";
-import { FaComments } from "react-icons/fa";
+
 
 const ChatPage = () => {
   return (

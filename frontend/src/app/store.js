@@ -3,11 +3,13 @@ import thunk from "redux-thunk";
 import productReducer from "./productReducer";
 import authReducer from "./userReducer";
 import reviewReducer from "./reviewsReducer";
+import messagesReducer from "./messagesReducer"
 
 const rootReducer = combineReducers({
   products: productReducer,
   auth: authReducer,
   reviews: reviewReducer,
+  messages: messagesReducer
 });
 
 let enhancer;
