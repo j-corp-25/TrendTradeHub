@@ -27,13 +27,13 @@ function Profile() {
   // const user = useSelector((state) => state.auth.user);
   const products = useSelector((state) => state.products.products);
   const user_products = products.filter(
-    (product) => product.author._id === user._id
+    (product) => product.author?._id === user?._id
   );
   const [userData, setUserData] = useState({
-    name: user.name,
-    email: user.email,
+    name: user?.name || '',
+    email: user?.email || '',
     password: "",
-    image: user.image,
+    image: user?.image || '',
   });
 
   const getRandomColor = () => {
@@ -52,6 +52,7 @@ function Profile() {
       ? URL.createObjectURL(userData.image)
       : userData.image;
   const [editMode, setEditMode] = useState(false);
+  const [loading, setLoading] = useState(true);
 
   const dispatch = useDispatch();
 
@@ -84,14 +85,22 @@ function Profile() {
     setEditMode(false);
   };
 
+  
   useEffect(() => {
-    dispatch(fetchProducts());
-  }, [dispatch]);
-  useEffect(() => dispatch(fetchUsers()),[userId]);
+    const fetchData =  async() => {
+      await dispatch(fetchUsers());
+      await dispatch(fetchProducts());
+      setLoading(false);}
+      fetchData();
+    } ,[userId,dispatch]);
 
   return (
     <>
-    
+    {console.log(users)}
+    {
+      !loading && 
+      <>
+
       <Container className="mt-5">
         <Card>
           <Card.Header>
@@ -150,7 +159,7 @@ function Profile() {
             ) : (
               <div>
                 <div className="profile-header">
-                  <img src={imageSrc} alt="Profile" className="profile-image" />
+                  <img src={user.image} alt="Profile" className="profile-image" />
                 </div>
                 <p>
                   <strong>Name:</strong> {user.name}
@@ -253,6 +262,8 @@ function Profile() {
           </div>
         </div>
       </div>
+      </>
+    }
     </>
   );
 }

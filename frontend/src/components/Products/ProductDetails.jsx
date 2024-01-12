@@ -65,6 +65,9 @@ function ProductDetails() {
       try {
         await dispatch(fetchSingleProduct(productId));
         await dispatch(fetchRelatedProducts(productId));
+        await dispatch(fetchProducts());
+        await dispatch(fetchReviews(productId));
+        await dispatch(fetchUsers());
         setLoading(false);
       } catch (error) {
         console.error("Error fetching data:", error);
@@ -75,17 +78,6 @@ function ProductDetails() {
     fetchData();
   }, [dispatch, productId]);
 
-  useEffect(() => {
-    const fetchAll = async () => {
-      await dispatch(fetchProducts());
-      await dispatch(fetchReviews(productId));
-      setLoading(false);
-    };
-
-    fetchAll();
-  }, [dispatch]);
-
-  useEffect(() => dispatch(fetchUsers()),[]);
 
   const handleNextImage = () => {
     setCurrentImageIndex((prevIndex) =>
@@ -108,7 +100,8 @@ function ProductDetails() {
 
   return (
     <>
-    {console.log(userAuthor)}
+    { !loading && 
+
       <section className="container-product-details main-body">
         <div className="title"> Product Details</div>
         <div className="detail">
@@ -201,6 +194,8 @@ function ProductDetails() {
         <ReviewModal showModal={showModal} handleClose={handleCloseModal} />
 
       </section>
+   
+    } 
     </>
   );
 }
