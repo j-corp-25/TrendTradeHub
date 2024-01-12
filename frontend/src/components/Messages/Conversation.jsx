@@ -1,6 +1,6 @@
 import React from "react";
 import { Container, Row, Col, Image } from "react-bootstrap";
-const Conversation = () => {
+const Conversation = ({lastMessage}) => {
   return (
     <Container
       className="d-flex align-items-center gap-1 p-2 "
@@ -24,7 +24,7 @@ const Conversation = () => {
 
       <div className="flex-grow-1 w-50 p-1 ">
         <div className="text-start text-truncate mb-1">John Doe</div>
-        <div className="text-start text-truncate"> hello from a very long message sdfjn sdhba sfdkhjb asdfhk</div>
+        <div className="text-start text-truncate"> {lastMessage}</div>
       </div>
     </Container>
   );

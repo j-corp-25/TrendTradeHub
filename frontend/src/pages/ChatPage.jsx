@@ -71,7 +71,20 @@ const ChatPage = () => {
                   </div>
                 </div>
               ))}
-            <Conversation />
+            {!isLoading &&
+              conversations &&
+              conversations.map((conversation) => {
+                const otherParticipant = conversation.participants[1];
+                if (!otherParticipant) return null;
+                return (
+                  <Conversation
+                    key={conversation._id}
+                    name={otherParticipant.name}
+                    image={otherParticipant.image}
+                    lastMessage={conversation.lastMessage.text}
+                  />
+                );
+              })}
           </div>
         </Col>
 
