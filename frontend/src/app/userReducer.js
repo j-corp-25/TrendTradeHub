@@ -141,6 +141,7 @@ const initialState = {
   isError: false,
   isSuccess: false,
   message: "",
+
 };
 
 const authReducer = (state = initialState, action) => {

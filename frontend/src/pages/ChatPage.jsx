@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-
+import { findUserProfile } from "../app/userReducer";
 import {
   getConversations,
   resetConversations,
@@ -21,6 +21,10 @@ const ChatPage = () => {
   const { conversations, isLoading, error } = useSelector(
     (state) => state.conversations
   );
+
+  const [searchQuery, setSearchQuery] = useState('');
+  const userProfile = useSelector(state => state.auth.userProfile);
+
   console.log(conversations)
 
   const [selectedConversation, setSelectedConversation] = useState(null);
