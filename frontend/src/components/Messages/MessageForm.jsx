@@ -17,7 +17,7 @@ const MessageForm = ({ otherParticipantId, conversationId }) => {
     e.preventDefault();
     if (messageText.trim() !== "") {
       try {
-        await dispatch(sendMessage(otherParticipantId, messageText));
+        dispatch(sendMessage(otherParticipantId, messageText));
         dispatch(
           updateLastMessage(conversationId, {
             text: messageText,
