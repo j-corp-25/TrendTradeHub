@@ -127,19 +127,10 @@ const updateReview = asyncHandler(async (req, res) => {
 
 const deleteReview = asyncHandler(async (req, res) => {
   const review = await Review.findById(req.params.id);
-  const user = req.user.id;
 
   if (!review) {
     res.status(401);
     throw new Error("Review not found");
-  }
-  if (!user) {
-    res.status(401);
-    throw new Error("User not found");
-  }
-  if (review.author.toString() !== user) {
-    res.status(401);
-    throw new Error("User is not authorized to delete this review");
   }
 
   await Review.findByIdAndDelete(review._id);
