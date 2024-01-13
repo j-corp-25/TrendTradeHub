@@ -75,7 +75,7 @@ const ChatPage = () => {
         )
       );
 
-      let tempConversations = [...displayConversations]; // Temporary variable
+      let tempConversations = [...displayConversations];
 
       if (existingConversation) {
         setSelectedConversation(existingConversation);
@@ -100,17 +100,17 @@ const ChatPage = () => {
         };
 
         if (existingMockIndex === -1) {
-          // Add a new mock conversation
+
           tempConversations.push(mockConvo);
         } else {
-          // Replace existing mock conversation
+
           tempConversations[existingMockIndex] = mockConvo;
         }
 
         setSelectedConversation(mockConvo);
       }
 
-      setDisplayConversations(tempConversations); // Update state once at the end
+      setDisplayConversations(tempConversations); 
     }
   }, [userProfile, isError, message, user, conversations]);
 
@@ -129,7 +129,7 @@ const ChatPage = () => {
             <Col xs={12} md={8} className="mb-2 mb-lg-1 me-1 ">
               <FormControl
                 type="search"
-                placeholder="Search"
+                placeholder="Search for a user!"
                 aria-label="Search"
                 value={searchQuery}
                 onChange={handleSearchInputChange}
