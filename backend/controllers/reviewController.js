@@ -94,22 +94,14 @@ const createReview = asyncHandler(async (req, res) => {
   res.status(201).json({ message: "Review created successfully", review });
 });
 
-// @desc Update Review
-// @route POST /api/reviews/:id
-// @access PRIVATE
+
 const updateReview = asyncHandler(async (req, res) => {
   const reviewId = req.params.id;
-  const userId = req.user.id;
 
   const review = await Review.findById(reviewId);
   if (!review) {
     res.status(404);
     throw new Error("Review not found");
-  }
-
-  if (review.author.toString() !== userId) {
-    res.status(401);
-    throw new Error("User not authorized to update this review");
   }
 
   const product = await Product.findById(review.product);
