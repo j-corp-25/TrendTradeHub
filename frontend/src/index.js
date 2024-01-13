@@ -7,6 +7,7 @@ import App from "./App";
 import "./assets/reset.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 import configureStore from "./app/store";
+import { SocketContextProvider } from "./context/SocketContext.jsx";
 
 let store = configureStore({});
 
@@ -14,7 +15,9 @@ ReactDOM.render(
   <React.StrictMode>
     <Provider store={store}>
       <BrowserRouter>
-        <App />
+        <SocketContextProvider>
+          <App />
+        </SocketContextProvider>
       </BrowserRouter>
     </Provider>
   </React.StrictMode>,
