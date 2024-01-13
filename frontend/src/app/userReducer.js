@@ -13,6 +13,20 @@ const UPDATE_PROFILE_REQUEST = "UPDATE_PROFILE_REQUEST";
 const UPDATE_PROFILE_SUCCESS = "UPDATE_PROFILE_SUCCESS";
 const UPDATE_PROFILE_FAILURE = "UPDATE_PROFILE_FAILURE";
 
+const FIND_USER_PROFILE_REQUEST = "FIND_USER_PROFILE_REQUEST";
+const FIND_USER_PROFILE_SUCCESS = "FIND_USER_PROFILE_SUCCESS";
+const FIND_USER_PROFILE_FAILURE = "FIND_USER_PROFILE_FAILURE";
+
+export const findUserProfileRequest = () => ({ type: FIND_USER_PROFILE_REQUEST });
+export const findUserProfileSuccess = (user) => ({
+  type: FIND_USER_PROFILE_SUCCESS,
+  payload: user,
+});
+export const findUserProfileFailure = (message) => ({
+  type: FIND_USER_PROFILE_FAILURE,
+  payload: message,
+});
+
 const API_URL = "/api/users/register";
 const API_URL_LOGIN = "/api/users/login";
 const API_URL_PROFILE = "/api/users/profile";
@@ -85,6 +99,21 @@ export const updateProfile = (userData) => async (dispatch) => {
     dispatch(updateProfileFailure(message));
   }
 };
+
+export const findUserProfile = (userName) => async (dispatch) => {
+  dispatch(findUserProfileRequest());
+  try {
+    const response = await axios.get(`/api/users/${userName}`);
+    dispatch(findUserProfileSuccess(response.data));
+  } catch (error) {
+    const message =
+      (error.response && error.response.data && error.response.data.message) ||
+      error.message ||
+      error.toString();
+    dispatch(findUserProfileFailure(message));
+  }
+};
+
 
 export const login = (userData) => async (dispatch) => {
   dispatch(loginRequest());
