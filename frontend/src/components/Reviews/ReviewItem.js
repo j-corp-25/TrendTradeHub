@@ -47,6 +47,7 @@ const ReviewItem = ({ review, user }) => {
   };
 
   const handleDeleteReview = () =>{
+    console.log(_id);
     dispatch(deleteReview(_id))
   }
 
