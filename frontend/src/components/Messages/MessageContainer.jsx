@@ -20,10 +20,9 @@ const MessageContainer = ({ selectedConversation }) => {
     </Row>
   );
   useEffect(() => {
-    if (selectedConversation && !selectedConversation.mock) {
-
+    if (selectedConversation) {
       const otherParticipant = selectedConversation.participants.find(
-        participant => participant._id !== user._id
+        (participant) => participant._id !== user._id
       );
 
       const otherParticipantId = otherParticipant._id;
@@ -46,9 +45,6 @@ const MessageContainer = ({ selectedConversation }) => {
       </div>
     );
   }
-
-
-
   const otherParticipant = selectedConversation.participants.find(
     (participant) => participant._id !== user._id
   );
@@ -62,7 +58,7 @@ const MessageContainer = ({ selectedConversation }) => {
         <Col xs="auto" className="d-flex align-items-center">
           <Image
             src={otherParticipant.image}
-            className="profile-image"
+            roundedCircle
             style={{ width: "3rem", height: "3rem" }}
           />
           <strong className="ms-2">{otherParticipant.name}</strong>

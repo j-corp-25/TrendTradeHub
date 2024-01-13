@@ -24,7 +24,6 @@ const ChatPage = () => {
   );
 
   const [searchQuery, setSearchQuery] = useState("");
-  const [displayConversations, setDisplayConversations] = useState([]);
   const [selectedConversation, setSelectedConversation] = useState(null);
   const userProfile = useSelector((state) => state.auth.userProfile);
   const { user, isError, isSuccess, message } = useSelector(
@@ -38,16 +37,14 @@ const ChatPage = () => {
 
   const handleSearch = (e) => {
     e.preventDefault();
-
+    
     dispatch(findUserProfile(searchQuery));
   };
+
 
   const handleConversationClick = (conversation) => {
     setSelectedConversation(conversation);
   };
-  useEffect(() => {
-    setDisplayConversations(conversations);
-  }, [conversations]);
 
   useEffect(() => {
     dispatch(getConversations());
@@ -64,53 +61,23 @@ const ChatPage = () => {
     }
 
     if (userProfile) {
+      console.log("User profile:", userProfile);
+
       if (userProfile._id === user._id) {
         toast.error("Can't message yourself!");
         return;
       }
 
-      const existingConversation = conversations.find((conversation) =>
-        conversation.participants.some(
-          (participant) => participant._id === userProfile._id
+      const existingConversation = conversations?.find(conversation =>
+        conversation.participants?.some(participant =>
+          participant._id === userProfile._id
         )
       );
 
-      let tempConversations = [...displayConversations];
-
+      console.log({"ExistingConvo": existingConversation})
       if (existingConversation) {
         setSelectedConversation(existingConversation);
-      } else {
-        const mockId = `mock-${userProfile._id}`;
-        const existingMockIndex = tempConversations.findIndex(
-          (conv) => conv._id === mockId
-        );
-
-        const mockConvo = {
-          mock: true,
-          lastMessage: { text: "", sender: "" },
-          _id: mockId,
-          participants: [
-            {
-              _id: userProfile._id,
-              name: userProfile.name,
-              image: userProfile.image,
-            },
-            { _id: user._id, name: user.name, image: user.image },
-          ],
-        };
-
-        if (existingMockIndex === -1) {
-
-          tempConversations.push(mockConvo);
-        } else {
-
-          tempConversations[existingMockIndex] = mockConvo;
-        }
-
-        setSelectedConversation(mockConvo);
       }
-
-      setDisplayConversations(tempConversations); 
     }
   }, [userProfile, isError, message, user, conversations]);
 
@@ -122,14 +89,11 @@ const ChatPage = () => {
       <Row>
         <Col xs={12} md={5} lg={4} className="border-end p-3">
           <div className="mb-3">Conversations</div>
-          <Form
-            onSubmit={handleSearch}
-            className="d-flex flex-column flex-lg-row me-1 p-1"
-          >
+          <Form onSubmit={handleSearch} className="d-flex flex-column flex-lg-row me-1 p-1">
             <Col xs={12} md={8} className="mb-2 mb-lg-1 me-1 ">
               <FormControl
                 type="search"
-                placeholder="Search for a user!"
+                placeholder="Search"
                 aria-label="Search"
                 value={searchQuery}
                 onChange={handleSearchInputChange}
@@ -165,8 +129,8 @@ const ChatPage = () => {
                 </div>
               ))}
             {!isLoading &&
-              displayConversations &&
-              displayConversations.map((conversation) => (
+              conversations &&
+              conversations.map((conversation) => (
                 <Conversation
                   key={conversation._id}
                   conversationData={conversation}
@@ -180,7 +144,7 @@ const ChatPage = () => {
         <Col xs={12} md={7} lg={8}>
           <Row className="align-items-center justify-content-center">
             <Col xs={12}>
-              <MessageContainer selectedConversation={selectedConversation} />
+            <MessageContainer selectedConversation={selectedConversation} />
             </Col>
           </Row>
         </Col>
