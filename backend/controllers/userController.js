@@ -98,10 +98,25 @@ const updateUserProfile = asyncHandler(async (req, res) => {
     _id: updatedUser._id,
     name: updatedUser.name,
     email: updatedUser.email,
-    image: updatedUser.image
+    image: updatedUser.image,
   });
 });
 
+const findUserProfile = asyncHandler(async (req, res) => {
+  const { name } = req.params;
+
+  const user = await User.findOne({ name })
+    .select("-password")
+    .select("-updatedAt")
+    .select("-reviewsWritten")
+    .select("-reviewsReceived");
+
+  if (!user) {
+    res.status(400);
+    throw new Error("User not found");
+  }
+  res.status(200).json(user);
+});
 
 export {
   registerUser,
@@ -109,4 +124,5 @@ export {
   logoutUser,
   getUserProfile,
   updateUserProfile,
+  findUserProfile,
 };
