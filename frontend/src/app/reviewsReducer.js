@@ -79,13 +79,8 @@ export const updateReviewFailure = (message) => ({
 export const deleteReview = (reviewId) => async (dispatch) => {
   dispatch(deleteReviewPending());
   try {
-    const config = {
-      headers: {
-        Authorization: `Bearer ${userToken}`,
-      },
-    };
     const url = `${API_URL}${reviewId}`;
-    const response = await axios.delete(url, config);
+    const response = await axios.delete(url );
     dispatch(deleteReviewSuccess(reviewId));
   } catch (error) {
     const message =
@@ -118,13 +113,8 @@ export const fetchReviews = (productId) => async (dispatch) => {
 export const createReview = (reviewData) => async (dispatch) => {
   dispatch(createReviewRequest());
   try {
-    const config = {
-      headers: {
-        Authorization: `Bearer ${userToken}`,
-      },
-    };
 
-    const response = await axios.post(API_URL_CREATE, reviewData, config);
+    const response = await axios.post(API_URL_CREATE, reviewData);
     dispatch(createReviewSuccess(response.data));
   } catch (error) {
     const message =
@@ -139,13 +129,9 @@ export const updateReview =
   (reviewId, updatedReviewData) => async (dispatch) => {
     dispatch(updateReviewPending());
     try {
-      const config = {
-        headers: {
-          Authorization: `Bearer ${userToken}`,
-        },
-      };
+      
       const url = `${API_URL}${reviewId}`;
-      const response = await axios.patch(url, updatedReviewData, config);
+      const response = await axios.patch(url, updatedReviewData);
       dispatch(updateReviewSuccess(response.data));
     } catch (error) {
       const message =
