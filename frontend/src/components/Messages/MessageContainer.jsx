@@ -48,6 +48,7 @@ const MessageContainer = ({ selectedConversation }) => {
   }
 
 
+
   const otherParticipant = selectedConversation.participants.find(
     (participant) => participant._id !== user._id
   );
@@ -61,7 +62,7 @@ const MessageContainer = ({ selectedConversation }) => {
         <Col xs="auto" className="d-flex align-items-center">
           <Image
             src={otherParticipant.image}
-            roundedCircle
+            className="profile-image"
             style={{ width: "3rem", height: "3rem" }}
           />
           <strong className="ms-2">{otherParticipant.name}</strong>

@@ -69,19 +69,26 @@ const ChatPage = () => {
         return;
       }
 
-      const existingConversation = conversations?.find((conversation) =>
-        conversation.participants?.some(
+      const existingConversation = conversations.find((conversation) =>
+        conversation.participants.some(
           (participant) => participant._id === userProfile._id
         )
       );
 
+      let tempConversations = [...displayConversations]; // Temporary variable
+
       if (existingConversation) {
         setSelectedConversation(existingConversation);
       } else {
+        const mockId = `mock-${userProfile._id}`;
+        const existingMockIndex = tempConversations.findIndex(
+          (conv) => conv._id === mockId
+        );
+
         const mockConvo = {
           mock: true,
           lastMessage: { text: "", sender: "" },
-          _id: `mock-${Date.now()}`,
+          _id: mockId,
           participants: [
             {
               _id: userProfile._id,
@@ -91,9 +98,19 @@ const ChatPage = () => {
             { _id: user._id, name: user.name, image: user.image },
           ],
         };
+
+        if (existingMockIndex === -1) {
+          // Add a new mock conversation
+          tempConversations.push(mockConvo);
+        } else {
+          // Replace existing mock conversation
+          tempConversations[existingMockIndex] = mockConvo;
+        }
+
         setSelectedConversation(mockConvo);
-        setDisplayConversations((prevConvos) => [...prevConvos, mockConvo]);
       }
+
+      setDisplayConversations(tempConversations); // Update state once at the end
     }
   }, [userProfile, isError, message, user, conversations]);
 
