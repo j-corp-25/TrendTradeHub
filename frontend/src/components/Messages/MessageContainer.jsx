@@ -20,9 +20,10 @@ const MessageContainer = ({ selectedConversation }) => {
     </Row>
   );
   useEffect(() => {
-    if (selectedConversation) {
+    if (selectedConversation && !selectedConversation.mock) {
+
       const otherParticipant = selectedConversation.participants.find(
-        (participant) => participant._id !== user._id
+        participant => participant._id !== user._id
       );
 
       const otherParticipantId = otherParticipant._id;
@@ -45,6 +46,8 @@ const MessageContainer = ({ selectedConversation }) => {
       </div>
     );
   }
+
+
   const otherParticipant = selectedConversation.participants.find(
     (participant) => participant._id !== user._id
   );

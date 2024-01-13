@@ -9,6 +9,7 @@ const Conversation = ({ conversationData,onClick, isSelected }) => {
   const { user } = useSelector((state) => state.auth);
   const otherParticipant = participants.find(participant => participant._id !== user._id);
   const conversationClass = isSelected ? 'conversation conversation-active' : 'conversation';
+  console.log({"ConvoDataFromFirstChild":conversationData})
   return (
     <Container
     className={`d-flex align-items-center gap-1 p-2 ${conversationClass}`}

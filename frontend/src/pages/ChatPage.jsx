@@ -78,7 +78,6 @@ const ChatPage = () => {
       if (existingConversation) {
         setSelectedConversation(existingConversation);
       } else {
-     
         const mockConvo = {
           mock: true,
           lastMessage: { text: "", sender: "" },
@@ -149,8 +148,8 @@ const ChatPage = () => {
                 </div>
               ))}
             {!isLoading &&
-              conversations &&
-              conversations.map((conversation) => (
+              displayConversations &&
+              displayConversations.map((conversation) => (
                 <Conversation
                   key={conversation._id}
                   conversationData={conversation}
