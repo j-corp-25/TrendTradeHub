@@ -12,10 +12,10 @@ function ProductItems() {
   const navigate = useNavigate()
   const dispatch = useDispatch();
   const { products } = useSelector((state) => state.products);
+  const sessionUser = useSelector((state) => state.auth.user);
   useEffect(() => {
     dispatch(fetchProducts());
   }, [dispatch]);
-
   useEffect(() => dispatch(fetchUsers()),[]);
   return (
     <Container>
@@ -24,7 +24,7 @@ function ProductItems() {
           <div key={product._id}>
             <h3>{product.title}</h3>
             <p>Price: ${product.price}</p>
-            <button onClick={() => navigate(`/product/${product._id}`)}>View Details</button>
+            <button onClick={() => sessionUser ? navigate(`/product/${product._id}`) : navigate('/login')}>View Details</button>
           </div>
         ))}
       </div>

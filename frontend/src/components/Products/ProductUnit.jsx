@@ -15,6 +15,7 @@ function ProductUnit({ productId }) {
   const { title, price, images } = selectedProduct;
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const reviewsState = useSelector((state) => state.reviews);
+  const sessionUser = useSelector((state) => state.auth.user);
 
   const reviews = reviewsState.reviews || [];
 
@@ -26,7 +27,7 @@ function ProductUnit({ productId }) {
 
   return (
     <div className="product-item">
-      <Link to={`/profile/${selectedProduct.author._id}`}>
+      <Link to={sessionUser ? `/profile/${selectedProduct.author._id}` : "/login"}>
         <div className="user-info-product">
           <div className="user-img">
             <img src={selectedProduct.author.image} alt="user-profile" />
@@ -38,7 +39,7 @@ function ProductUnit({ productId }) {
       </Link>
       <div className="image">
         <div className="content-image">
-          <Link to={`/product/${productId}`}>
+          <Link to={sessionUser ? `/product/${productId}` : "/login" }>
             <img
               src={
                 images.length > 0
