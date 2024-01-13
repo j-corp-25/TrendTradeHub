@@ -8,6 +8,7 @@ import { getMessages, resetMessages } from "../../app/messagesReducer";
 const MessageContainer = ({ selectedConversation }) => {
   const dispatch = useDispatch();
 
+  console.log({"SelectedConvoFromContainer": selectedConversation})
   const { messages, isLoading, error } = useSelector((state) => state.messages);
   const { user } = useSelector((state) => state.auth);
 

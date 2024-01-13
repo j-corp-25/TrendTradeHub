@@ -15,6 +15,7 @@ import {
 } from "react-bootstrap";
 import Conversation from "../components/Messages/Conversation";
 import MessageContainer from "../components/Messages/MessageContainer";
+import { toast } from "react-toastify";
 
 const ChatPage = () => {
   const dispatch = useDispatch();
@@ -22,12 +23,24 @@ const ChatPage = () => {
     (state) => state.conversations
   );
 
-  const [searchQuery, setSearchQuery] = useState('');
-  const userProfile = useSelector(state => state.auth.userProfile);
-
-  console.log(conversations)
-
+  const [searchQuery, setSearchQuery] = useState("");
   const [selectedConversation, setSelectedConversation] = useState(null);
+  const userProfile = useSelector((state) => state.auth.userProfile);
+  const { user, isError, isSuccess, message } = useSelector(
+    (state) => state.auth
+  );
+  console.log(conversations);
+
+  const handleSearchInputChange = (e) => {
+    setSearchQuery(e.target.value);
+  };
+
+  const handleSearch = (e) => {
+    e.preventDefault();
+    
+    dispatch(findUserProfile(searchQuery));
+  };
+
 
   const handleConversationClick = (conversation) => {
     setSelectedConversation(conversation);
@@ -41,6 +54,32 @@ const ChatPage = () => {
     };
   }, [dispatch]);
 
+  useEffect(() => {
+    if (isError) {
+      toast.error(message);
+      return;
+    }
+
+    if (userProfile) {
+      console.log("User profile:", userProfile);
+
+      if (userProfile._id === user._id) {
+        toast.error("Can't message yourself!");
+        return;
+      }
+
+      const existingConversation = conversations?.find(conversation =>
+        conversation.participants?.some(participant =>
+          participant._id === userProfile._id
+        )
+      );
+
+      console.log({"ExistingConvo": existingConversation})
+      if (existingConversation) {
+        setSelectedConversation(existingConversation);
+      }
+    }
+  }, [userProfile, isError, message, user, conversations]);
 
   return (
     <Container
@@ -50,16 +89,22 @@ const ChatPage = () => {
       <Row>
         <Col xs={12} md={5} lg={4} className="border-end p-3">
           <div className="mb-3">Conversations</div>
-          <Form className="d-flex flex-column flex-lg-row me-1 p-1">
+          <Form onSubmit={handleSearch} className="d-flex flex-column flex-lg-row me-1 p-1">
             <Col xs={12} md={8} className="mb-2 mb-lg-1 me-1 ">
               <FormControl
                 type="search"
                 placeholder="Search"
                 aria-label="Search"
+                value={searchQuery}
+                onChange={handleSearchInputChange}
               />
             </Col>
             <Col xs={12} md={4} className=" w-auto ">
-              <Button variant="outline-success" className=" container-sm">
+              <Button
+                variant="outline-success"
+                onClick={handleSearch}
+                className=" container-sm"
+              >
                 Search
               </Button>
             </Col>
@@ -99,7 +144,7 @@ const ChatPage = () => {
         <Col xs={12} md={7} lg={8}>
           <Row className="align-items-center justify-content-center">
             <Col xs={12}>
-              <MessageContainer selectedConversation={selectedConversation} />
+            <MessageContainer selectedConversation={selectedConversation} />
             </Col>
           </Row>
         </Col>

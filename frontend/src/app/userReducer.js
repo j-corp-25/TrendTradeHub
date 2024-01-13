@@ -105,7 +105,7 @@ export const updateProfile = (userData) => async (dispatch) => {
 export const findUserProfile = (userName) => async (dispatch) => {
   dispatch(findUserProfileRequest());
   try {
-    const response = await axios.get(`/api/users/${userName}`);
+    const response = await axios.get(`/api/users/profile/${userName}`);
     dispatch(findUserProfileSuccess(response.data));
   } catch (error) {
     const message =
