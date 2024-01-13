@@ -3,14 +3,13 @@ import { useSelector } from "react-redux";
 import io from "socket.io-client";
 const SocketContext = createContext();
 
-
-
 export const useSocket = () => {
-    return useContext(SocketContext)
-}
+  return useContext(SocketContext);
+};
 export const SocketContextProvider = ({ children }) => {
   const [socket, setSocket] = useState(null);
   const user = useSelector((state) => state.auth.user);
+  const [onlineUsers, setOnlineUsers] = useState([]);
 
   useEffect(() => {
     const socket = io("http://localhost:4000", {
@@ -20,10 +19,19 @@ export const SocketContextProvider = ({ children }) => {
     });
     setSocket(socket);
 
+    socket.on("getOnlineUsers", (users) => {
+      setOnlineUsers(users);
+    });
+
     return () => socket && socket.close();
   }, [user?._id]);
+  console.log(onlineUsers, "Online users");
 
-  return <SocketContext.Provider value={{socket}}>{children}</SocketContext.Provider>;
+  return (
+    <SocketContext.Provider value={{ socket }}>
+      {children}
+    </SocketContext.Provider>
+  );
 };
 
 export default SocketContext;
