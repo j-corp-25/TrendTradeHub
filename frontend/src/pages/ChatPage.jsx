@@ -24,6 +24,7 @@ const ChatPage = () => {
   );
 
   const [searchQuery, setSearchQuery] = useState("");
+  const [displayConversations, setDisplayConversations] = useState([]);
   const [selectedConversation, setSelectedConversation] = useState(null);
   const userProfile = useSelector((state) => state.auth.userProfile);
   const { user, isError, isSuccess, message } = useSelector(
@@ -37,14 +38,16 @@ const ChatPage = () => {
 
   const handleSearch = (e) => {
     e.preventDefault();
-    
+
     dispatch(findUserProfile(searchQuery));
   };
-
 
   const handleConversationClick = (conversation) => {
     setSelectedConversation(conversation);
   };
+  useEffect(() => {
+    setDisplayConversations(conversations);
+  }, [conversations]);
 
   useEffect(() => {
     dispatch(getConversations());
@@ -61,22 +64,36 @@ const ChatPage = () => {
     }
 
     if (userProfile) {
-      console.log("User profile:", userProfile);
-
       if (userProfile._id === user._id) {
         toast.error("Can't message yourself!");
         return;
       }
 
-      const existingConversation = conversations?.find(conversation =>
-        conversation.participants?.some(participant =>
-          participant._id === userProfile._id
+      const existingConversation = conversations?.find((conversation) =>
+        conversation.participants?.some(
+          (participant) => participant._id === userProfile._id
         )
       );
 
-      console.log({"ExistingConvo": existingConversation})
       if (existingConversation) {
         setSelectedConversation(existingConversation);
+      } else {
+     
+        const mockConvo = {
+          mock: true,
+          lastMessage: { text: "", sender: "" },
+          _id: `mock-${Date.now()}`,
+          participants: [
+            {
+              _id: userProfile._id,
+              name: userProfile.name,
+              image: userProfile.image,
+            },
+            { _id: user._id, name: user.name, image: user.image },
+          ],
+        };
+        setSelectedConversation(mockConvo);
+        setDisplayConversations((prevConvos) => [...prevConvos, mockConvo]);
       }
     }
   }, [userProfile, isError, message, user, conversations]);
@@ -89,7 +106,10 @@ const ChatPage = () => {
       <Row>
         <Col xs={12} md={5} lg={4} className="border-end p-3">
           <div className="mb-3">Conversations</div>
-          <Form onSubmit={handleSearch} className="d-flex flex-column flex-lg-row me-1 p-1">
+          <Form
+            onSubmit={handleSearch}
+            className="d-flex flex-column flex-lg-row me-1 p-1"
+          >
             <Col xs={12} md={8} className="mb-2 mb-lg-1 me-1 ">
               <FormControl
                 type="search"
@@ -144,7 +164,7 @@ const ChatPage = () => {
         <Col xs={12} md={7} lg={8}>
           <Row className="align-items-center justify-content-center">
             <Col xs={12}>
-            <MessageContainer selectedConversation={selectedConversation} />
+              <MessageContainer selectedConversation={selectedConversation} />
             </Col>
           </Row>
         </Col>
