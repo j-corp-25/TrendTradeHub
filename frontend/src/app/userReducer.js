@@ -17,7 +17,9 @@ const FIND_USER_PROFILE_REQUEST = "FIND_USER_PROFILE_REQUEST";
 const FIND_USER_PROFILE_SUCCESS = "FIND_USER_PROFILE_SUCCESS";
 const FIND_USER_PROFILE_FAILURE = "FIND_USER_PROFILE_FAILURE";
 
-export const findUserProfileRequest = () => ({ type: FIND_USER_PROFILE_REQUEST });
+export const findUserProfileRequest = () => ({
+  type: FIND_USER_PROFILE_REQUEST,
+});
 export const findUserProfileSuccess = (user) => ({
   type: FIND_USER_PROFILE_SUCCESS,
   payload: user,
@@ -114,7 +116,6 @@ export const findUserProfile = (userName) => async (dispatch) => {
   }
 };
 
-
 export const login = (userData) => async (dispatch) => {
   dispatch(loginRequest());
   try {
@@ -186,6 +187,22 @@ const authReducer = (state = initialState, action) => {
         },
       };
     case UPDATE_PROFILE_FAILURE:
+      return {
+        ...state,
+        isLoading: false,
+        isError: true,
+        message: action.payload,
+      };
+    case FIND_USER_PROFILE_REQUEST:
+      return { ...state, isLoading: true, isError: false, isSuccess: false };
+    case FIND_USER_PROFILE_SUCCESS:
+      return {
+        ...state,
+        isLoading: false,
+        isSuccess: true,
+        userProfile: action.payload,
+      };
+    case FIND_USER_PROFILE_FAILURE:
       return {
         ...state,
         isLoading: false,
