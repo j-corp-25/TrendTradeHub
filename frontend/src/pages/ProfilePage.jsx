@@ -8,6 +8,7 @@ import { Link } from "react-router-dom";
 import { fetchProducts } from "../app/productReducer";
 import { useParams } from "react-router-dom";
 import { fetchUsers } from "../app/userReducer";
+import ProductUnit from "../components/Products/ProductUnit";
 
 import styled from "styled-components";
 
@@ -97,14 +98,10 @@ function Profile() {
 
   return (
     <>
-
       {!loading && (
         <div className="body-profile">
           <Container className="mt-5 info-container">
             <Card>
-              {/* <Card.Header>
-            <FaUserAlt className="mr-2" /> Profile
-          </Card.Header> */}
               <Card.Body>
                 {editMode ? (
                   <Form>
@@ -168,113 +165,61 @@ function Profile() {
                       <p style={{ color: "gray", fontSize: "20px" }}>
                         {user.name}
                       </p>
-                      {(sessionUser === Object.values(userId)[0] ) ? <Button
-                        variant="primary"
-                        onClick={() => setEditMode(true)}
-                        style={{width:"fit-content", background:"black", display: "flex", alignItems: "center", justifyItems: "center", margin:"auto"}}
-                      >
-                        <FaEdit className="mr-1" style={{width:"fit-content", background:"black"}} /> Edit
-                      </Button> :
-                      <Button
-                      variant="primary"
-                      style={{width:"fit-content", background:"black", display: "flex", alignItems: "center", justifyItems: "center", margin:"auto"}}
-                    >
-                      <FaComment className="mr-1" style={{width:"fit-content", background:"black"}} /> Message Me
-                    </Button> }
-                      
+                      {sessionUser === Object.values(userId)[0] ? (
+                        <Button
+                          variant="primary"
+                          onClick={() => setEditMode(true)}
+                          style={{
+                            width: "fit-content",
+                            background: "black",
+                            display: "flex",
+                            alignItems: "center",
+                            justifyItems: "center",
+                            margin: "auto",
+                          }}
+                        >
+                          <FaEdit
+                            className="mr-1"
+                            style={{
+                              width: "fit-content",
+                              background: "black",
+                            }}
+                          />{" "}
+                          Edit
+                        </Button>
+                      ) : (
+                        <Button
+                          variant="primary"
+                          style={{
+                            width: "fit-content",
+                            background: "black",
+                            display: "flex",
+                            alignItems: "center",
+                            justifyItems: "center",
+                            margin: "auto",
+                          }}
+                        >
+                          <FaComment
+                            className="mr-1"
+                            style={{
+                              width: "fit-content",
+                              background: "black",
+                            }}
+                          />{" "}
+                          Message Me
+                        </Button>
+                      )}
                     </div>
                   </div>
                 )}
+            <div className="product-list">
+              {user_products.map((product) => (
+                <ProductUnit key={product._id} productId={product._id} />
+              ))}
+            </div>
               </Card.Body>
             </Card>
           </Container>
-
-          <div>
-            <link
-              href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css"
-              rel="stylesheet"
-            />
-            <div class="container">
-              <div class="row">
-                <div class="col-lg-12">
-                  <div class="main-box clearfix">
-                    <div class="table-responsive">
-                      <table class="table user-list">
-                        <thead>
-                          <tr>
-                            <th>
-                              <span>Product</span>
-                            </th>
-                            <th>
-                              <span>Category</span>
-                            </th>
-                            <th class="text-center">
-                              <span>Price</span>
-                            </th>
-                            <th>
-                              <span>Condition</span>
-                            </th>
-                            <th>&nbsp;</th>
-                          </tr>
-                        </thead>
-                        <tbody>
-                          {user_products.map((product) => (
-                            <tr key={product._id}>
-                              <td>
-                                <img src={product.images[0]} alt="" />
-                                <a
-                                  href={`#/product/${product._id}`}
-                                  className="user-link"
-                                ></a>
-                                <span className="user-subhead">
-                                  {product.title}
-                                </span>
-                              </td>
-                              <td>
-                                <span>{product.category}</span>
-                              </td>
-                              <td className="text-center">
-                                <span className="label label-default">
-                                  {product.price}
-                                </span>
-                              </td>
-                              <td>
-                                <span className="condition-profile">
-                                  {product.condition}{" "}
-                                </span>
-                              </td>
-                              <td>
-                                <Link to={`/product/${product._id}`}>
-                                  <a href="#/" class="table-link">
-                                    <span class="fa-stack">
-                                      <i class="fa fa-square fa-stack-2x"></i>
-                                      <i class="fa fa-search-plus fa-stack-1x fa-inverse"></i>
-                                    </span>
-                                  </a>
-                                </Link>
-                                <a href="#/" class="table-link">
-                                  <span class="fa-stack">
-                                    <i class="fa fa-square fa-stack-2x"></i>
-                                    <i class="fa fa-pencil fa-stack-1x fa-inverse"></i>
-                                  </span>
-                                </a>
-                                <a href="#/" class="table-link danger">
-                                  <span class="fa-stack">
-                                    <i class="fa fa-square fa-stack-2x"></i>
-                                    <i class="fa fa-trash-o fa-stack-1x fa-inverse"></i>
-                                  </span>
-                                </a>
-                              </td>
-                            </tr>
-                          ))}
-                        </tbody>
-                      </table>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
         </div>
       )}
     </>

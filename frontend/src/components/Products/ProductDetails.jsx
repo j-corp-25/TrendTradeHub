@@ -32,6 +32,7 @@ function ProductDetails() {
   const averageRating = useSelector((state) => state.reviews.averageRating);
   const users = useSelector((state) => state.auth.all);
   const userAuthor =  users.find(user => user._id === author);
+  const sessionUser = useSelector((state) => state.auth.user);
 
   const renderStars = (rating) => {
     const fullStars = Math.floor(rating);
