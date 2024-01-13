@@ -79,15 +79,19 @@ const updateUserProfile = asyncHandler(async (req, res) => {
   const user = await User.findById(req.user._id);
 
   if (!user) {
-    res.status(404);
+    res.status(400);
     throw new Error("User not found");
   }
 
-  // Update name and email
   user.name = req.body.name || user.name;
   user.email = req.body.email || user.email;
 
-  // Update image only if a new file is provided
+
+  if (req.body.password) {
+    user.password = req.body.password;
+  }
+
+
   if (req.file && req.file.path) {
     user.image = req.file.path;
   }
