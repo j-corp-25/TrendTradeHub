@@ -23,10 +23,16 @@ export const resetConversations = () => ({
 const initialState = {
   conversations: [],
   isLoading: false,
+
   error: "",
 };
 
+const UPDATE_LAST_MESSAGE = "UPDATE_LAST_MESSAGE";
 
+export const updateLastMessage = (conversationId, lastMessage) => ({
+  type: UPDATE_LAST_MESSAGE,
+  payload: { conversationId, lastMessage },
+});
 const API_URL = "/api/messages/";
 
 const getUserToken = () => {
@@ -53,7 +59,7 @@ const conversationReducer = (state = initialState, action) => {
     case GET_CONVERSATIONS_REQUEST:
       return {
         ...state,
-        isLoading: null,
+        isLoading: true,
         error: "",
       };
     case GET_CONVERSATIONS_SUCCESS:
@@ -70,6 +76,15 @@ const conversationReducer = (state = initialState, action) => {
       };
     case RESET_CONVERSATIONS:
       return { ...initialState };
+    case UPDATE_LAST_MESSAGE:
+      return {
+        ...state,
+        conversations: state.conversations.map((conversation) =>
+          conversation._id === action.payload.conversationId
+            ? { ...conversation, lastMessage: action.payload.lastMessage }
+            : conversation
+        ),
+      };
     default:
       return state;
   }
