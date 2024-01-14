@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import { Container, Row, Col, Image } from "react-bootstrap";
 import Message from "./Message";
 import MessageForm from "./MessageForm";
@@ -12,6 +12,7 @@ import {
 } from "../../app/messagesReducer";
 import { useSocket } from "../../context/SocketContext";
 const MessageContainer = ({ selectedConversation }) => {
+  const messageEndRef = useRef(null);
   const dispatch = useDispatch();
   console.log({ SelectedConvoFromContainer: selectedConversation });
   const { messages, isLoading, error } = useSelector((state) => state.messages);
@@ -26,6 +27,9 @@ const MessageContainer = ({ selectedConversation }) => {
       <Col className="placeholder col-12" style={{ height: "8px" }}></Col>
     </Row>
   );
+  useEffect(() => {
+    messageEndRef.current?.scrollIntoView({ behavior: "smooth" });
+  }, [messages]);
 
   useEffect(() => {
     console.log("Socket object:", socket);
@@ -41,7 +45,6 @@ const MessageContainer = ({ selectedConversation }) => {
             text: incomingMessage.text,
             sender: incomingMessage.sender,
           })
-          
         );
       });
     }
@@ -139,6 +142,7 @@ const MessageContainer = ({ selectedConversation }) => {
             otherParticipant={otherParticipant}
           />
         ))}
+        <div ref={messageEndRef} />
       </div>
       <div className="mt-3 flex-row">
         <MessageForm
