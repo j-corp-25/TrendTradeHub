@@ -31,7 +31,8 @@ const ChatPage = () => {
     (state) => state.auth
   );
   const { socket, onlineUsers } = useSocket();
-  console.log(onlineUsers)
+  const currentUserId = user._id;
+  console.log(onlineUsers);
 
   const handleSearchInputChange = (e) => {
     setSearchQuery(e.target.value);
@@ -140,7 +141,11 @@ const ChatPage = () => {
                   key={conversation._id}
                   conversationData={conversation}
                   onClick={() => handleConversationClick(conversation)}
-                  isOnline={conversation.participants.some(participant => onlineUsers.includes(participant._id))}
+                  isOnline={conversation.participants.some(
+                    (participant) =>
+                      participant._id !== currentUserId &&
+                      onlineUsers.includes(participant._id)
+                  )}
                   isSelected={selectedConversation?._id === conversation._id}
                 />
               ))}

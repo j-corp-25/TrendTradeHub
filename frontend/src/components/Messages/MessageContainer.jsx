@@ -58,7 +58,7 @@ const MessageContainer = ({ selectedConversation }) => {
         <Col xs="auto" className="d-flex align-items-center">
           <Image
             src={otherParticipant.image}
-            roundedCircle
+            className="profile-image"
             style={{ width: "3rem", height: "3rem" }}
           />
           <strong className="ms-2">{otherParticipant.name}</strong>
@@ -102,6 +102,7 @@ const MessageContainer = ({ selectedConversation }) => {
             key={message._id}
             message={message}
             myMessage={message.sender === user._id}
+            otherParticipant={otherParticipant}
           />
         ))}
       </div>

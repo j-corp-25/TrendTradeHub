@@ -2,7 +2,7 @@ import React from "react";
 import { Image } from "react-bootstrap";
 import { useSelector } from "react-redux";
 
-const Message = ({ message, myMessage }) => {
+const Message = ({ otherParticipant,message, myMessage }) => {
   const { user } = useSelector((state) => state.auth);
   const myMessageStyle = {
     backgroundColor: "#DCF8C6",
@@ -22,8 +22,8 @@ const Message = ({ message, myMessage }) => {
     >
       {!myMessage && (
         <Image
-          src="https://via.placeholder.com/150"
-          roundedCircle
+          src={otherParticipant.image}
+          className="profile-image"
           style={{ width: "3rem", height: "3rem", marginRight: "10px" }}
         />
       )}
