@@ -4,7 +4,12 @@ import Message from "./Message";
 import MessageForm from "./MessageForm";
 import { FaComments } from "react-icons/fa";
 import { useDispatch, useSelector } from "react-redux";
-import { getMessages, resetMessages, addIncomingMessage } from "../../app/messagesReducer";
+import { updateLastMessage } from "../../app/conversationReducer";
+import {
+  getMessages,
+  resetMessages,
+  addIncomingMessage,
+} from "../../app/messagesReducer";
 import { useSocket } from "../../context/SocketContext";
 const MessageContainer = ({ selectedConversation }) => {
   const dispatch = useDispatch();
@@ -13,7 +18,7 @@ const MessageContainer = ({ selectedConversation }) => {
   const { user } = useSelector((state) => state.auth);
   const { socket } = useSocket();
 
-  console.log(messages)
+  console.log(messages);
   const PlaceholderRows = () => (
     <Row className="gap-1" style={{ width: "60%" }}>
       <Col className="placeholder col-12 " style={{ height: "8px" }}></Col>
@@ -23,22 +28,30 @@ const MessageContainer = ({ selectedConversation }) => {
   );
 
   useEffect(() => {
-    console.log("Socket object:", socket); // Log the socket object
+    console.log("Socket object:", socket);
 
     if (socket) {
-      socket.on('newMessage', (incomingMessage) => {
+      socket.on("newMessage", (incomingMessage) => {
         console.log("Incoming message:", incomingMessage);
+
         dispatch(addIncomingMessage(incomingMessage));
+
+        dispatch(
+          updateLastMessage(incomingMessage.conversationId, {
+            text: incomingMessage.text,
+            sender: incomingMessage.sender,
+          })
+          
+        );
       });
     }
 
     return () => {
       if (socket) {
-        socket.off('newMessage');
+        socket.off("newMessage");
       }
     };
   }, [socket, dispatch]);
-
 
   useEffect(() => {
     if (selectedConversation) {
