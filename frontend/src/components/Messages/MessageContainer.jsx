@@ -36,16 +36,16 @@ const MessageContainer = ({ selectedConversation }) => {
 
     if (socket) {
       socket.on("newMessage", (incomingMessage) => {
-        if (selectedConversation?._id === incomingMessage.conversationId) {
-          dispatch(addIncomingMessage(incomingMessage));
-        }
-
         dispatch(
           updateLastMessage(incomingMessage.conversationId, {
             text: incomingMessage.text,
             sender: incomingMessage.sender,
           })
         );
+
+        if (selectedConversation?._id === incomingMessage.conversationId) {
+          dispatch(addIncomingMessage(incomingMessage));
+        }
       });
     }
 
@@ -54,7 +54,7 @@ const MessageContainer = ({ selectedConversation }) => {
         socket.off("newMessage");
       }
     };
-  }, [socket, dispatch]);
+  }, [socket, dispatch, selectedConversation]);
 
   useEffect(() => {
     if (selectedConversation) {
