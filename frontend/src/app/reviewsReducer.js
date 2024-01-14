@@ -1,5 +1,5 @@
 import axios from "axios";
-
+import { getUserToken } from "./userToken";
 const GET_REVIEWS_REQUEST = "GET_REVIEWS_REQUEST";
 const GET_REVIEWS_SUCCESS = "GET_REVIEWS_SUCCESS";
 const GET_REVIEWS_FAILURE = "GET_REVIEWS_FAILURE";
@@ -20,9 +20,6 @@ const API_URL = "/api/reviews/";
 const API_URL_CREATE = "/api/reviews/create";
 
 //this gets the token from the user object in local storage
-const storedUser = localStorage.getItem("user");
-const user = storedUser ? JSON.parse(storedUser) : null;
-const userToken = user ? user.token : null;
 
 export const getReviewsRequest = () => ({
   type: GET_REVIEWS_REQUEST,
@@ -81,7 +78,7 @@ export const deleteReview = (reviewId) => async (dispatch) => {
   try {
     const config = {
       headers: {
-        Authorization: `Bearer ${userToken}`,
+        Authorization: `Bearer ${getUserToken()}`,
       },
     };
     const url = `${API_URL}${reviewId}`;
@@ -118,9 +115,10 @@ export const fetchReviews = (productId) => async (dispatch) => {
 export const createReview = (reviewData) => async (dispatch) => {
   dispatch(createReviewRequest());
   try {
+
     const config = {
       headers: {
-        Authorization: `Bearer ${userToken}`,
+        Authorization: `Bearer ${getUserToken()}`,
       },
     };
 
@@ -139,6 +137,9 @@ export const updateReview =
   (reviewId, updatedReviewData) => async (dispatch) => {
     dispatch(updateReviewPending());
     try {
+      const storedUser = localStorage.getItem("user");
+      const user = storedUser ? JSON.parse(storedUser) : null;
+      const userToken = user ? user.token : null;
       const config = {
         headers: {
           Authorization: `Bearer ${userToken}`,
@@ -147,7 +148,6 @@ export const updateReview =
       const url = `${API_URL}${reviewId}`;
       const response = await axios.patch(url, updatedReviewData, config);
       dispatch(updateReviewSuccess(response.data));
-      
     } catch (error) {
       const message =
         (error.response &&

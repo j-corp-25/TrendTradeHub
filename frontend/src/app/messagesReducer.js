@@ -1,4 +1,5 @@
 import axios from "axios";
+import { getUserToken } from "./userToken";
 
 const SEND_MESSAGE_REQUEST = "SEND_MESSAGE_REQUEST";
 const SEND_MESSAGE_SUCCESS = "SEND_MESSAGE_SUCCESS";
@@ -18,11 +19,7 @@ export const addIncomingMessage = (message) => ({
   payload: message,
 });
 
-const getUserToken = () => {
-  const storedUser = localStorage.getItem("user");
-  const user = storedUser ? JSON.parse(storedUser) : null;
-  return user ? user.token : null;
-};
+
 export const resetMessages = () => ({
   type: RESET_MESSAGES,
 });

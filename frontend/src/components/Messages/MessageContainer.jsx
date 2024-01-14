@@ -14,12 +14,12 @@ import { useSocket } from "../../context/SocketContext";
 const MessageContainer = ({ selectedConversation }) => {
   const messageEndRef = useRef(null);
   const dispatch = useDispatch();
-  console.log({ SelectedConvoFromContainer: selectedConversation });
+  // console.log({ SelectedConvoFromContainer: selectedConversation });
   const { messages, isLoading, error } = useSelector((state) => state.messages);
   const { user } = useSelector((state) => state.auth);
   const { socket } = useSocket();
 
-  console.log(messages);
+  // console.log(messages);
   const PlaceholderRows = () => (
     <Row className="gap-1" style={{ width: "60%" }}>
       <Col className="placeholder col-12 " style={{ height: "8px" }}></Col>
@@ -36,8 +36,6 @@ const MessageContainer = ({ selectedConversation }) => {
 
     if (socket) {
       socket.on("newMessage", (incomingMessage) => {
-        console.log("Incoming message:", incomingMessage);
-
         if (selectedConversation?._id === incomingMessage.conversationId) {
           dispatch(addIncomingMessage(incomingMessage));
         }
@@ -73,7 +71,7 @@ const MessageContainer = ({ selectedConversation }) => {
     };
   }, [dispatch, selectedConversation, user._id]);
 
-  console.log(selectedConversation);
+  // console.log(selectedConversation);
   if (!selectedConversation) {
     return (
       <div className="d-flex flex-column align-items-center justify-content-center text-center">

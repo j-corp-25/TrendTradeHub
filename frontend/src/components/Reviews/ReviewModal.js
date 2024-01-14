@@ -16,17 +16,17 @@ const ReviewModal = ({ showModal, handleClose }) => {
   const userId = useSelector(state=> state.auth.user._id);
   const product = useSelector(state=> state.products.selectedProduct?._id);
   const [comment, setComment] = useState("");
-  const [rating, setRating] = useState(0); 
+  const [rating, setRating] = useState(0);
   const [hoveredRating, setHoveredRating] = useState(0);
   const [error, setError] = useState("");
 
 
 
   const handleSubmit = () => {
-    
+
     if (rating > 0 && comment.trim() !== "") {
     dispatch(createReview({ userId: userId ,comment: comment, rating: rating, productId: product}));
-    console.log(userId, product);
+    // console.log(userId, product);
     handleClose();}
     else {
       setError("Please Prodive both rating and comment");
@@ -94,7 +94,7 @@ const ReviewModal = ({ showModal, handleClose }) => {
         <Button variant="primary" onClick={handleSubmit}>
           Submit Review
         </Button>
-        
+
       </Modal.Footer>
     </Modal>
   );

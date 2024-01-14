@@ -128,27 +128,26 @@ const updateReview = asyncHandler(async (req, res) => {
 // @desc Delete review
 // @route POST /api/reviews/:id
 // @access PRIVATE
-
 const deleteReview = asyncHandler(async (req, res) => {
   const review = await Review.findById(req.params.id);
-  const user = req.user.id;
 
   if (!review) {
-    res.status(401);
+    res.status(404);
     throw new Error("Review not found");
   }
-  if (!user) {
-    res.status(401);
-    throw new Error("User not found");
-  }
-  if (review.author.toString() !== user) {
-    res.status(401);
+
+  const userId = req.user.id;
+
+  if (review.author.toString() !== userId) {
+    res.status(403);
     throw new Error("User is not authorized to delete this review");
   }
 
   await Review.findByIdAndDelete(review._id);
 
-  res.status(200).json({ message: "Review has been deleted" });
+  res
+    .status(200)
+    .json({ message: "Review has been deleted", reviewId: review._id });
 });
 
 export { getReviews, createReview, updateReview, deleteReview };

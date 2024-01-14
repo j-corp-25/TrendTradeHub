@@ -9,7 +9,7 @@ import { updateLastMessage } from "../../app/conversationReducer";
 const MessageForm = ({ otherParticipantId, conversationId }) => {
   const dispatch = useDispatch();
   const [messageText, setMessageText] = useState("");
-  console.log({ otherUser: otherParticipantId, convo: conversationId });
+  // console.log({ otherUser: otherParticipantId, convo: conversationId });
 
   const { user } = useSelector((state) => state.auth);
 

@@ -1,4 +1,5 @@
 import axios from "axios";
+import { getUserToken } from "./userToken";
 
 const REGISTER_REQUEST = "REGISTER_REQUEST";
 const REGISTER_SUCCESS = "REGISTER_SUCCESS";
@@ -33,10 +34,6 @@ const API_URL = "/api/users/register";
 const API_URL_LOGIN = "/api/users/login";
 const API_URL_PROFILE = "/api/users/profile";
 
-//this gets the token from the user object in local storage
-const user = JSON.parse(localStorage.getItem("user"));
-const userToken = user ? user.token : null;
-
 export const updateProfileRequest = () => ({ type: UPDATE_PROFILE_REQUEST });
 
 export const updateProfileSuccess = (user) => ({
@@ -67,7 +64,7 @@ export const loginFailure = (message) => ({
 
 export const logout = () => ({ type: LOGOUT });
 export const reset = () => ({ type: RESET });
-
+//always set user in local storage when registering and login in
 export const register = (userData) => async (dispatch) => {
   dispatch(registerRequest());
   try {
@@ -87,7 +84,7 @@ export const updateProfile = (userData) => async (dispatch) => {
   try {
     const config = {
       headers: {
-        Authorization: `Bearer ${userToken}`,
+        Authorization: `Bearer ${getUserToken()}`,
       },
     };
 
@@ -116,6 +113,7 @@ export const findUserProfile = (userName) => async (dispatch) => {
   }
 };
 
+//always set user in local storage when registering and login in
 export const login = (userData) => async (dispatch) => {
   dispatch(loginRequest());
   try {
@@ -137,11 +135,12 @@ export const performLogout = () => (dispatch) => {
 };
 
 const initialState = {
-  user: user ? user : null,
+  user: JSON.parse(localStorage.getItem("user"))
+    ? JSON.parse(localStorage.getItem("user"))
+    : null,
   isError: false,
   isSuccess: false,
   message: "",
-
 };
 
 const authReducer = (state = initialState, action) => {

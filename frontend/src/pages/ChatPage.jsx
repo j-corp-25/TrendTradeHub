@@ -32,7 +32,7 @@ const ChatPage = () => {
   );
   const { socket, onlineUsers } = useSocket();
   const currentUserId = user._id;
-  console.log(onlineUsers);
+  // console.log(onlineUsers);
 
   const handleSearchInputChange = (e) => {
     setSearchQuery(e.target.value);
@@ -63,7 +63,7 @@ const ChatPage = () => {
     }
 
     if (userProfile) {
-      console.log("User profile:", userProfile);
+      // console.log("User profile:", userProfile);
 
       if (userProfile._id === user._id) {
         toast.error("Can't message yourself!");
@@ -76,7 +76,7 @@ const ChatPage = () => {
         )
       );
 
-      console.log({ ExistingConvo: existingConversation });
+      // console.log({ ExistingConvo: existingConversation });
       if (existingConversation) {
         setSelectedConversation(existingConversation);
       }

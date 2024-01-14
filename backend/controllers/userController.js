@@ -31,6 +31,7 @@ const registerUser = asyncHandler(async (req, res) => {
     res.status(400);
     throw new Error("Invalid user data");
   }
+
 });
 // @desc Login user
 // @route POST /api/users/login
@@ -83,16 +84,7 @@ const updateUserProfile = asyncHandler(async (req, res) => {
     throw new Error("User not found");
   }
 
-  const emailToUpdate = req.body.email;
-  if (emailToUpdate && emailToUpdate !== user.email) {
-    const emailExists = await User.findOne({ email: emailToUpdate });
-    if (emailExists) {
-      res.status(400);
-      throw new Error("Email already in use");
-    }
-    user.email = emailToUpdate;
-  }
-
+  user.email = req.body.email || user.email
   user.name = req.body.name || user.name;
 
   if (req.body.password) {
