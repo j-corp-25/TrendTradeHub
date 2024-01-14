@@ -11,6 +11,13 @@ const GET_MESSAGES_FAILURE = "GET_MESSAGES_FAILURE";
 const RESET_MESSAGES = "RESET_MESSAGES";
 const API_URL = "/api/messages/";
 
+const ADD_INCOMING_MESSAGE = "ADD_INCOMING_MESSAGE";
+
+export const addIncomingMessage = (message) => ({
+  type: ADD_INCOMING_MESSAGE,
+  payload: message,
+});
+
 const getUserToken = () => {
   const storedUser = localStorage.getItem("user");
   const user = storedUser ? JSON.parse(storedUser) : null;
@@ -117,6 +124,11 @@ const messagesReducer = (state = initialState, action) => {
     case RESET_MESSAGES:
       return {
         ...initialState,
+      };
+    case ADD_INCOMING_MESSAGE:
+      return {
+        ...state,
+        messages: [...state.messages, action.payload],
       };
     default:
       return state;

@@ -4,14 +4,16 @@ import Message from "./Message";
 import MessageForm from "./MessageForm";
 import { FaComments } from "react-icons/fa";
 import { useDispatch, useSelector } from "react-redux";
-import { getMessages, resetMessages } from "../../app/messagesReducer";
+import { getMessages, resetMessages, addIncomingMessage } from "../../app/messagesReducer";
+import { useSocket } from "../../context/SocketContext";
 const MessageContainer = ({ selectedConversation }) => {
   const dispatch = useDispatch();
-
-  console.log({"SelectedConvoFromContainer": selectedConversation})
+  console.log({ SelectedConvoFromContainer: selectedConversation });
   const { messages, isLoading, error } = useSelector((state) => state.messages);
   const { user } = useSelector((state) => state.auth);
+  const { socket } = useSocket();
 
+  console.log(messages)
   const PlaceholderRows = () => (
     <Row className="gap-1" style={{ width: "60%" }}>
       <Col className="placeholder col-12 " style={{ height: "8px" }}></Col>
@@ -19,6 +21,25 @@ const MessageContainer = ({ selectedConversation }) => {
       <Col className="placeholder col-12" style={{ height: "8px" }}></Col>
     </Row>
   );
+
+  useEffect(() => {
+    console.log("Socket object:", socket); // Log the socket object
+
+    if (socket) {
+      socket.on('newMessage', (incomingMessage) => {
+        console.log("Incoming message:", incomingMessage);
+        dispatch(addIncomingMessage(incomingMessage));
+      });
+    }
+
+    return () => {
+      if (socket) {
+        socket.off('newMessage');
+      }
+    };
+  }, [socket, dispatch]);
+
+
   useEffect(() => {
     if (selectedConversation) {
       const otherParticipant = selectedConversation.participants.find(
@@ -107,7 +128,10 @@ const MessageContainer = ({ selectedConversation }) => {
         ))}
       </div>
       <div className="mt-3 flex-row">
-        <MessageForm otherParticipantId={otherParticipant._id} conversationId={selectedConversation._id}/>
+        <MessageForm
+          otherParticipantId={otherParticipant._id}
+          conversationId={selectedConversation._id}
+        />
       </div>
     </Container>
   );

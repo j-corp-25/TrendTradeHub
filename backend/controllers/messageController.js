@@ -1,7 +1,10 @@
 import asyncHandler from "express-async-handler";
 import Conversation from "../models/conversationModel.js";
 import Message from "../models/messageModel.js";
-import { getRecipientSocket } from "../sockets/socket.js";
+import { getRecipientSocket, io } from "../sockets/socket.js";
+
+
+
 
 const sendMessage = asyncHandler(async (req, res) => {
   const { recipientId, message } = req.body;
