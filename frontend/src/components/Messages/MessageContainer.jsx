@@ -38,7 +38,9 @@ const MessageContainer = ({ selectedConversation }) => {
       socket.on("newMessage", (incomingMessage) => {
         console.log("Incoming message:", incomingMessage);
 
-        dispatch(addIncomingMessage(incomingMessage));
+        if (selectedConversation?._id === incomingMessage.conversationId) {
+          dispatch(addIncomingMessage(incomingMessage));
+        }
 
         dispatch(
           updateLastMessage(incomingMessage.conversationId, {

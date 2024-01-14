@@ -155,7 +155,7 @@ const ChatPage = () => {
         <Col xs={12} md={7} lg={8}>
           <Row className="align-items-center justify-content-center">
             <Col xs={12}>
-              <MessageContainer selectedConversation={selectedConversation} />
+              <MessageContainer  selectedConversation={selectedConversation} />
             </Col>
           </Row>
         </Col>
