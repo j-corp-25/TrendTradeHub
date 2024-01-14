@@ -16,6 +16,7 @@ import {
 import Conversation from "../components/Messages/Conversation";
 import MessageContainer from "../components/Messages/MessageContainer";
 import { toast } from "react-toastify";
+import { useSocket } from "../context/SocketContext";
 
 const ChatPage = () => {
   const dispatch = useDispatch();
@@ -29,7 +30,8 @@ const ChatPage = () => {
   const { user, isError, isSuccess, message } = useSelector(
     (state) => state.auth
   );
-  console.log(conversations);
+  const { socket, onlineUsers } = useSocket();
+  console.log(onlineUsers)
 
   const handleSearchInputChange = (e) => {
     setSearchQuery(e.target.value);
@@ -37,10 +39,9 @@ const ChatPage = () => {
 
   const handleSearch = (e) => {
     e.preventDefault();
-    
+
     dispatch(findUserProfile(searchQuery));
   };
-
 
   const handleConversationClick = (conversation) => {
     setSelectedConversation(conversation);
@@ -68,13 +69,13 @@ const ChatPage = () => {
         return;
       }
 
-      const existingConversation = conversations?.find(conversation =>
-        conversation.participants?.some(participant =>
-          participant._id === userProfile._id
+      const existingConversation = conversations?.find((conversation) =>
+        conversation.participants?.some(
+          (participant) => participant._id === userProfile._id
         )
       );
 
-      console.log({"ExistingConvo": existingConversation})
+      console.log({ ExistingConvo: existingConversation });
       if (existingConversation) {
         setSelectedConversation(existingConversation);
       }
@@ -89,7 +90,10 @@ const ChatPage = () => {
       <Row>
         <Col xs={12} md={5} lg={4} className="border-end p-3">
           <div className="mb-3">Conversations</div>
-          <Form onSubmit={handleSearch} className="d-flex flex-column flex-lg-row me-1 p-1">
+          <Form
+            onSubmit={handleSearch}
+            className="d-flex flex-column flex-lg-row me-1 p-1"
+          >
             <Col xs={12} md={8} className="mb-2 mb-lg-1 me-1 ">
               <FormControl
                 type="search"
@@ -128,6 +132,7 @@ const ChatPage = () => {
                   </div>
                 </div>
               ))}
+
             {!isLoading &&
               conversations &&
               conversations.map((conversation) => (
@@ -135,6 +140,7 @@ const ChatPage = () => {
                   key={conversation._id}
                   conversationData={conversation}
                   onClick={() => handleConversationClick(conversation)}
+                  isOnline={conversation.participants.some(participant => onlineUsers.includes(participant._id))}
                   isSelected={selectedConversation?._id === conversation._id}
                 />
               ))}
@@ -144,7 +150,7 @@ const ChatPage = () => {
         <Col xs={12} md={7} lg={8}>
           <Row className="align-items-center justify-content-center">
             <Col xs={12}>
-            <MessageContainer selectedConversation={selectedConversation} />
+              <MessageContainer selectedConversation={selectedConversation} />
             </Col>
           </Row>
         </Col>

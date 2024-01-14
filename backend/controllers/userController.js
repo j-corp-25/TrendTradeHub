@@ -83,14 +83,21 @@ const updateUserProfile = asyncHandler(async (req, res) => {
     throw new Error("User not found");
   }
 
-  user.name = req.body.name || user.name;
-  user.email = req.body.email || user.email;
+  const emailToUpdate = req.body.email;
+  if (emailToUpdate && emailToUpdate !== user.email) {
+    const emailExists = await User.findOne({ email: emailToUpdate });
+    if (emailExists) {
+      res.status(400);
+      throw new Error("Email already in use");
+    }
+    user.email = emailToUpdate;
+  }
 
+  user.name = req.body.name || user.name;
 
   if (req.body.password) {
     user.password = req.body.password;
   }
-
 
   if (req.file && req.file.path) {
     user.image = req.file.path;
@@ -105,6 +112,7 @@ const updateUserProfile = asyncHandler(async (req, res) => {
     image: updatedUser.image,
   });
 });
+
 
 const findUserProfile = asyncHandler(async (req, res) => {
   const { name } = req.params;
