@@ -1,4 +1,12 @@
-body{margin-top:20px;}
+body{
+	background: linear-gradient(to right, #a2a8d3, #113f67)
+}
+
+.body-profile{
+	margin: 80px;
+	margin-top: 150px;
+
+}
 
 
 /* USER LIST TABLE */
@@ -34,7 +42,6 @@ body{margin-top:20px;}
 }
 .table tbody > tr > td {
 	font-size: 0.875em;
-	background: #171616;
 	border-top: 10px solid #fff;
 	vertical-align: middle;
 	padding: 12px 8px;
@@ -174,9 +181,28 @@ body{margin-top:20px;}
 	color: #a75d54;
 }
 
-.profile-image {
-	max-width: 200px;
-	max-height: 200px;
+
+
+  .profile-image {
+	width: 200px;
+	height: 200px;
 	object-fit: cover;
 	border-radius: 50%; 
-  }
+	box-shadow: 1px 4px 8px rgba(142, 84, 84, 0.3);
+	margin: auto; 
+	position: relative;
+	top: -80px; 
+ }
+
+.info-container {
+	position: relative;
+}
+.profile-header {
+	text-align: center;
+}
+
+.info-user{
+	position: relative;
+	text-align: center;
+	top: -70px;
+}

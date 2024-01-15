@@ -105,6 +105,22 @@ const updateUserProfile = asyncHandler(async (req, res) => {
   });
 });
 
+const getAllUsers = async (req, res) => {
+  try {
+    const users = await User.find();
+    const formattedUsers = users.map(user => ({
+      _id: user._id,
+      image: user.image,
+      name: user.name,
+      email: user.email,
+    }));
+    res.status(200).json(formattedUsers);
+  }catch (error) {
+    console.error(error);
+    res.status(500).json({ error: 'Internal Server Error' });
+  }
+};
+
 
 const findUserProfile = asyncHandler(async (req, res) => {
   const { name } = req.params;
@@ -129,4 +145,5 @@ export {
   getUserProfile,
   updateUserProfile,
   findUserProfile,
+  getAllUsers
 };

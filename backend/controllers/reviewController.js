@@ -120,7 +120,10 @@ const updateReview = asyncHandler(async (req, res) => {
     reviewId,
     { rating: req.body.rating, comment: req.body.comment },
     { new: true }
-  );
+  ).populate({
+    path: 'author',
+    select: 'name image'
+  });
 
   res.status(200).json(updatedReview);
 });

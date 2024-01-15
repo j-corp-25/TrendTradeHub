@@ -15,9 +15,9 @@ function ProductUnit({ productId }) {
   const { title, price, images } = selectedProduct;
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const reviewsState = useSelector((state) => state.reviews);
+  const sessionUser = useSelector((state) => state.auth.user);
 
   const reviews = reviewsState.reviews || [];
-
 
   const handleNextImage = () => {
     setCurrentImageIndex((prevIndex) =>
@@ -25,15 +25,21 @@ function ProductUnit({ productId }) {
     );
   };
 
-  // useEffect(() => {
-  //   dispatch(fetchReviews(productId));
-  // }, [dispatch, productId]);
-
   return (
     <div className="product-item">
+      <Link to={sessionUser ? `/profile/${selectedProduct.author._id}` : "/login"}>
+        <div className="user-info-product">
+          <div className="user-img">
+            <img src={selectedProduct.author.image} alt="user-profile" />
+          </div>
+          <div className="user-name">
+            <span>{selectedProduct.author.name}</span>
+          </div>
+        </div>
+      </Link>
       <div className="image">
         <div className="content-image">
-          <Link to={`/product/${productId}`}>
+          <Link to={sessionUser ? `/product/${productId}` : "/login" }>
             <img
               src={
                 images.length > 0
@@ -48,24 +54,32 @@ function ProductUnit({ productId }) {
           )}
         </div>
       </div>
-      <div className="name-rate">
-        <div className="name">
-          <Link to={`/product/${productId}`}>{title}</Link>
-        </div>
-      </div>
 
-      <div className="price-like-cart">
-        <div className="price">
-          <span>${price.toFixed(2)}</span>
+      <div className="name-cart">
+        <div className="name">
+          <Link
+            to={`/product/${productId}`}
+            style={{ color: "rgb(36, 89, 78)" }}
+          >
+            {title}
+          </Link>
         </div>
         <div className="cart">
           <button
             type="button"
-            className="btn btn-primary"
-            style={{ width: "70px", height: "25px" }}
+            className="btn "
+            style={{ height: "20px", padding: "3px" }}
           >
             <FaCartPlus />
           </button>
+        </div>
+      </div>
+
+      <div className="price-like">
+        <div className="price">
+          <span style={{ fontWeight: "bold", fontSize: "12px" }}>
+            ${price.toFixed(2)}
+          </span>
         </div>
       </div>
     </div>

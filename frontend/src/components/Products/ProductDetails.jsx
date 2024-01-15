@@ -7,6 +7,7 @@ import { useParams } from "react-router-dom";
 import { Container, Modal, Button } from "react-bootstrap";
 import ReviewItems from "../Reviews/ReviewItems";
 import "./ProductDetails.css";
+import { Link } from "react-router-dom";
 import {
   fetchSingleProduct,
   fetchRelatedProducts,
@@ -16,6 +17,7 @@ import ProductUnit from "./ProductUnit";
 import { FaStar, FaStarHalfAlt, FaRegStar } from "react-icons/fa";
 import { fetchReviews } from "../../app/reviewsReducer";
 import ReviewModal from "../Reviews/ReviewModal.js";
+import { fetchUsers } from "../../app/userReducer.js";
 
 function ProductDetails() {
   const { productId } = useParams();
@@ -23,11 +25,14 @@ function ProductDetails() {
   const [showReviewsModal, setShowReviewsModal] = useState(false);
   const dispatch = useDispatch();
   const product = useSelector((state) => state.products.selectedProduct) || {};
-  const { title, price, images, _id } = product;
+  const { title, price, images, _id, author  } = product;
   const relatedProductIds = useSelector(
     (state) => state.products.relatedProductIds
   );
   const averageRating = useSelector((state) => state.reviews.averageRating);
+  const users = useSelector((state) => state.auth.all);
+  const userAuthor =  users.find(user => user._id === author);
+  const sessionUser = useSelector((state) => state.auth.user);
 
   const renderStars = (rating) => {
     const fullStars = Math.floor(rating);
@@ -61,6 +66,9 @@ function ProductDetails() {
       try {
         await dispatch(fetchSingleProduct(productId));
         await dispatch(fetchRelatedProducts(productId));
+        await dispatch(fetchProducts());
+        await dispatch(fetchReviews(productId));
+        await dispatch(fetchUsers());
         setLoading(false);
       } catch (error) {
         console.error("Error fetching data:", error);
@@ -71,15 +79,6 @@ function ProductDetails() {
     fetchData();
   }, [dispatch, productId]);
 
-  useEffect(() => {
-    const fetchAll = async () => {
-      await dispatch(fetchProducts());
-      await dispatch(fetchReviews(productId));
-      setLoading(false);
-    };
-
-    fetchAll();
-  }, [dispatch]);
 
   const handleNextImage = () => {
     setCurrentImageIndex((prevIndex) =>
@@ -102,6 +101,8 @@ function ProductDetails() {
 
   return (
     <>
+    { !loading && 
+
       <section className="container-product-details main-body">
         <div className="title"> Product Details</div>
         <div className="detail">
@@ -130,6 +131,16 @@ function ProductDetails() {
             )}
           </div>
           <div className="content">
+            <Link to={`/profile/${userAuthor._id}`}>
+          <div className="user-info-product">
+          <div className="user-img">
+            <img src={userAuthor.image} alt="user-profile" />
+          </div>
+          <div className="user-name">
+            <span>{userAuthor.name}</span>
+          </div>
+        </div>
+            </Link>
             <div className="rating">{renderStars(averageRating)}</div>
             <h1 className="name"> Title: {product.title}</h1>
 
@@ -184,6 +195,8 @@ function ProductDetails() {
         <ReviewModal showModal={showModal} handleClose={handleCloseModal} />
 
       </section>
+   
+    } 
     </>
   );
 }
