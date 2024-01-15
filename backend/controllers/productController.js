@@ -3,10 +3,7 @@ import Product from '../models/productModel.js';
 
 const getAllProducts = async (req, res) => {
   try {
-    const products = await Product.find().populate({
-      path: 'author',
-      select: 'name image'
-    })
+    const products = await Product.find();
     const formattedProducts = products.map(product => ({
       _id: product._id,
       title: product.title,

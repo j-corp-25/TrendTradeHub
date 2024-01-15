@@ -6,17 +6,14 @@ import { useSelector, useDispatch } from "react-redux";
 import { Container } from "react-bootstrap";
 import fetchProducts from "../../app/productReducer";
 import { useNavigate } from "react-router-dom";
-import { fetchUsers } from "../../app/userReducer";
 
 function ProductItems() {
   const navigate = useNavigate()
   const dispatch = useDispatch();
   const { products } = useSelector((state) => state.products);
-  const sessionUser = useSelector((state) => state.auth.user);
   useEffect(() => {
     dispatch(fetchProducts());
   }, [dispatch]);
-  useEffect(() => dispatch(fetchUsers()),[]);
   return (
     <Container>
       <div className="my-5">
@@ -24,7 +21,7 @@ function ProductItems() {
           <div key={product._id}>
             <h3>{product.title}</h3>
             <p>Price: ${product.price}</p>
-            <button onClick={() => sessionUser ? navigate(`/product/${product._id}`) : navigate('/login')}>View Details</button>
+            <button onClick={() => navigate(`/product/${product._id}`)}>View Details</button>
           </div>
         ))}
       </div>

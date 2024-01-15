@@ -210,6 +210,7 @@ const reviewReducer = (state = initialState, action) => {
         reviews: [...state.reviews, action.payload],
         isSuccess: true,
         message: "",
+        reviews: [],
       };
     case CREATE_REVIEW_FAILURE:
       return {
@@ -232,7 +233,7 @@ const reviewReducer = (state = initialState, action) => {
       return {
         ...state,
         isLoading: false,
-        reviews: state.reviews.filter((review) => review._id !== action.payload),
+        reviews: state.reviews.filter((review) => review.id !== action.payload),
         isSuccess: true,
       };
     case DELETE_REVIEW_FAILURE:
@@ -249,14 +250,15 @@ const reviewReducer = (state = initialState, action) => {
         isLoading: true,
       };
     case UPDATE_REVIEW_SUCCESS:
-      const updatedReviews = state.reviews
-        .filter((review) => review._id !== action.payload.updatedReview._id)
-        .concat(action.payload.updatedReview);
       return {
         ...state,
         isLoading: false,
         isSuccess: true,
-        reviews: updatedReviews,
+        reviews: state.reviews.map((review) =>
+          review.id === action.payload.updatedReview.id
+            ? action.payload.updatedReview
+            : review
+        ),
       };
 
     case UPDATE_REVIEW_FAILURE:

@@ -27,7 +27,6 @@
     "redux-logger": "^3.0.6",
     "socket.io-client": "^4.7.4",
     "spinners": "^1.2.2",
-    "styled-components": "^6.1.8",
     "web-vitals": "^2.1.4"
   },
   "scripts": {

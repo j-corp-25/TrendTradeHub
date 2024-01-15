@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import {
   FaStar,
   FaRegStar,
@@ -7,19 +7,9 @@ import {
   FaTrash,
 } from "react-icons/fa";
 import "./reviewItem.css";
-import ReviewModal from "./ReviewModal";
-import { deleteReview } from "../../app/reviewsReducer";
-import { useDispatch } from "react-redux";
-const ReviewItem = ({ review, user }) => {
-  const dispatch = useDispatch();
-  const { _id, author, rating, comment } = review;
-  const userId = user._id;
-
-
-  const [showModal, setShowModal] = useState(false);
-
-  const handleShowModal = () => setShowModal(true);
-  const handleCloseModal = () => setShowModal(false);
+import { useSelector } from "react-redux";
+const ReviewItem = ({ review, userId }) => {
+  const { author, rating, comment } = review;
 
   const renderStars = (rating) => {
     const fullStars = Math.floor(rating);
@@ -46,13 +36,10 @@ const ReviewItem = ({ review, user }) => {
     return starIcons;
   };
 
-  const handleDeleteReview = () =>{
-    dispatch(deleteReview(_id))
-  }
-
   return (
     <div className="review-item">
       <div className="review-author">
+        {/* Display profile picture here */}
         <img src={author.image} alt={`${author.name}'s profile`} />
       </div>
       <div className="review-content">
@@ -63,17 +50,14 @@ const ReviewItem = ({ review, user }) => {
           </div>
             {review.author._id === userId && (
               <div style={{display:"flex"}}>
-                <FaPenSquare className="fa-regular" onClick={handleShowModal}/>
-                <FaTrash className="fa-regular" onClick={handleDeleteReview} />
+                <FaPenSquare className="fa-regular" />
+                <FaTrash className="fa-regular" />
               </div>
             )}
         </div>
         <div className="review-comment">{comment}</div>
       </div>
-      <ReviewModal showModal={showModal} handleClose={handleCloseModal} review={review}/>
-
     </div>
-
   );
 };
 
