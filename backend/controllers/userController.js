@@ -31,6 +31,7 @@ const registerUser = asyncHandler(async (req, res) => {
     res.status(400);
     throw new Error("Invalid user data");
   }
+
 });
 // @desc Login user
 // @route POST /api/users/login
@@ -79,15 +80,17 @@ const updateUserProfile = asyncHandler(async (req, res) => {
   const user = await User.findById(req.user._id);
 
   if (!user) {
-    res.status(404);
+    res.status(400);
     throw new Error("User not found");
   }
 
-  // Update name and email
+  user.email = req.body.email || user.email
   user.name = req.body.name || user.name;
-  user.email = req.body.email || user.email;
 
-  // Update image only if a new file is provided
+  if (req.body.password) {
+    user.password = req.body.password;
+  }
+
   if (req.file && req.file.path) {
     user.image = req.file.path;
   }
@@ -98,7 +101,7 @@ const updateUserProfile = asyncHandler(async (req, res) => {
     _id: updatedUser._id,
     name: updatedUser.name,
     email: updatedUser.email,
-    image: updatedUser.image
+    image: updatedUser.image,
   });
 });
 
@@ -119,11 +122,28 @@ const getAllUsers = async (req, res) => {
 };
 
 
+const findUserProfile = asyncHandler(async (req, res) => {
+  const { name } = req.params;
+
+  const user = await User.findOne({ name })
+    .select("-password")
+    .select("-updatedAt")
+    .select("-reviewsWritten")
+    .select("-reviewsReceived");
+
+  if (!user) {
+    res.status(400);
+    throw new Error("User not found");
+  }
+  res.status(200).json(user);
+});
+
 export {
   registerUser,
   loginUser,
   logoutUser,
   getUserProfile,
   updateUserProfile,
+  findUserProfile,
   getAllUsers
 };

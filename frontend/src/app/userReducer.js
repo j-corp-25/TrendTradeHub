@@ -1,4 +1,5 @@
 import axios from "axios";
+import { getUserToken } from "./userToken";
 
 const REGISTER_REQUEST = "REGISTER_REQUEST";
 const REGISTER_SUCCESS = "REGISTER_SUCCESS";
@@ -13,6 +14,22 @@ const UPDATE_PROFILE_REQUEST = "UPDATE_PROFILE_REQUEST";
 const UPDATE_PROFILE_SUCCESS = "UPDATE_PROFILE_SUCCESS";
 const UPDATE_PROFILE_FAILURE = "UPDATE_PROFILE_FAILURE";
 
+const FIND_USER_PROFILE_REQUEST = "FIND_USER_PROFILE_REQUEST";
+const FIND_USER_PROFILE_SUCCESS = "FIND_USER_PROFILE_SUCCESS";
+const FIND_USER_PROFILE_FAILURE = "FIND_USER_PROFILE_FAILURE";
+
+export const findUserProfileRequest = () => ({
+  type: FIND_USER_PROFILE_REQUEST,
+});
+export const findUserProfileSuccess = (user) => ({
+  type: FIND_USER_PROFILE_SUCCESS,
+  payload: user,
+});
+export const findUserProfileFailure = (message) => ({
+  type: FIND_USER_PROFILE_FAILURE,
+  payload: message,
+});
+
 const API_URL = "/api/users/register";
 const API_URL_LOGIN = "/api/users/login";
 const API_URL_PROFILE = "/api/users/profile";
@@ -25,10 +42,6 @@ export const fetchUsersSuccess = (users) => ({
   type: FETCH_USERS_SUCCESS,
   payload: users,
 });
-
-//this gets the token from the user object in local storage
-const user = JSON.parse(localStorage.getItem("user"));
-const userToken = user ? user.token : null;
 
 export const updateProfileRequest = () => ({ type: UPDATE_PROFILE_REQUEST });
 
@@ -60,8 +73,6 @@ export const loginFailure = (message) => ({
 
 export const logout = () => ({ type: LOGOUT });
 export const reset = () => ({ type: RESET });
-
-
 export const fetchUsers = () => async (dispatch) => {
   try {
     const response = await axios.get(API_URL_ALL);
@@ -70,8 +81,6 @@ export const fetchUsers = () => async (dispatch) => {
     console.error("Error fetching users:", error);
   }
 };
-
-
 
 export const register = (userData) => async (dispatch) => {
   dispatch(registerRequest());
@@ -92,7 +101,7 @@ export const updateProfile = (userData) => async (dispatch) => {
   try {
     const config = {
       headers: {
-        Authorization: `Bearer ${userToken}`,
+        Authorization: `Bearer ${getUserToken()}`,
       },
     };
 
@@ -107,6 +116,21 @@ export const updateProfile = (userData) => async (dispatch) => {
   }
 };
 
+export const findUserProfile = (userName) => async (dispatch) => {
+  dispatch(findUserProfileRequest());
+  try {
+    const response = await axios.get(`/api/users/profile/${userName}`);
+    dispatch(findUserProfileSuccess(response.data));
+  } catch (error) {
+    const message =
+      (error.response && error.response.data && error.response.data.message) ||
+      error.message ||
+      error.toString();
+    dispatch(findUserProfileFailure(message));
+  }
+};
+
+//always set user in local storage when registering and login in
 export const login = (userData) => async (dispatch) => {
   dispatch(loginRequest());
   try {
@@ -128,7 +152,9 @@ export const performLogout = () => (dispatch) => {
 };
 
 const initialState = {
-  user: user ? user : null,
+  user: JSON.parse(localStorage.getItem("user"))
+    ? JSON.parse(localStorage.getItem("user"))
+    : null,
   isError: false,
   isSuccess: false,
   message: "",
@@ -181,6 +207,22 @@ const authReducer = (state = initialState, action) => {
         },
       };
     case UPDATE_PROFILE_FAILURE:
+      return {
+        ...state,
+        isLoading: false,
+        isError: true,
+        message: action.payload,
+      };
+    case FIND_USER_PROFILE_REQUEST:
+      return { ...state, isLoading: true, isError: false, isSuccess: false };
+    case FIND_USER_PROFILE_SUCCESS:
+      return {
+        ...state,
+        isLoading: false,
+        isSuccess: true,
+        userProfile: action.payload,
+      };
+    case FIND_USER_PROFILE_FAILURE:
       return {
         ...state,
         isLoading: false,

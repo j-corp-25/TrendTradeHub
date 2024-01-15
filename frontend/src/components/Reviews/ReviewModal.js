@@ -15,14 +15,29 @@ const ReviewModal = ({ showModal, handleClose, review = {rating:0, comment:""} }
   const dispatch = useDispatch();
   const userId = useSelector(state=> state.auth.user._id);
   const product = useSelector(state=> state.products.selectedProduct?._id);
+//-----not sure which i need to keep
+  const [comment, setComment] = useState("");
+  const [rating, setRating] = useState(0);
+
   const [comment, setComment] = useState(review.comment);
   const [rating, setRating] = useState(review.rating); 
+  // -----
+
   const [hoveredRating, setHoveredRating] = useState(0);
   const [error, setError] = useState("");
 
 
 
   const handleSubmit = () => {
+
+
+    if (rating > 0 && comment.trim() !== "") {
+    dispatch(createReview({ userId: userId ,comment: comment, rating: rating, productId: product}));
+    // console.log(userId, product);
+    handleClose();}
+    else {
+      setError("Please Prodive both rating and comment");
+
     console.log(review);
     
     if (review.comment === "" && review.rating === 0)
@@ -101,7 +116,7 @@ const ReviewModal = ({ showModal, handleClose, review = {rating:0, comment:""} }
         <Button variant="primary" onClick={handleSubmit}>
           Submit Review
         </Button>
-        
+
       </Modal.Footer>
     </Modal>
   );

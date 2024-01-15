@@ -53,6 +53,7 @@ function Profile() {
     userData.image instanceof File
       ? URL.createObjectURL(userData.image)
       : userData.image;
+
   const [editMode, setEditMode] = useState(false);
   const [loading, setLoading] = useState(true);
 
@@ -77,10 +78,18 @@ function Profile() {
   const handleProfileUpdate = () => {
     const formData = new FormData();
 
-    for (const key in userData) {
-      formData.append(key, userData[key]);
+    if (userData.image instanceof File) {
+      formData.append("image", userData.image);
     }
-    for (let [key, value] of formData.entries()) {
+
+    if (user.name !== userData.name) {
+      formData.append("name", userData.name);
+    }
+    if (user.email !== userData.email) {
+      formData.append("email", userData.email);
+    }
+    if (userData.password) {
+      formData.append("password", userData.password);
     }
 
     dispatch(updateProfile(formData));

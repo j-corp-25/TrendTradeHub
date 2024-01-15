@@ -8,6 +8,7 @@ import {
   logoutUser,
   getUserProfile,
   updateUserProfile,
+  findUserProfile
   getAllUsers,
 } from "../controllers/userController.js";
 
@@ -16,6 +17,7 @@ router.get("/profile", protect, getUserProfile);
 router.patch("/profile", protect, upload.single("image"), updateUserProfile);
 router.post("/logout", logoutUser);
 router.post("/login", loginUser);
+router.get("/profile/:name",findUserProfile)
 router.get("/allUsers", getAllUsers)
 
 export default router;
