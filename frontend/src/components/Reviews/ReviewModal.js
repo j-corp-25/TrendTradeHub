@@ -19,8 +19,8 @@ const ReviewModal = ({ showModal, handleClose, review = {rating:0, comment:""} }
   const [comment, setComment] = useState("");
   const [rating, setRating] = useState(0);
 
-  const [comment, setComment] = useState(review.comment);
-  const [rating, setRating] = useState(review.rating); 
+  // const [comment, setComment] = useState(review.comment);
+  // const [rating, setRating] = useState(review.rating); 
   // -----
 
   const [hoveredRating, setHoveredRating] = useState(0);
@@ -121,5 +121,6 @@ const ReviewModal = ({ showModal, handleClose, review = {rating:0, comment:""} }
     </Modal>
   );
 };
+}
 
 export default ReviewModal;

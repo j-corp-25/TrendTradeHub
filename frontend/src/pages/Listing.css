@@ -1,0 +1,19 @@
+.cloud {
+    background: url(../../public/trade.avif) center/cover no-repeat;
+     height: 40vh;
+     width: 80%; 
+    margin-left: auto;
+    margin-right: auto;
+    position: relative;
+    /* border: 2px solid black; */
+    margin-top: 20px;
+}
+
+.cloud:before {
+    content: '';
+    position: absolute;
+    background: url(../../public/shape.png) center/cover no-repeat;
+    width: 100%; /* Adjust as needed */
+    height: 100%; /* Adjust as needed */
+    mix-blend-mode: screen;
+}
