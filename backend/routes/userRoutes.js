@@ -8,8 +8,9 @@ import {
   logoutUser,
   getUserProfile,
   updateUserProfile,
-  findUserProfile
-  getAllUsers,
+  findUserProfile,
+  getAllUsers
+  
 } from "../controllers/userController.js";
 
 router.post("/register", registerUser);

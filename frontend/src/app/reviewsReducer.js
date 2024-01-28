@@ -1,5 +1,5 @@
 import axios from "axios";
-import { getUserToken } from "./userToken";
+import { getUserToken } from "./userToken.js";
 const GET_REVIEWS_REQUEST = "GET_REVIEWS_REQUEST";
 const GET_REVIEWS_SUCCESS = "GET_REVIEWS_SUCCESS";
 const GET_REVIEWS_FAILURE = "GET_REVIEWS_FAILURE";
