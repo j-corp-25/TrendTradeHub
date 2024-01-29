@@ -77,6 +77,12 @@ function Profile() {
   };
 
   const handleProfileUpdate = () => {
+    if (!userData || typeof userData !== 'object' || !('_id' in userData)) {
+      // Handle the case where userData is missing or doesn't have the _id property
+      console.error("Invalid userData:", userData);
+      return;
+    }
+
     const formData = new FormData();
 
     if (userData.image instanceof File) {
