@@ -36,6 +36,7 @@ function Profile() {
     email: user?.email || "",
     password: "",
     image: user?.image || "",
+    _id: user?._id || "",
   });
 
   const getRandomColor = () => {
@@ -76,6 +77,12 @@ function Profile() {
   };
 
   const handleProfileUpdate = () => {
+    if (!userData || typeof userData !== 'object' || !('_id' in userData)) {
+      // Handle the case where userData is missing or doesn't have the _id property
+      console.error("Invalid userData:", userData);
+      return;
+    }
+
     const formData = new FormData();
 
     if (userData.image instanceof File) {
@@ -91,6 +98,7 @@ function Profile() {
     if (userData.password) {
       formData.append("password", userData.password);
     }
+    formData.append("_id", userData._id)
 
     dispatch(updateProfile(formData));
     setEditMode(false);

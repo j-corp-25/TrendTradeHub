@@ -184,14 +184,15 @@ body{
 
 
   .profile-image {
-	width: 200px;
-	height: 200px;
+	width: 250px;
+	height: 250px;
 	object-fit: cover;
-	border-radius: 50%; 
+	/* border-radius: 10px 100px / 120px;  */
+	border-radius: 25% 10%;
 	box-shadow: 1px 4px 8px rgba(142, 84, 84, 0.3);
 	margin: auto; 
 	position: relative;
-	top: -80px; 
+	top: -130px; 
  }
 
 .info-container {
@@ -204,5 +205,5 @@ body{
 .info-user{
 	position: relative;
 	text-align: center;
-	top: -70px;
+	top: -120px;
 }

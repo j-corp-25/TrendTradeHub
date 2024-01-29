@@ -53,15 +53,15 @@ const ReviewItem = ({ review, user }) => {
   return (
     <div className="review-item">
       <div className="review-author">
-        <img src={author.image} alt={`${author.name}'s profile`} />
+        <img src={author?.image} alt={`${author?.name}'s profile`} />
       </div>
       <div className="review-content">
         <div className="review-header">
           <div className="user-info">
-            <div className="username">{author.name}</div>
+            <div className="username">{author?.name}</div>
             <div className="rating">{renderStars(rating)}</div>
           </div>
-            {review.author._id === userId && (
+            {review?.author?._id === userId && (
               <div style={{display:"flex"}}>
                 <FaPenSquare className="fa-regular" onClick={handleShowModal}/>
                 <FaTrash className="fa-regular" onClick={handleDeleteReview} />

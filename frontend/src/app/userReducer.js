@@ -99,13 +99,7 @@ export const register = (userData) => async (dispatch) => {
 export const updateProfile = (userData) => async (dispatch) => {
   dispatch(updateProfileRequest());
   try {
-    const config = {
-      headers: {
-        Authorization: `Bearer ${getUserToken()}`,
-      },
-    };
-
-    const response = await axios.patch(API_URL_PROFILE, userData, config);
+    const response = await axios.patch(API_URL_PROFILE, userData);
     dispatch(updateProfileSuccess(response.data));
   } catch (error) {
     const message =
@@ -196,15 +190,21 @@ const authReducer = (state = initialState, action) => {
       };
     case UPDATE_PROFILE_REQUEST:
       return { ...state, isLoading: true, isError: false, isSuccess: false };
-    case UPDATE_PROFILE_SUCCESS:
+    // case UPDATE_PROFILE_SUCCESS:
+    //   return {
+    //     ...state,
+    //     isLoading: false,
+    //     isSuccess: true,
+    //     user: {
+    //       ...state.user,
+    //       ...action.payload,
+    //     },
+    //   };
+    case 'UPDATE_PROFILE_SUCCESS':
       return {
         ...state,
-        isLoading: false,
-        isSuccess: true,
-        user: {
-          ...state.user,
-          ...action.payload,
-        },
+        user: action.payload,
+        error: null,
       };
     case UPDATE_PROFILE_FAILURE:
       return {

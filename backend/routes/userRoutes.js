@@ -15,7 +15,7 @@ import {
 
 router.post("/register", registerUser);
 router.get("/profile", protect, getUserProfile);
-router.patch("/profile", protect, upload.single("image"), updateUserProfile);
+router.patch("/profile", upload.single("image"), updateUserProfile);
 router.post("/logout", logoutUser);
 router.post("/login", loginUser);
 router.get("/profile/:name",findUserProfile)
