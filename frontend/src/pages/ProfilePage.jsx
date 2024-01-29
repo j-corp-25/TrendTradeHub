@@ -36,6 +36,7 @@ function Profile() {
     email: user?.email || "",
     password: "",
     image: user?.image || "",
+    _id: user?._id || "",
   });
 
   const getRandomColor = () => {
@@ -91,6 +92,7 @@ function Profile() {
     if (userData.password) {
       formData.append("password", userData.password);
     }
+    formData.append("_id", userData._id)
 
     dispatch(updateProfile(formData));
     setEditMode(false);

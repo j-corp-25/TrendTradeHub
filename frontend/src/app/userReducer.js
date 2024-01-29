@@ -96,16 +96,10 @@ export const register = (userData) => async (dispatch) => {
     dispatch(registerFailure(message));
   }
 };
-export const updateProfile = (userData) => async (dispatch) => {
+export const updateProfile = (user) => async (dispatch) => {
   dispatch(updateProfileRequest());
   try {
-    const config = {
-      headers: {
-        Authorization: `Bearer ${getUserToken()}`,
-      },
-    };
-
-    const response = await axios.patch(API_URL_PROFILE, userData, config);
+    const response = await axios.patch(API_URL_PROFILE, user);
     dispatch(updateProfileSuccess(response.data));
   } catch (error) {
     const message =
