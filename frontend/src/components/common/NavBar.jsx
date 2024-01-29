@@ -61,7 +61,7 @@ function NavBar() {
                     Log Out
                   </NavLink>
 
-                  <LinkContainer to="/profile">
+                  <LinkContainer to={`/profile/${user._id}`}>
                     <NavLink className="d-flex align-items-center justify-content-center-lg" >
                       <FaUserAlt className="me-1"/>
 
