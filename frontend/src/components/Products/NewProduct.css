@@ -4,12 +4,12 @@
     margin: 0 auto;
     background-color: rgba(42, 37, 37, .7);
     margin: auto auto;
-    position:relative;
     width: 520px;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    position: relative;
   }
   
   .input-container {

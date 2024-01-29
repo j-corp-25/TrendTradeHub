@@ -1,13 +1,14 @@
 // NewProduct.js
 import React, { useState, useEffect } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { addProduct, fetchProducts } from "../../app/productReducer";
 import './NewProduct.css'
 
 const NewProduct = () => {
   const dispatch = useDispatch();
+  const userId = useSelector((state) => state.auth.user._id);
   const [productData, setProductData] = useState({
-    author: "",
+    author: userId,
     title: "",
     condition: "",
     price: "",
@@ -31,7 +32,7 @@ const NewProduct = () => {
 
   const handleAddProduct = () => {
     const formData = new FormData();
-    formData.append("author", productData.author);
+    formData.append("author", userId);
     formData.append("title", productData.title);
     formData.append("condition", productData.condition);
     formData.append("price", productData.price);
@@ -110,7 +111,7 @@ const NewProduct = () => {
        <input type="file" name="myPic" onChange={handleImageChange} multiple id="small-input" className="input" style={{background:"Gray"}} />
 
      </div>
-       <button class="button-72" role="button">Add Product</button>
+       <button class="button-72" role="button" onClick={handleAddProduct}>Add Product</button>
 
    </form>
   );
