@@ -29,9 +29,10 @@ import User from "../models/userModel.js";
 const getReviews = asyncHandler(async (req, res) => {
   const productId = req.params.productId;
   const reviews = await Review.find({ product: productId }).populate({
-    path: "author",
-    select: "name image",
+    path: 'author',
+    select: 'name image'
   });
+
 
   if (reviews.length > 0) {
     let averageRating =
@@ -93,22 +94,14 @@ const createReview = asyncHandler(async (req, res) => {
   res.status(201).json({ message: "Review created successfully", review });
 });
 
-// @desc Update Review
-// @route POST /api/reviews/:id
-// @access PRIVATE
+
 const updateReview = asyncHandler(async (req, res) => {
   const reviewId = req.params.id;
-  const userId = req.user.id;
 
   const review = await Review.findById(reviewId);
   if (!review) {
     res.status(404);
     throw new Error("Review not found");
-  }
-
-  if (review.author.toString() !== userId) {
-    res.status(401);
-    throw new Error("User not authorized to update this review");
   }
 
   const product = await Product.findById(review.product);
@@ -125,32 +118,24 @@ const updateReview = asyncHandler(async (req, res) => {
     select: 'name image'
   });
 
-  res.status(200).json(updatedReview);
+  res.status(200).json({ message: "Review updated", updatedReview });
 });
 
 // @desc Delete review
 // @route POST /api/reviews/:id
 // @access PRIVATE
+
 const deleteReview = asyncHandler(async (req, res) => {
   const review = await Review.findById(req.params.id);
 
   if (!review) {
-    res.status(404);
+    res.status(401);
     throw new Error("Review not found");
-  }
-
-  const userId = req.user.id;
-
-  if (review.author.toString() !== userId) {
-    res.status(403);
-    throw new Error("User is not authorized to delete this review");
   }
 
   await Review.findByIdAndDelete(review._id);
 
-  res
-    .status(200)
-    .json({ message: "Review has been deleted", reviewId: review._id });
+  res.status(200).json({ message: "Review has been deleted" });
 });
 
 export { getReviews, createReview, updateReview, deleteReview };
