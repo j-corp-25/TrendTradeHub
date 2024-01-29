@@ -8,7 +8,7 @@ import "./Listing.css";
 function Product() {
   const dispatch = useDispatch();
   const products = useSelector((state) => state.products.products);
-  const image = process.env.PUBLIC_URL + "trade.avif";
+  const image = process.env.PUBLIC_URL + "trade-hub.svg";
   useEffect(() => {
     dispatch(fetchProducts());
   }, [dispatch]);
@@ -18,8 +18,8 @@ function Product() {
     <div className="product-container">
       <div className="product-header">
         <div className="product-text">
-        <h2 style={{fontFamily:'font-family: Phantomsans, sans-serif;', color:'white'}}>Trade Smart, Trade Simple</h2>
-<p style={{fontFamily:'font-family: Phantomsans, sans-serif;', color:'gray', marginLeft:"20px"}}>Buy what you need, sell what you don't. <br />Your one-stop hub for seamless transactions.<br />
+        <h2 style={{fontFamily:'fantasy',}}>Trade Smart, Trade Simple</h2>
+<p style={{fontFamily:'Phantomsans, sans-serif', fontStyle:'italic', color:'gray', marginLeft:"20px"}}>Buy what you need, sell what you don't. <br />Your one-stop hub for seamless transactions.<br />
    Explore, trade, and discover new possibilities today!</p>
    <button class="button-63" role="button">Sell Product</button>
       </div>
