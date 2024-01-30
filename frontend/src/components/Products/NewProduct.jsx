@@ -38,7 +38,7 @@ const NewProduct = () => {
     formData.append("condition", productData.condition);
     formData.append("price", productData.price);
     formData.append("category", productData.category);
-    formData.append("category", productData.description);
+    formData.append("description", productData.description);
 
     images.forEach((image) => {
       formData.append("myPic", image);

@@ -27,7 +27,7 @@ const getAllProducts = async (req, res) => {
 const createProduct = async (req, res) => {
   try {
     const imageUrls = req.files?.map(file => file.location);
-    const { author, title, condition, price, category } = req.body;
+    const { author, title, condition, price, category, description } = req.body;
 
     if (!title || !condition || !price || !category || !author) {
       return res.status(400).json({ error: 'All fields are required' });
