@@ -4,6 +4,7 @@ import { fetchProducts } from "../app/productReducer";
 import ProductUnit from "../components/Products/ProductUnit";
 import { fetchUsers } from "../app/userReducer";
 import "./Listing.css";
+import { Link } from "react-router-dom";
 
 function Product() {
   const dispatch = useDispatch();
@@ -21,7 +22,11 @@ function Product() {
         <h2 style={{fontFamily:'fantasy',}}>Trade Smart, Trade Simple</h2>
 <p style={{fontFamily:'Phantomsans, sans-serif', fontStyle:'italic', color:'gray', marginLeft:"20px"}}>Buy what you need, sell what you don't. <br />Your one-stop hub for seamless transactions.<br />
    Explore, trade, and discover new possibilities today!</p>
-   <button class="button-63" role="button">Sell Product</button>
+   <Link to='/newproduct'>
+    <button class="button-63" role="button">Sell Product</button>
+     </Link>
+    
+   
       </div>
       <div className="cloud">
         <img src={image} alt="trade-hub" />
