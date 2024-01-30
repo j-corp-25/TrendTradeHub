@@ -13,6 +13,7 @@ const NewProduct = () => {
     condition: "",
     price: "",
     category: "",
+    description: "",
   });
   const [images, setImages] = useState([]);
 
@@ -37,6 +38,7 @@ const NewProduct = () => {
     formData.append("condition", productData.condition);
     formData.append("price", productData.price);
     formData.append("category", productData.category);
+    formData.append("category", productData.description);
 
     images.forEach((image) => {
       formData.append("myPic", image);
@@ -55,6 +57,10 @@ const NewProduct = () => {
       <div className="input-container">
         <label className="label">Title:</label>
         <input className="input" type="text" name="title" onChange={handleInputChange} />
+      </div>
+      <div className="input-container">
+        <label className="label">Description:</label>
+        <input className="input" type="text" name="description" onChange={handleInputChange} />
       </div>
       <div className="input-container">
         <label className="label">Condition:</label>

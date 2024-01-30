@@ -10,6 +10,7 @@ const getAllProducts = async (req, res) => {
     const formattedProducts = products.map(product => ({
       _id: product._id,
       title: product.title,
+      description: product.description,
       condition: product.condition,
       price: product.price,
       category: product.category,
@@ -38,6 +39,7 @@ const createProduct = async (req, res) => {
       condition,
       price,
       category,
+      description,
       images: imageUrls,
     });
 
@@ -61,6 +63,7 @@ const updateProduct = async (req, res) => {
     if (req.body.condition) product.condition = req.body.condition;
     if (req.body.price) product.price = req.body.price;
     if (req.body.category) product.category = req.body.category;
+    if (req.body.description) product.description = req.body.description;
 
     const updatedProduct = await product.save();
     console.log(product === updatedProduct);
