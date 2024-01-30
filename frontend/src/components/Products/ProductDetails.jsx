@@ -25,7 +25,7 @@ function ProductDetails() {
   const [showReviewsModal, setShowReviewsModal] = useState(false);
   const dispatch = useDispatch();
   const product = useSelector((state) => state.products.selectedProduct) || {};
-  const { title, price, images, _id, author  } = product;
+  const { title, price, images, _id, author, description  } = product;
   const relatedProductIds = useSelector(
     (state) => state.products.relatedProductIds
   );
@@ -143,7 +143,7 @@ function ProductDetails() {
             </Link>
             <div className="rating">{renderStars(averageRating)}</div>
             <h1 className="name"> Title: {product.title}</h1>
-
+            <h2 className="description"> Description: {product.description}</h2>
             <div className="price"> Price: {product.price}</div>
             <div className="category">Category: {product.category}</div>
             <div className="buttons">

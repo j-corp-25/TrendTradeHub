@@ -1,4 +1,4 @@
-import React, {useEffect} from "react";
+import React, { useEffect } from "react";
 import {
   Navbar,
   Container,
@@ -37,13 +37,12 @@ function NavBar() {
   return (
     <header>
       <Navbar bg="dark" variant="dark" expand="xl" collapseOnSelect>
-        <Container className="my-5" >
+        <Container className="my-5">
           <LinkContainer to="/products">
             <NavbarBrand>TrendTradeHub</NavbarBrand>
           </LinkContainer>
           <NavbarToggle aria-controls="basic-navbar-nav" />
           <NavbarCollapse id="basic-navbar-nav">
-
             <Form className="d-flex mx-auto">
               <FormControl
                 type="search"
@@ -56,29 +55,31 @@ function NavBar() {
             <Nav>
               {user ? (
                 <>
-                  <NavLink className="d-flex align-items-center justify-content-center-lg" onClick={onLogout}>
-                    <FaSignOutAlt className="me-1"/>
-                    Log Out
-                  </NavLink>
-
-                  <LinkContainer to={`/profile/${user._id}`}>
-                    <NavLink className="d-flex align-items-center justify-content-center-lg" >
-                      <FaUserAlt className="me-1"/>
-
-
-                      Profile
-                    </NavLink>
-                  </LinkContainer>
-                  <LinkContainer to="/products">
+                  
+                  <LinkContainer to="/newproduct">
                     <NavLink className="d-flex align-items-center justify-content-center-lg">
-                      <FaTshirt className="me-1" /> Products
+                      <FaTshirt className="me-1" /> Sell Product
                     </NavLink>
                   </LinkContainer>
                   <LinkContainer to="/conversations">
                     <NavLink className="d-flex align-items-center justify-content-center-lg">
-                      <FaCommentAlt className="me-1"/> Messages
+                      <FaCommentAlt className="me-1" /> Messages
                     </NavLink>
                   </LinkContainer>
+                  <LinkContainer to={`/profile/${user._id}`}>
+                    <NavLink className="d-flex align-items-center justify-content-center-lg">
+                      <FaUserAlt className="me-1" />
+                      Profile
+                    </NavLink>
+                  </LinkContainer>
+                  <NavLink
+                    className="d-flex align-items-center justify-content-center-lg"
+                    onClick={onLogout}
+                  >
+                    <FaSignOutAlt className="me-1" />
+                    Log Out
+                  </NavLink>
+                  
                 </>
               ) : (
                 <>

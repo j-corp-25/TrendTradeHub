@@ -13,6 +13,7 @@ const NewProduct = () => {
     condition: "",
     price: "",
     category: "",
+    description: "",
   });
   const [images, setImages] = useState([]);
 
@@ -37,6 +38,7 @@ const NewProduct = () => {
     formData.append("condition", productData.condition);
     formData.append("price", productData.price);
     formData.append("category", productData.category);
+    formData.append("description", productData.description);
 
     images.forEach((image) => {
       formData.append("myPic", image);
@@ -46,74 +48,35 @@ const NewProduct = () => {
   };
 
   return (
-    // <div>
-    //   <h1>Add Product</h1>
-    //   <div>
-    //     <label>Author:</label>
-    //     <input type="text" name="author" onChange={handleInputChange} />
-    //   </div>
-    //   <div>
-    //     <label>Title:</label>
-    //     <input type="text" name="title" onChange={handleInputChange} />
-    //   </div>
-    //   <div>
-    //     <label>Condition:</label>
-    //     <input type="text" name="condition" onChange={handleInputChange} />
-    //   </div>
-    //   <div>
-    //     <label>Price:</label>
-    //     <input type="text" name="price" onChange={handleInputChange} />
-    //   </div>
-    //   <div>
-    //     <label>Category:</label>
-    //     <input type="text" name="category" onChange={handleInputChange} />
-    //   </div>
-    //   <div>
-    //     <label>Images:</label>
-    //     <input type="file" name="myPic" onChange={handleImageChange} multiple />
-    //   </div>
-    //   <button onClick={handleAddProduct}>Add Product</button>
-    // </div>
-     <form className="form-container">
-     <div className="input-container">
-       <label htmlFor="base-input" className="label">
-         Title
-       </label>
-       <input type="text" id="base-input" className="input" name="title" onChange={handleInputChange} />
-     </div>
-     <div className="input-container">
-       <label htmlFor="large-input" className="label">
-         Description
-       </label>
-       <input type="text" id="large-input" className="input" />
-     </div>
-     <div className="input-container">
-       <label htmlFor="small-input" className="label">
-         Condition
-       </label>
-       <input type="text" id="small-input" className="input" />
-     </div>
-     <div className="input-container">
-       <label htmlFor="small-input" className="label">
-         Price
-       </label>
-       <input type="text" id="small-input" className="input" />
-     </div>
-     <div className="input-container">
-       <label htmlFor="small-input" className="label">
-         Cathegory
-       </label>
-       <input type="text" id="small-input" className="input" />
-     </div>
-     <div className="input-container">
-       <label htmlFor="small-input" className="label">
-       </label>
-       <input type="file" name="myPic" onChange={handleImageChange} multiple id="small-input" className="input" style={{background:"Gray"}} />
-
-     </div>
-       <button class="button-72" role="button" onClick={handleAddProduct}>Add Product</button>
-
-   </form>
+    <div className="form-container-create">
+      
+     
+      <div className="input-container">
+        <label className="label">Title:</label>
+        <input className="input" type="text" name="title" onChange={handleInputChange} />
+      </div>
+      <div className="input-container">
+        <label className="label">Description:</label>
+        <input className="input" type="text" name="description" onChange={handleInputChange} />
+      </div>
+      <div className="input-container">
+        <label className="label">Condition:</label>
+        <input className="input" type="text" name="condition" onChange={handleInputChange} />
+      </div>
+      <div className="input-container">
+        <label className="label">Price:</label>
+        <input className="input" type="text" name="price" onChange={handleInputChange} />
+      </div>
+      <div className="input-container">
+        <label className="label">Category:</label>
+        <input  className="input" type="text" name="category" onChange={handleInputChange} />
+      </div>
+      <div className="input-container">
+        {/* <label className="label">Images:</label> */}
+        <input className="input" type="file" name="myPic" onChange={handleImageChange} multiple />
+      </div>
+      <button onClick={handleAddProduct} className="button-72">Add Product</button>
+    </div>
   );
 };
 
