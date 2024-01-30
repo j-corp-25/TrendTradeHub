@@ -46,29 +46,29 @@ const NewProduct = () => {
   };
 
   return (
-    <div>
+    <div className="form-container">
       
-      <div>
+      {/* <div className="input-container">
         <label className="label">Author:</label>
         <input className="input" type="text" name="author" onChange={handleInputChange} />
-      </div>
-      <div>
+      </div> */}
+      <div className="input-container">
         <label className="label">Title:</label>
         <input className="input" type="text" name="title" onChange={handleInputChange} />
       </div>
-      <div>
+      <div className="input-container">
         <label className="label">Condition:</label>
         <input className="input" type="text" name="condition" onChange={handleInputChange} />
       </div>
-      <div>
+      <div className="input-container">
         <label className="label">Price:</label>
         <input className="input" type="text" name="price" onChange={handleInputChange} />
       </div>
-      <div>
+      <div className="input-container">
         <label className="label">Category:</label>
         <input  className="input" type="text" name="category" onChange={handleInputChange} />
       </div>
-      <div>
+      <div className="input-container">
         {/* <label className="label">Images:</label> */}
         <input className="input" type="file" name="myPic" onChange={handleImageChange} multiple />
       </div>
