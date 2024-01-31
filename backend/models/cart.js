@@ -8,13 +8,13 @@ const cartSchema = new Schema(
         type: Schema.Types.ObjectId,
         ref: "User",
     },
-    // content: [productSchema],
-    content: [
-        {
-          type: Schema.Types.ObjectId,
-          ref: "Product",
-        },
-      ],
+    content: [productSchema],
+    // content: [
+    //     {
+    //       type: Schema.Types.ObjectId,
+    //       ref: "Product",
+    //     },
+    //   ],
   },
   {
     timestamps: true,
