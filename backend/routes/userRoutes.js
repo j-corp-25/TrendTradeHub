@@ -9,7 +9,10 @@ import {
   getUserProfile,
   updateUserProfile,
   findUserProfile,
-  getAllUsers
+  getAllUsers,
+  addToCart,
+  getCartContent,
+  removeFromCart
   
 } from "../controllers/userController.js";
 
@@ -20,5 +23,9 @@ router.post("/logout", logoutUser);
 router.post("/login", loginUser);
 router.get("/profile/:name",findUserProfile)
 router.get("/allUsers", getAllUsers)
+router.post("/addToCart", addToCart);
+router.get("/getCartContent", getCartContent);
+router.delete("/removeFromCart", removeFromCart);
+
 
 export default router;
