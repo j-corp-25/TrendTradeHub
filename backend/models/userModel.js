@@ -1,5 +1,6 @@
 import mongoose from "mongoose";
 import bcrypt from "bcryptjs";
+// import Product from "../models/productModel";
 
 const Schema = mongoose.Schema;
 
@@ -30,7 +31,18 @@ const userSchema = mongoose.Schema(
       type: String,
       default: "https://picsum.photos/200",
     },
-    cart: [productSchema],
+    cart: [
+      
+        {
+          type: Schema.Types.ObjectId,
+          ref: "Product",
+        },
+        // quantity: {
+        //   type: Number,
+        //   default: 1,
+        // },
+      
+    ],
   },
 
   {

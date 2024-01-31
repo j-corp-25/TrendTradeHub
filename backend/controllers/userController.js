@@ -139,6 +139,67 @@ const findUserProfile = asyncHandler(async (req, res) => {
 
 
 
+// Add a product to the user's cart
+const addToCart = async (req, res) => {
+  const { productId,userId } = req.body;
+
+  try {
+    const user = await User.findById(userId);
+
+    if (!user) {
+      return res.status(404).json({ error: 'User not found' });
+    }
+
+    await user.addToCart(productId);
+
+    res.status(200).json({ message: 'Product added to cart successfully' });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: 'Internal Server Error' });
+  }
+};
+
+// Remove a product from the user's cart
+const removeFromCart = async (req, res) => {
+  // const { productId } = req.body;
+  // const userId = req.userId;
+
+  // try {
+  //   const user = await User.findById(userId);
+
+  //   if (!user) {
+  //     return res.status(404).json({ error: 'User not found' });
+  //   }
+
+  //   await user.removeFromCart(productId);
+
+  //   res.status(200).json({ message: 'Product removed from cart successfully' });
+  // } catch (error) {
+  //   console.error(error);
+  //   res.status(500).json({ error: 'Internal Server Error' });
+  // }
+};
+
+// Get the content of the user's cart
+const getCartContent = async (req, res) => {
+  // const userId = req.userId;
+
+  // try {
+  //   const user = await User.findById(userId);
+
+  //   if (!user) {
+  //     return res.status(404).json({ error: 'User not found' });
+  //   }
+
+  //   const cartContent = await user.getCartContent();
+
+  //   res.status(200).json({ cartContent });
+  // } catch (error) {
+  //   console.error(error);
+  //   res.status(500).json({ error: 'Internal Server Error' });
+  // }
+};
+
 
 export {
   registerUser,
@@ -147,5 +208,8 @@ export {
   getUserProfile,
   updateUserProfile,
   findUserProfile,
-  getAllUsers
+  getAllUsers,
+  addToCart,
+  removeFromCart,
+  getCartContent
 };
