@@ -30,6 +30,7 @@ const userSchema = mongoose.Schema(
       type: String,
       default: "https://picsum.photos/200",
     },
+    cart: [productSchema],
   },
 
   {

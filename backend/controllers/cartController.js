@@ -17,7 +17,9 @@ const getCartContent = async (req, res) => {
     };
 
 const addToCart = async (req, res) => {
-    
+    const userId = req.userId
+   
+
 
 
 }

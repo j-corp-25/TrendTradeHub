@@ -137,6 +137,9 @@ const findUserProfile = asyncHandler(async (req, res) => {
   res.status(200).json(user);
 });
 
+
+
+
 export {
   registerUser,
   loginUser,
