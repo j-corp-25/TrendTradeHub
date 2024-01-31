@@ -184,22 +184,22 @@ const removeFromCart = async (req, res) => {
 
 // Get the content of the user's cart
 const getCartContent = async (req, res) => {
-  // const userId = req.userId;
+  const userId = req.body;
 
-  // try {
-  //   const user = await User.findById(userId);
+  try {
+    const user = await User.findById(userId);
 
-  //   if (!user) {
-  //     return res.status(404).json({ error: 'User not found' });
-  //   }
+    if (!user) {
+      return res.status(404).json({ error: 'User not found' });
+    }
 
-  //   const cartContent = await user.getCartContent();
+    const cartContent = await user.cart;
 
-  //   res.status(200).json({ cartContent });
-  // } catch (error) {
-  //   console.error(error);
-  //   res.status(500).json({ error: 'Internal Server Error' });
-  // }
+    res.status(200).json({ cartContent });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: 'Internal Server Error' });
+  }
 };
 
 
