@@ -9,7 +9,8 @@ import {
   getUserProfile,
   updateUserProfile,
   findUserProfile,
-  getAllUsers
+  getAllUsers,
+  addToCart
   
 } from "../controllers/userController.js";
 
@@ -20,5 +21,6 @@ router.post("/logout", logoutUser);
 router.post("/login", loginUser);
 router.get("/profile/:name",findUserProfile)
 router.get("/allUsers", getAllUsers)
+router.post("/addToCart", addToCart);
 
 export default router;

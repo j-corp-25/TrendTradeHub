@@ -150,7 +150,9 @@ const addToCart = async (req, res) => {
       return res.status(404).json({ error: 'User not found' });
     }
 
-    await user.addToCart(productId);
+    if (!user.cart.includes(productId)) {
+      user.cart.push(productId);
+    }
 
     res.status(200).json({ message: 'Product added to cart successfully' });
   } catch (error) {
