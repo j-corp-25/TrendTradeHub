@@ -75,7 +75,7 @@ function NavBar() {
                     </NavLink>
                   </LinkContainer>
                   
-                  <LinkContainer to={`/`} style={{color:'lightgray'}}>
+                  <LinkContainer to={`/cart`} style={{color:'lightgray'}}>
                     <NavLink className="d-flex align-items-center justify-content-center-lg">
                       <FaShoppingCart className="me-1" />
                     </NavLink>
