@@ -190,7 +190,7 @@ const removeFromCart = async (req, res) => {
 
 // Get the content of the user's cart
 const getCartContent = async (req, res) => {
-  const {userId} = req.body;
+  const {userId} = req.query;
 
   try {
     const user = await User.findById(userId);
