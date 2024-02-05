@@ -10,6 +10,7 @@ import {
   FormControl,
   Button,
   Form,
+ 
 } from "react-bootstrap";
 import "./NavBar.css";
 import {
@@ -18,6 +19,7 @@ import {
   FaUserAlt,
   FaCommentAlt,
   FaTshirt,
+  FaShoppingCart
 } from "react-icons/fa";
 import { LinkContainer } from "react-router-bootstrap";
 import { logout, performLogout, reset } from "../../app/userReducer";
@@ -55,7 +57,6 @@ function NavBar() {
             <Nav>
               {user ? (
                 <>
-                  
                   <LinkContainer to="/newproduct">
                     <NavLink className="d-flex align-items-center justify-content-center-lg">
                       <FaTshirt className="me-1" /> Sell Product
@@ -63,13 +64,20 @@ function NavBar() {
                   </LinkContainer>
                   <LinkContainer to="/conversations">
                     <NavLink className="d-flex align-items-center justify-content-center-lg">
-                      <FaCommentAlt className="me-1" /> Messages
+                      <FaCommentAlt className="me-1" />
+                       Messages
                     </NavLink>
                   </LinkContainer>
                   <LinkContainer to={`/profile/${user._id}`}>
                     <NavLink className="d-flex align-items-center justify-content-center-lg">
                       <FaUserAlt className="me-1" />
-                      Profile
+                      {/* Profile */}
+                    </NavLink>
+                  </LinkContainer>
+                  
+                  <LinkContainer to={`/`} style={{color:'lightgray'}}>
+                    <NavLink className="d-flex align-items-center justify-content-center-lg">
+                      <FaShoppingCart className="me-1" />
                     </NavLink>
                   </LinkContainer>
                   <NavLink
@@ -77,9 +85,8 @@ function NavBar() {
                     onClick={onLogout}
                   >
                     <FaSignOutAlt className="me-1" />
-                    Log Out
+                    {/* Log Out */}
                   </NavLink>
-                  
                 </>
               ) : (
                 <>
