@@ -26,7 +26,7 @@ export const removeCartSuccess = (product) => ({
 // Thunk Action Creator
 export const fetchCart = (userId) => async (dispatch) => {
   try {
-    const response = await axios.post(`${API_URL}/getCartContent`, { userId });
+    const response = await axios.get(`${API_URL}/getCartContent`, { userId });
     dispatch(fetchCartSuccess(response.data));
   } catch (error) {
     console.error("Error fetching cart content:", error);

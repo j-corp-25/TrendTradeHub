@@ -5,13 +5,16 @@ import ProductUnit from "../components/Products/ProductUnit";
 import { fetchUsers } from "../app/userReducer";
 import "./Listing.css";
 import { Link } from "react-router-dom";
+import { fetchCart } from "../app/cartReducer";
 
 function Product() {
   const dispatch = useDispatch();
   const products = useSelector((state) => state.products.products);
   const image = process.env.PUBLIC_URL + "trade-hub.svg";
+  const userId = useSelector(state=> state.auth.user._id)
   useEffect(() => {
     dispatch(fetchProducts());
+    dispatch(fetchCart(userId));
   }, [dispatch]);
   useEffect(() => dispatch(fetchUsers()), []);
 

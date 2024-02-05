@@ -13,6 +13,7 @@ import ProductUnit from "./components/Products/ProductUnit";
 import ProductDetails from "./components/Products/ProductDetails";
 import DualSignUpSignIn from "./pages/SignInCreateAccountPage";
 import Convos from "./pages/ChatPage"
+import Cart from "./pages/Cart";
 function App() {
   return (
     <>
@@ -30,6 +31,7 @@ function App() {
         <Route path="/product/:productId" element={<ProductDetails />} />
         <Route path="/test" element={<Test />} />
         <Route path="/conversations" element={<Convos/>}/>
+        <Route path="/cart" element={<Cart/>} />
 
       </Routes>
     </>
