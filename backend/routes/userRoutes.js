@@ -24,7 +24,7 @@ router.post("/login", loginUser);
 router.get("/profile/:name",findUserProfile)
 router.get("/allUsers", getAllUsers)
 router.post("/addToCart", addToCart);
-router.get("/getCartContent", getCartContent);
+router.get("/getCart", getCartContent);
 router.delete("/removeFromCart", removeFromCart);
 
 

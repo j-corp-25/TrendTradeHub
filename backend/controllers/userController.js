@@ -164,7 +164,7 @@ const addToCart = async (req, res) => {
 
 // Remove a product from the user's cart
 const removeFromCart = async (req, res) => {
-  const { productId, userId } = req.body;
+  const { productId, userId } = req.query;
 
   try {
     const user = await User.findById(userId);
@@ -190,7 +190,7 @@ const removeFromCart = async (req, res) => {
 
 // Get the content of the user's cart
 const getCartContent = async (req, res) => {
-  const {userId} = req.body;
+  const {userId} = req.query;
 
   try {
     const user = await User.findById(userId);

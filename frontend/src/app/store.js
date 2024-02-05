@@ -5,6 +5,7 @@ import authReducer from "./userReducer";
 import reviewReducer from "./reviewsReducer";
 import conversationReducer from "./conversationReducer"
 import messagesReducer from "./messagesReducer"
+import cartReducer from "./cartReducer";
 
 const rootReducer = combineReducers({
   products: productReducer,
@@ -12,6 +13,7 @@ const rootReducer = combineReducers({
   reviews: reviewReducer,
   messages: messagesReducer,
   conversations: conversationReducer,
+  cart: cartReducer,
 });
 
 let enhancer;
