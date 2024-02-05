@@ -19,15 +19,15 @@ const Cart = () => {
 
   // Filter products based on the IDs in the cart
   const cartProducts = products.filter((product) =>
-  Object.values(cart)[0].includes(product._id)
+    Object.values(cart)[0].includes(product._id)
 );
   
 
   // Calculate total price
-  // const totalPrice = cartProducts.reduce((total, product) => {
-  //   const cartItem = cart.find((item) => item.productId === product._id);
-  //   return total + product.price;
-  // }, 0);
+  const totalPrice = cartProducts.reduce((total, product) => {
+    return total + product.price 
+}, 0);
+
 
   return (
     <div>
@@ -113,7 +113,7 @@ const Cart = () => {
 
                 <div style={{ display: "flex", justifyContent: "space-between" }}>
                   <p className="mb-2">Subtotal</p>
-                  {/* <p className="mb-2">${totalPrice.toFixed(2)}</p> */}
+                  <p className="mb-2">${totalPrice.toFixed(2)}</p>
                 </div>
 
                 <div style={{ display: "flex", justifyContent: "space-between" }}>
