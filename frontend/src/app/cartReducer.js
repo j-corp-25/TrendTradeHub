@@ -25,12 +25,12 @@ export const removeCartSuccess = (product) => ({
 
 // Thunk Action Creator
 export const fetchCart = (userId) => async (dispatch) => {
-  try {
-    const response = await axios.get(`${API_URL}/getCartContent`, { userId });
-    dispatch(fetchCartSuccess(response.data));
-  } catch (error) {
-    console.error("Error fetching cart content:", error);
-  }
+    try {
+      const response = await axios.get(`${API_URL}/getCart`, {userId : userId});
+      dispatch(fetchCartSuccess(response.data));
+    } catch (error) {
+      console.error("Error fetching cart content:", error);
+    }
 };
 
 export const addToCart = (productId, userId) => async (dispatch) => {
@@ -67,13 +67,13 @@ const cartReducer = (state = initialState, action) => {
     case ADD_CART_SUCCESS:
       return {
         ...state,
-        cart: [...state.products, action.payload],
+        cart: [...state.cart, action.payload],
       };
 
     case REMOVE_CART_SUCCESS:
       return {
         ...state,
-        cart: state.products.filter((productId) => productId !== action.payload),
+        cart: state.cart.filter((productId) => productId !== action.payload),
       };
 
     default:

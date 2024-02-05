@@ -6,6 +6,7 @@ import { FaCartPlus, FaAngleRight } from "react-icons/fa";
 import { useDispatch, useSelector } from "react-redux";
 import { FaStar, FaStarHalfAlt, FaRegStar } from "react-icons/fa";
 import { fetchReviews } from "../../app/reviewsReducer";
+import { addToCart } from "../../app/cartReducer";
 
 function ProductUnit({ productId }) {
   const dispatch = useDispatch();
@@ -16,6 +17,7 @@ function ProductUnit({ productId }) {
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const reviewsState = useSelector((state) => state.reviews);
   const sessionUser = useSelector((state) => state.auth.user);
+  const userId = useSelector((state) => state.auth.user._id);
 
   const reviews = reviewsState.reviews || [];
 
@@ -24,6 +26,10 @@ function ProductUnit({ productId }) {
       prevIndex === images.length - 1 ? 0 : prevIndex + 1
     );
   };
+
+  const addCart = () => {
+      dispatch(addToCart(productId,userId));
+  }
 
   return (
     <div className="product-item">
@@ -69,6 +75,7 @@ function ProductUnit({ productId }) {
             type="button"
             className="btn "
             style={{ height: "20px", padding: "3px" }}
+            onClick={addCart}
           >
             <FaCartPlus />
           </button>
