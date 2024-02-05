@@ -47,7 +47,8 @@ export const addToCart = (productId, userId) => async (dispatch) => {
 
 export const removeFromCart = (productId, userId) => async (dispatch) => {
   try {
-    await axios.post(`${API_URL}/removeFromCart`, { productId, userId });
+    await axios.delete(`${API_URL}/removeFromCart`,{ params:
+        { productId, userId }});
     dispatch(removeCartSuccess(productId));
   } catch (error) {
     console.error("Error removing product from cart:", error);

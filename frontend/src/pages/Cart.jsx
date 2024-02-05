@@ -1,8 +1,11 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchCart } from "../app/cartReducer";
+import { fetchCart, removeFromCart } from "../app/cartReducer";
 import { fetchProducts } from "../app/productReducer";
 import { fetchUsers } from "../app/userReducer";
+import { FaTrash } from "react-icons/fa";
+
+
 
 const Cart = () => {
   const userId = useSelector((state) => state.auth.user._id);
@@ -28,6 +31,10 @@ const Cart = () => {
     return total + product.price 
 }, 0);
 
+const removeProduct = (productId) =>{
+    dispatch(removeFromCart(productId,userId));
+}
+
 
   return (
     <div>
@@ -46,37 +53,35 @@ const Cart = () => {
               <div style={{ display: "flex", justifyContent: "space-between", marginBottom: "20px" }}>
                 <div>
                   <p className="mb-1">Shopping cart</p>
-                  <p className="mb-0">You have {cart.length} items in your cart</p>
+                  <p className="mb-0">You have {Object.values(cart)[0].length} items in your cart</p>
                 </div>
               </div>
 
               <div style={{ marginBottom: "20px" }}>
                 {/* Loop through cartProducts instead of userCart */}
                 {cartProducts.map((product) => (
-                  <div key={product._id} style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+                  <div key={product._id} style={{ display: "flex", justifyContent: "space-between", alignItems: "center" , marginBottom:"10px"}}>
                     <div style={{ display: "flex", alignItems: "center" }}>
                       <div>
                         <img
-                          src={product.image} // Assuming your product object has an 'image' property
+                          src={product.images[0]} 
                           style={{ width: "65px", borderRadius: "5px" }}
                           alt="Shopping item"
                         />
                       </div>
                       <div style={{ marginLeft: "15px" }}>
-                        <h5>{product.name}</h5>
+                        <h5>{product.title}</h5>
                         <p className="small mb-0">{product.description}</p>
                       </div>
                     </div>
-                    <div style={{ display: "flex", alignItems: "center" }}>
-                      <div style={{ width: "50px" }}>
-                        <h5 className="fw-normal mb-0">{/* Quantity from your cart item */}</h5>
-                      </div>
-                      <div style={{ width: "80px" }}>
+                    <div style={{ display: "flex", alignItems: "center", justifyContent:"space-between",  marginRight: "70px", width: "100px"  }}>
+                      
+                      <div style={{ width: "120px"  }}>
                         <h5 className="mb-0">{product.price}</h5>
                       </div>
                       <div>
-                        <a href="#!" style={{ color: "#cecece" }}>
-                          Remove
+                        <a href="#!" style={{ color: "Black" }} onClick={() => removeProduct(product._id)}>
+                          <FaTrash/>
                         </a>
                       </div>
                     </div>
@@ -87,7 +92,7 @@ const Cart = () => {
 
             <div style={{ width: "30%", marginLeft: "20px" }}>
               <div style={{ backgroundColor: "#007bff", color: "white", borderRadius: "5px", padding: "20px" }}>
-                <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "20px" }}>
+                <div style={{ display: "flex", justifyContent: "space-around", alignItems: "center", marginBottom: "20px" }}>
                   <h5>Card details</h5>
                  
                   <img src={user.image} style={{ width: "45px", borderRadius: "50%" }} alt="Avatar" />
@@ -123,7 +128,7 @@ const Cart = () => {
 
                 <div style={{ display: "flex", justifyContent: "space-between" }}>
                   <p className="mb-2">Total(Incl. taxes)</p>
-                  {/* <p className="mb-2">${(totalPrice + 20).toFixed(2)}</p> */}
+                  <p className="mb-2">${(totalPrice + 20).toFixed(2)}</p>
                 </div>
 
                 <button
