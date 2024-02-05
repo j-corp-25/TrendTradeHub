@@ -1,22 +1,33 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchCart } from "../app/cartReducer";
-import { useEffect } from "react";
 import { fetchProducts } from "../app/productReducer";
 import { fetchUsers } from "../app/userReducer";
 
 const Cart = () => {
-  const userId = useSelector(state=> state.auth.user._id);
+  const userId = useSelector((state) => state.auth.user._id);
+  const user = useSelector((state) => state.auth.user);
   const dispatch = useDispatch();
+  const cart = useSelector((state) => state.cart);
+  const products = useSelector((state) => state.products.products);
 
   useEffect(() => {
     dispatch(fetchCart(userId));
-  }, [dispatch]);
-  useEffect(() => {
     dispatch(fetchProducts());
-    dispatch(fetchUsers()) },[]);
+    dispatch(fetchUsers());
+  }, [dispatch, userId]);
+
+  // Filter products based on the IDs in the cart
+  const cartProducts = products.filter((product) =>
+  Object.values(cart)[0].includes(product._id)
+);
   
 
+  // Calculate total price
+  // const totalPrice = cartProducts.reduce((total, product) => {
+  //   const cartItem = cart.find((item) => item.productId === product._id);
+  //   return total + product.price;
+  // }, 0);
 
   return (
     <div>
@@ -35,50 +46,42 @@ const Cart = () => {
               <div style={{ display: "flex", justifyContent: "space-between", marginBottom: "20px" }}>
                 <div>
                   <p className="mb-1">Shopping cart</p>
-                  <p className="mb-0">You have 4 items in your cart</p>
-                </div>
-                <div>
-                  <p style={{ color: "#cecece" }}>
-                    <span className="text-muted">Sort by:</span>
-                    <a href="#!" style={{ textDecoration: "none", color: "black" }}>
-                      price
-                    </a>
-                  </p>
+                  <p className="mb-0">You have {cart.length} items in your cart</p>
                 </div>
               </div>
 
               <div style={{ marginBottom: "20px" }}>
-                //Loop through userCart
-                <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
-                  <div style={{ display: "flex", alignItems: "center" }}>
-                    <div>
-                      <img
-                        src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-shopping-carts/img1.webp"
-                        style={{ width: "65px", borderRadius: "5px" }}
-                        alt="Shopping item"
-                      />
+                {/* Loop through cartProducts instead of userCart */}
+                {cartProducts.map((product) => (
+                  <div key={product._id} style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+                    <div style={{ display: "flex", alignItems: "center" }}>
+                      <div>
+                        <img
+                          src={product.image} // Assuming your product object has an 'image' property
+                          style={{ width: "65px", borderRadius: "5px" }}
+                          alt="Shopping item"
+                        />
+                      </div>
+                      <div style={{ marginLeft: "15px" }}>
+                        <h5>{product.name}</h5>
+                        <p className="small mb-0">{product.description}</p>
+                      </div>
                     </div>
-                    <div style={{ marginLeft: "15px" }}>
-                      <h5>Iphone 11 pro</h5>
-                      <p className="small mb-0">256GB, Navy Blue</p>
+                    <div style={{ display: "flex", alignItems: "center" }}>
+                      <div style={{ width: "50px" }}>
+                        <h5 className="fw-normal mb-0">{/* Quantity from your cart item */}</h5>
+                      </div>
+                      <div style={{ width: "80px" }}>
+                        <h5 className="mb-0">{product.price}</h5>
+                      </div>
+                      <div>
+                        <a href="#!" style={{ color: "#cecece" }}>
+                          Remove
+                        </a>
+                      </div>
                     </div>
                   </div>
-                  <div style={{ display: "flex", alignItems: "center" }}>
-                    <div style={{ width: "50px" }}>
-                      <h5 className="fw-normal mb-0">2</h5>
-                    </div>
-                    <div style={{ width: "80px" }}>
-                      <h5 className="mb-0">$900</h5>
-                    </div>
-                    <div>
-                       <a href="#!" style={{ color: "#cecece" }}>
-                        Remove
-                      </a>
-                    </div>
-                     
-                    
-                  </div>
-                </div>
+                ))}
               </div>
             </div>
 
@@ -86,11 +89,8 @@ const Cart = () => {
               <div style={{ backgroundColor: "#007bff", color: "white", borderRadius: "5px", padding: "20px" }}>
                 <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "20px" }}>
                   <h5>Card details</h5>
-                  <img
-                    src="https://mdbcdn.b-cdn.net/img/Photos/Avatars/avatar-6.webp"
-                    style={{ width: "45px", borderRadius: "50%" }}
-                    alt="Avatar"
-                  />
+                 
+                  <img src={user.image} style={{ width: "45px", borderRadius: "50%" }} alt="Avatar" />
                 </div>
 
                 <p className="small">Card type</p>
@@ -113,7 +113,7 @@ const Cart = () => {
 
                 <div style={{ display: "flex", justifyContent: "space-between" }}>
                   <p className="mb-2">Subtotal</p>
-                  <p className="mb-2">$4798.00</p>
+                  {/* <p className="mb-2">${totalPrice.toFixed(2)}</p> */}
                 </div>
 
                 <div style={{ display: "flex", justifyContent: "space-between" }}>
@@ -123,10 +123,12 @@ const Cart = () => {
 
                 <div style={{ display: "flex", justifyContent: "space-between" }}>
                   <p className="mb-2">Total(Incl. taxes)</p>
-                  <p className="mb-2">$4818.00</p>
+                  {/* <p className="mb-2">${(totalPrice + 20).toFixed(2)}</p> */}
                 </div>
 
-                <button style={{ backgroundColor: "#17a2b8", color: "white", width: "100%", padding: "10px", borderRadius: "5px", marginTop: "20px" }}>
+                <button
+                  style={{ backgroundColor: "#17a2b8", color: "white", width: "100%", padding: "10px", borderRadius: "5px", marginTop: "20px" }}
+                >
                   Checkout <i className="fas fa-long-arrow-alt-right" style={{ marginLeft: "5px" }}></i>
                 </button>
               </div>
