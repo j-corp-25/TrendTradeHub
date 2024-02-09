@@ -1,6 +1,7 @@
 # TrendTradeHub - Boost Hacks II Submission
 
 ## Hackathon Overview
+
 This project is part of **"Boost Hacks II: Elevating Innovation to New Heights,"** a hackathon that brings together students and professionals from various backgrounds to tackle intricate real-world problems. Our team is excited to participate in this event, running from **January 17 to 25, 2024**, and to contribute to a community of passionate tech enthusiasts.
 
 Welcome to [TrendTradeHub](#)! This platform is designed with a focus on sustainable fashion and community-driven exchanges. Our aim is to create a user-friendly marketplace where individuals can buy, sell, and swap fashion items, fostering a sustainable approach to style.
