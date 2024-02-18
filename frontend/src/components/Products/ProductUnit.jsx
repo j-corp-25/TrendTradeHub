@@ -13,7 +13,7 @@ function ProductUnit({ productId }) {
   const products = useSelector((state) => state.products.products) || [];
   const selectedProduct =
     products.find((product) => product._id === productId) || {};
-  const { title, price, images } = selectedProduct;
+  const { title, price, images, description } = selectedProduct;
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const reviewsState = useSelector((state) => state.reviews);
   const sessionUser = useSelector((state) => state.auth.user);
@@ -89,6 +89,11 @@ function ProductUnit({ productId }) {
             ${price.toFixed(2)}
           </span>
         </div>
+      </div>
+
+      {/* Description with animation */}
+      <div className="description" style={{ color: "red", animation: "slideRight 0.5s forwards" }}>
+        {description}
       </div>
     </div>
   );
