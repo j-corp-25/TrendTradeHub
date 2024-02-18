@@ -91,7 +91,7 @@ function ProductUnit({ productId }) {
         </div>
       </div>
 
-
+      {/* Description with animation */}
       <div className="description" style={{ color: "red", animation: "slideRight 0.5s forwards" }}>
         {description}
       </div>
