@@ -1,4 +1,4 @@
-# TrendTradeHub - Boost Hacks II Submission
+# TrendTradeHub - Boost Hacks II Submission (In development)
 
 ## Hackathon Overview
 This project is part of **"Boost Hacks II: Elevating Innovation to New Heights,"** a hackathon that brings together students and professionals from various backgrounds to tackle intricate real-world problems. Our team is excited to participate in this event, running from **January 17 to 25, 2024**, and to contribute to a community of passionate tech enthusiasts.
