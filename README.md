@@ -47,4 +47,4 @@ Welcome to **TrendTradeHub** This platform is designed with a focus on sustainab
 ![Product](/ProductPage.png)
 
 ### Live Messaging
-![MessagePage](/Messages.png)
+![MessagePage](/MessageBox.png)
