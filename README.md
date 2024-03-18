@@ -1,11 +1,11 @@
 # TrendTradeHub - Boost Hacks II Submission (In development)
 
 ## Hackathon Overview
-This project is part of **"Boost Hacks II: Elevating Innovation to New Heights,"** a hackathon that brings together students and professionals from various backgrounds to tackle intricate real-world problems. Our team is excited to participate in this event, running from **January 17 to 25, 2024**, and to contribute to a community of passionate tech enthusiasts.
+This project is part of **"Boost Hacks II: Elevating Innovation to New Heights,"** a hackathon that brings together students and professionals from various backgrounds to tackle intricate real-world problems. Our team is excited to participate in this event, and contribute to a community of passionate tech enthusiasts.
 
 Welcome to **TrendTradeHub** This platform is designed with a focus on sustainable fashion and community-driven exchanges. Our aim is to create a user-friendly marketplace where individuals can buy, sell, and swap fashion items, fostering a sustainable approach to style.
 
-Submission Deadline: Apr 17 – 25, 2024
+**Submission Deadline:** Apr 17 – 25, 2024
 ## Features
 
 ### User Account and Authentication
@@ -34,3 +34,17 @@ Submission Deadline: Apr 17 – 25, 2024
 
 ### Automated Testing with Playwright
 - We utilize Playwright, a powerful tool for browser-based testing, to simulate real-world user interactions and verify the functionality of our web application.
+
+
+## Screenshots
+- Dive into TrendTradeHub with this visual tour of our most notable features. Below are screenshots illustrating the user experience and the functionality of our platform:
+
+### Homepage
+![Homepage](/LandingPage.png)
+
+
+### Product Page
+![Product](/ProductPage.png)
+
+### Live Messaging
+![MessagePage](/Messages.png)
